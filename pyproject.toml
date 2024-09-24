@@ -27,7 +27,7 @@ description = "Tools for processing geo spatial data."
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = [
-    "icoads", "ship", "tracking", "duplicates", "ocean", "sst",
+    "spatial", "geospatial", "quadtree", "octtree",
 ]
 classifiers = [
     "Development Status :: 1 - PreAlpha",

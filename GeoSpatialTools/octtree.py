@@ -321,7 +321,7 @@ class SpaceTimeEllipse:
         return (
             haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
             <= corner_dist + self.a
-            or haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
+            and haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
             <= corner_dist + self.a
         )
 

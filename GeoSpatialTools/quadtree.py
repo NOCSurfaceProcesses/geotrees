@@ -193,7 +193,7 @@ class Ellipse:
         self.p2_lon, self.p2_lat = destination(
             self.lon,
             self.lat,
-            (180 - self.bearing) % 360,
+            (self.bearing - 180) % 360,
             self.c,
         )
 

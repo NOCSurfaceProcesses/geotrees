@@ -14,9 +14,9 @@ class Record:
 
     Parameters
     ----------
-    x : float
+    lon : float
         Horizontal coordinate
-    y : float
+    lat : float
         Vertical coordinate
     datetime : datetime | None
         Datetime of the record
@@ -59,13 +59,13 @@ class Rectangle:
 
     Parameters
     ----------
-    x : float
+    lon : float
         Horizontal centre of the rectangle
-    y : float
+    lat : float
         Vertical centre of the rectangle
-    w : float
+    lon_range : float
         Width of the rectangle
-    h : float
+    lat_range : float
         Height of the rectangle
     """
 
@@ -146,14 +146,29 @@ class Rectangle:
 
 
 class Ellipse:
-    """A simple Ellipse Class for an ellipse on the surface of a sphere."""
+    """
+    A simple Ellipse Class for an ellipse on the surface of a sphere.
+
+    Parameters
+    ----------
+    lon : float
+        Horizontal centre of the ellipse
+    lat : float
+        Vertical centre of the ellipse
+    a : float
+        Length of the semi-major axis
+    b : float
+        Length of the semi-minor axis
+    theta : float
+        Angle of the semi-major axis from horizontal anti-clockwise in radians
+    """
 
     def __init__(
         self,
-        a: float,
-        b: float,
         lon: float,
         lat: float,
+        a: float,
+        b: float,
         theta: float,
     ) -> None:
         self.a = a

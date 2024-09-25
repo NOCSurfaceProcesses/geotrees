@@ -97,7 +97,7 @@ class SpaceTimeRectangle:
     h : float
         Height of the rectangle (latitude range).
     dt : timedelta
-        Time extent of the rectangle.
+        time extent of the rectangle.
     """
 
     def __init__(
@@ -218,16 +218,35 @@ class SpaceTimeRectangle:
 
 
 class SpaceTimeEllipse:
-    """A simple Ellipse Class for an ellipse on the surface of a sphere."""
+    """
+    A simple Ellipse Class for an ellipse on the surface of a sphere.
+
+    Parameters
+    ----------
+    lon : float
+        Horizontal centre of the ellipse
+    lat : float
+        Vertical centre of the ellipse
+    datetime : datetime
+        Datetime centre of the ellipse.
+    a : float
+        Length of the semi-major axis
+    b : float
+        Length of the semi-minor axis
+    theta : float
+        Angle of the semi-major axis from horizontal anti-clockwise in radians
+    dt : timedelta
+        (full) time extent of the ellipse.
+    """
 
     def __init__(
         self,
-        a: float,
-        b: float,
         lon: float,
         lat: float,
-        theta: float,
         datetime: datetime,
+        a: float,
+        b: float,
+        theta: float,
         dt: timedelta,
     ) -> None:
         self.a = a

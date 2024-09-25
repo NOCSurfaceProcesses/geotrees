@@ -1,10 +1,12 @@
 import unittest
 from datetime import datetime, timedelta
 
+from GeoSpatialTools import haversine
 from GeoSpatialTools.octtree import (
     OctTree,
     SpaceTimeRecord as Record,
     SpaceTimeRectangle as Rectangle,
+    SpaceTimeEllipse as Ellipse,
 )
 
 
@@ -126,6 +128,65 @@ class TestOctTree(unittest.TestCase):
             test_point, dist=200, t_dist=timedelta(hours=5)
         )
 
+        assert res == expected
+
+    def test_ellipse_query(self):
+        d1 = haversine(0, 2.5, 1, 2.5)
+        d2 = haversine(0, 2.5, 0, 3.0)
+        theta = 0
+
+        d = datetime(2023, 3, 24, 12, 0)
+        dt = timedelta(days=10)
+
+        test_datetime = d + timedelta(hours=4)
+        test_timedelta = timedelta(hours=5)
+        ellipse = Ellipse(
+            12.5, 2.5, test_datetime, d1, d2, theta, test_timedelta
+        )
+        # TEST: distint locii
+        assert (ellipse.p1_lon, ellipse.p1_lat) != (
+            ellipse.p2_lon,
+            ellipse.p2_lat,
+        )
+
+        # TEST: Near Boundary Points
+        assert ellipse.contains(Record(13.49, 2.5, test_datetime))
+        assert ellipse.contains(Record(11.51, 2.5, test_datetime))
+        assert ellipse.contains(Record(12.5, 2.99, test_datetime))
+        assert ellipse.contains(Record(12.5, 2.01, test_datetime))
+        assert not ellipse.contains(Record(13.51, 2.5, test_datetime))
+        assert not ellipse.contains(Record(11.49, 2.5, test_datetime))
+        assert not ellipse.contains(Record(12.5, 3.01, test_datetime))
+        assert not ellipse.contains(Record(12.5, 1.99, test_datetime))
+
+        boundary = Rectangle(10, 4, d, 20, 8, dt)
+
+        otree = OctTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 4, d, "main"),
+            Record(12, 1, d + timedelta(hours=3), "main2"),
+            Record(3, 7, d - timedelta(days=3), "main3"),
+            Record(13, 2, d + timedelta(hours=17), "southeastfwd"),
+            Record(3, 6, d - timedelta(days=1), "northwestback"),
+            Record(10, 4, d, "northwestback"),
+            Record(18, 2, d + timedelta(days=23), "not added"),
+            Record(12.6, 2.1, d + timedelta(hours=2), "northeastfwd"),
+            Record(13.5, 2.6, test_datetime, "too north of eastern edge"),
+            Record(12.6, 3.0, test_datetime, "too east of northern edge"),
+            # Locii
+            Record(ellipse.p1_lon, ellipse.p1_lat, test_datetime, "locii1"),
+            Record(ellipse.p2_lon, ellipse.p2_lat, test_datetime, "locii2"),
+        ]
+        expected = [
+            Record(12.6, 2.1, d + timedelta(hours=2), "northeastfwd"),
+            Record(ellipse.p1_lon, ellipse.p1_lat, test_datetime, "locii1"),
+            Record(ellipse.p2_lon, ellipse.p2_lat, test_datetime, "locii2"),
+        ]
+
+        for point in points:
+            otree.insert(point)
+
+        res = otree.query_ellipse(ellipse)
         assert res == expected
 
 

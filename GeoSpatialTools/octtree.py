@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 from .distance_metrics import haversine
+from .distance_metrics import haversine, destination
+from math import degrees, sqrt
 
 
 class SpaceTimeRecord:
@@ -95,7 +97,7 @@ class SpaceTimeRectangle:
     h : float
         Height of the rectangle (latitude range).
     dt : timedelta
-        Time extent of the rectangle.
+        time extent of the rectangle.
     """
 
     def __init__(
@@ -182,6 +184,11 @@ class SpaceTimeRectangle:
         -------
         bool : True if the point is <= dist + max(dist(centre, corners))
         """
+        if (
+            point.datetime - t_dist > self.datetime + self.dt / 2
+            or point.datetime + t_dist < self.datetime - self.dt / 2
+        ):
+            return False
         # QUESTION: Is this sufficient? Possibly it is overkill
         corner_dist = max(
             haversine(
@@ -207,8 +214,115 @@ class SpaceTimeRectangle:
         return (
             haversine(self.lon, self.lat, point.lon, point.lat)
             <= dist + corner_dist
-            and point.datetime - t_dist <= self.datetime + self.dt / 2
-            and point.datetime + t_dist >= self.datetime - self.dt / 2
+        )
+
+
+class SpaceTimeEllipse:
+    """
+    A simple Ellipse Class for an ellipse on the surface of a sphere.
+
+    Parameters
+    ----------
+    lon : float
+        Horizontal centre of the ellipse
+    lat : float
+        Vertical centre of the ellipse
+    datetime : datetime
+        Datetime centre of the ellipse.
+    a : float
+        Length of the semi-major axis
+    b : float
+        Length of the semi-minor axis
+    theta : float
+        Angle of the semi-major axis from horizontal anti-clockwise in radians
+    dt : timedelta
+        (full) time extent of the ellipse.
+    """
+
+    def __init__(
+        self,
+        lon: float,
+        lat: float,
+        datetime: datetime,
+        a: float,
+        b: float,
+        theta: float,
+        dt: timedelta,
+    ) -> None:
+        self.a = a
+        self.b = b
+        self.lon = lon
+        self.lat = lat
+        self.datetime = datetime
+        self.dt = dt
+        # theta is anti-clockwise angle from horizontal in radians
+        self.theta = theta
+        # bearing is angle clockwise from north in degrees
+        self.bearing = (90 - degrees(self.theta)) % 360
+
+        a2 = self.a * self.a
+        b2 = self.b * self.b
+
+        self.c = sqrt(a2 - b2)
+        self.p1_lon, self.p1_lat = destination(
+            self.lon,
+            self.lat,
+            self.bearing,
+            self.c,
+        )
+        self.p2_lon, self.p2_lat = destination(
+            self.lon,
+            self.lat,
+            (self.bearing - 180) % 360,
+            self.c,
+        )
+
+    def contains(self, point: SpaceTimeRecord) -> bool:
+        """Test if a point is contained within the Ellipse"""
+        return (
+            (
+                haversine(self.p1_lon, self.p1_lat, point.lon, point.lat)
+                + haversine(self.p2_lon, self.p2_lat, point.lon, point.lat)
+            )
+            <= 2 * self.a
+            and point.datetime <= self.datetime + self.dt / 2
+            and point.datetime >= self.datetime - self.dt / 2
+        )
+
+    def nearby_rect(self, rect: SpaceTimeRectangle) -> bool:
+        """Test if a rectangle is near to the Ellipse"""
+        if (
+            rect.datetime - rect.dt / 2 > self.datetime + self.dt / 2
+            or rect.datetime + rect.dt / 2 < self.datetime - self.dt / 2
+        ):
+            return False
+        # TODO: Check corners, and 0 lat
+        corner_dist = max(
+            haversine(
+                rect.lon,
+                rect.lat,
+                rect.lon + rect.lon_range / 2,
+                rect.lat + rect.lat_range / 2,
+            ),
+            haversine(
+                rect.lon,
+                rect.lat,
+                rect.lon + rect.lon_range / 2,
+                rect.lat - rect.lat_range / 2,
+            ),
+        )
+        if (rect.lat + rect.lat_range / 2) * (
+            rect.lat - rect.lat_range / 2
+        ) < 0:
+            corner_dist = max(
+                corner_dist,
+                haversine(rect.lon, rect.lat, rect.lon + rect.lon_range / 2, 0),
+            )
+        return (
+            haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
+            <= corner_dist + self.a
+            and haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
+            <= corner_dist + self.a
         )
 
 
@@ -456,6 +570,33 @@ class OctTree:
             points = self.northeastback.query(rect, points)
             points = self.southwestback.query(rect, points)
             points = self.southeastback.query(rect, points)
+
+        return points
+
+    def query_ellipse(
+        self,
+        ellipse: SpaceTimeEllipse,
+        points: SpaceTimeRecords | None = None,
+    ) -> SpaceTimeRecords:
+        """Get points that fall in an ellipse."""
+        if not points:
+            points = SpaceTimeRecords()
+        if not ellipse.nearby_rect(self.boundary):
+            return points
+
+        for point in self.points:
+            if ellipse.contains(point):
+                points.append(point)
+
+        if self.divided:
+            points = self.northwestfwd.query_ellipse(ellipse, points)
+            points = self.northeastfwd.query_ellipse(ellipse, points)
+            points = self.southwestfwd.query_ellipse(ellipse, points)
+            points = self.southeastfwd.query_ellipse(ellipse, points)
+            points = self.northwestback.query_ellipse(ellipse, points)
+            points = self.northeastback.query_ellipse(ellipse, points)
+            points = self.southwestback.query_ellipse(ellipse, points)
+            points = self.southeastback.query_ellipse(ellipse, points)
 
         return points
 

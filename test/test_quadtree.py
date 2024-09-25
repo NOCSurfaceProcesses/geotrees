@@ -1,5 +1,7 @@
+from math import pi
 import unittest
-from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle
+from GeoSpatialTools import haversine
+from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle, Ellipse
 
 
 class TestRect(unittest.TestCase):
@@ -94,6 +96,54 @@ class TestQuadTree(unittest.TestCase):
 
         res = qtree.query(test_rect)
 
+        assert res == expected
+
+    def test_ellipse_query(self):
+        d1 = haversine(0, 2.5, 1, 2.5)
+        d2 = haversine(0, 2.5, 0, 3.0)
+        theta = 0
+
+        ellipse = Ellipse(12.5, 2.5, d1, d2, theta)
+        # TEST: distint locii
+        assert (ellipse.p1_lon, ellipse.p1_lat) != (
+            ellipse.p2_lon,
+            ellipse.p2_lat,
+        )
+
+        # TEST: Near Boundary Points
+        assert ellipse.contains(Record(13.49, 2.5))
+        assert ellipse.contains(Record(11.51, 2.5))
+        assert ellipse.contains(Record(12.5, 2.99))
+        assert ellipse.contains(Record(12.5, 2.01))
+        assert not ellipse.contains(Record(13.51, 2.5))
+        assert not ellipse.contains(Record(11.49, 2.5))
+        assert not ellipse.contains(Record(12.5, 3.01))
+        assert not ellipse.contains(Record(12.5, 1.99))
+
+        boundary = Rectangle(10, 4, 20, 8)
+        qtree = QuadTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 5),
+            Record(19, 1),
+            Record(0, 0),
+            Record(-2, -9.2),
+            Record(13.5, 2.6),  # Just North of Eastern edge
+            Record(12.6, 3.0),  # Just East of Northern edge
+            Record(12.8, 2.1),
+            # Locii
+            Record(ellipse.p1_lon, ellipse.p1_lat),
+            Record(ellipse.p2_lon, ellipse.p2_lat),
+        ]
+        expected = [
+            Record(12.8, 2.1),
+            Record(ellipse.p1_lon, ellipse.p1_lat),
+            Record(ellipse.p2_lon, ellipse.p2_lat),
+        ]
+
+        for point in points:
+            qtree.insert(point)
+
+        res = qtree.query_ellipse(ellipse)
         assert res == expected
 
 

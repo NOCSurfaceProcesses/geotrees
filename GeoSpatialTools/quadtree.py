@@ -4,7 +4,8 @@ for detecting nearby records for example
 """
 
 from datetime import datetime
-from .distance_metrics import haversine
+from .distance_metrics import haversine, destination
+from math import degrees, sqrt
 
 
 class Record:
@@ -141,6 +142,82 @@ class Rectangle:
         return (
             haversine(self.lon, self.lat, point.lon, point.lat)
             <= dist + corner_dist
+        )
+
+
+class Ellipse:
+    """A simple Ellipse Class for an ellipse on the surface of a sphere."""
+
+    def __init__(
+        self,
+        a: float,
+        b: float,
+        lon: float,
+        lat: float,
+        theta: float,
+    ) -> None:
+        self.a = a
+        self.b = b
+        self.lon = lon
+        self.lat = lat
+        # theta is anti-clockwise angle from horizontal in radians
+        self.theta = theta
+        # bearing is angle clockwise from north in degrees
+        self.bearing = (90 - degrees(self.theta)) % 360
+
+        a2 = self.a * self.a
+        b2 = self.b * self.b
+
+        self.c = sqrt(a2 - b2)
+        self.p1_lon, self.p1_lat = destination(
+            self.lon,
+            self.lat,
+            self.bearing,
+            self.c,
+        )
+        self.p2_lon, self.p2_lat = destination(
+            self.lon,
+            self.lat,
+            (180 - self.bearing) % 360,
+            self.c,
+        )
+
+    def contains(self, point: Record) -> bool:
+        """Test if a point is contained within the Ellipse"""
+        return (
+            haversine(self.p1_lon, self.p1_lat, point.lon, point.lat)
+            + haversine(self.p2_lon, self.p2_lat, point.lon, point.lat)
+        ) <= 2 * self.a
+
+    def nearby_rect(self, rect: Rectangle) -> bool:
+        """Test if a rectangle is near to the Ellipse"""
+        # TODO: Check corners, and 0 lat
+        corner_dist = max(
+            haversine(
+                rect.lon,
+                rect.lat,
+                rect.lon + rect.lon_range / 2,
+                rect.lat + rect.lat_range / 2,
+            ),
+            haversine(
+                rect.lon,
+                rect.lat,
+                rect.lon + rect.lon_range / 2,
+                rect.lat - rect.lat_range / 2,
+            ),
+        )
+        if (rect.lat + rect.lat_range / 2) * (
+            rect.lat - rect.lat_range / 2
+        ) < 0:
+            corner_dist = max(
+                corner_dist,
+                haversine(rect.lon, rect.lat, rect.lon + rect.lon_range / 2, 0),
+            )
+        return (
+            haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
+            <= corner_dist + self.a
+            or haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
+            <= corner_dist + self.a
         )
 
 
@@ -285,6 +362,29 @@ class QuadTree:
             points = self.northeast.query(rect, points)
             points = self.southwest.query(rect, points)
             points = self.southeast.query(rect, points)
+
+        return points
+
+    def query_ellipse(
+        self,
+        ellipse: Ellipse,
+        points: list[Record] | None = None,
+    ) -> list[Record]:
+        """Get points that fall in an ellipse."""
+        if not points:
+            points = list()
+        if not ellipse.nearby_rect(self.boundary):
+            return points
+
+        for point in self.points:
+            if ellipse.contains(point):
+                points.append(point)
+
+        if self.divided:
+            points = self.northwest.query_ellipse(ellipse, points)
+            points = self.northeast.query_ellipse(ellipse, points)
+            points = self.southwest.query_ellipse(ellipse, points)
+            points = self.southeast.query_ellipse(ellipse, points)
 
         return points
 

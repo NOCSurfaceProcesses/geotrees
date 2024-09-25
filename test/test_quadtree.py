@@ -109,6 +109,17 @@ class TestQuadTree(unittest.TestCase):
             ellipse.p2_lon,
             ellipse.p2_lat,
         )
+
+        # TEST: Near Boundary Points
+        assert ellipse.contains(Record(13.49, 2.5))
+        assert ellipse.contains(Record(11.51, 2.5))
+        assert ellipse.contains(Record(12.5, 2.99))
+        assert ellipse.contains(Record(12.5, 2.01))
+        assert not ellipse.contains(Record(13.51, 2.5))
+        assert not ellipse.contains(Record(11.49, 2.5))
+        assert not ellipse.contains(Record(12.5, 3.01))
+        assert not ellipse.contains(Record(12.5, 1.99))
+
         boundary = Rectangle(10, 4, 20, 8)
         qtree = QuadTree(boundary, capacity=3)
         points: list[Record] = [

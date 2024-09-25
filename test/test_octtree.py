@@ -136,6 +136,8 @@ class TestOctTree(unittest.TestCase):
         theta = 0
 
         d = datetime(2023, 3, 24, 12, 0)
+        dt = timedelta(days=10)
+
         test_datetime = d + timedelta(hours=4)
         test_timedelta = timedelta(hours=5)
         ellipse = Ellipse(
@@ -147,8 +149,16 @@ class TestOctTree(unittest.TestCase):
             ellipse.p2_lat,
         )
 
-        d = datetime(2023, 3, 24, 12, 0)
-        dt = timedelta(days=10)
+        # TEST: Near Boundary Points
+        assert ellipse.contains(Record(13.49, 2.5, test_datetime))
+        assert ellipse.contains(Record(11.51, 2.5, test_datetime))
+        assert ellipse.contains(Record(12.5, 2.99, test_datetime))
+        assert ellipse.contains(Record(12.5, 2.01, test_datetime))
+        assert not ellipse.contains(Record(13.51, 2.5, test_datetime))
+        assert not ellipse.contains(Record(11.49, 2.5, test_datetime))
+        assert not ellipse.contains(Record(12.5, 3.01, test_datetime))
+        assert not ellipse.contains(Record(12.5, 1.99, test_datetime))
+
         boundary = Rectangle(10, 4, d, 20, 8, dt)
 
         otree = OctTree(boundary, capacity=3)

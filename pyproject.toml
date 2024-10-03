@@ -28,7 +28,7 @@ description = "Tools for processing geo spatial data."
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = [
-    "spatial", "geospatial", "quadtree", "octtree",
+    "spatial", "geospatial", "quadtree", "octtree", "nearest neighbour",
 ]
 classifiers = [
     "Development Status :: 1 - PreAlpha",
@@ -38,8 +38,9 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-extra = [
+notebooks = [
     "ipykernel",
+    "polars"
 ]
 test = [
     "pytest",

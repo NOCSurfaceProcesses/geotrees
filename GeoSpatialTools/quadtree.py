@@ -41,7 +41,7 @@ class Record:
         return None
 
     def __str__(self) -> str:
-        return f"Record(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
+        return f"Record(lon = {self.lon}, lat = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
 
     def __eq__(self, other: object) -> bool:
         return (
@@ -51,6 +51,12 @@ class Record:
             and self.datetime == other.datetime
             and (not (self.uid or other.uid) or self.uid == other.uid)
         )
+
+    def distance(self, other: object) -> float:
+        """Compute the Haversine distance to another Record"""
+        if not isinstance(other, Record):
+            raise TypeError("Argument other must be an instance of Record")
+        return haversine(self.lon, self.lat, other.lon, other.lat)
 
 
 class Rectangle:

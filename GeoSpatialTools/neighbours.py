@@ -1,3 +1,5 @@
+"""Functions for finding nearest neighbours using bisection."""
+
 from numpy import argmin
 from bisect import bisect
 from typing import TypeVar
@@ -26,18 +28,17 @@ def find_nearest(vals: list[Numeric], test: list[Numeric]) -> list[int]:
 
     Uses bisection for speediness!
 
-    Arguments
-    =========
+    Parameters
+    ----------
     vals : list[Numeric]
         List of values - this is the pool of values for which we are looking
         for a nearest match. This list MUST be sorted. Sortedness is not
-        checked, nor is the list sorted. An error will be raised if the list
-        is not sorted.
+        checked, nor is the list sorted.
     test : list[Numeric]
         List of query values
 
     Returns
-    =======
+    -------
     A list containing the index of the nearest neighbour in vals for each value
     in test.
     """

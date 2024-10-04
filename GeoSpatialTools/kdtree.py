@@ -49,18 +49,18 @@ class KDTree:
         points.sort(key=lambda p: getattr(p, self.variable))
         split_index = n_points // 2
         self.partition_value = getattr(points[split_index - 1], self.variable)
-        while (
-            split_index < n_points
-            and getattr(points[split_index], self.variable)
-            == self.partition_value
-        ):
-            split_index += 1
+        # while (
+        #     split_index < n_points
+        #     and getattr(points[split_index], self.variable)
+        #     == self.partition_value
+        # ):
+        #     split_index += 1
 
         self.split = True
 
-        # Left is <= median
+        # Left is points left of midpoint
         self.child_left = KDTree(points[:split_index], depth + 1)
-        # Right is > median
+        # Right is points right of midpoint
         self.child_right = KDTree(points[split_index:], depth + 1)
 
         return None
@@ -79,8 +79,25 @@ class KDTree:
 
         if getattr(point, self.variable) < self.partition_value:
             return self.child_left.insert(point)
-        else:
+        elif getattr(point, self.variable) > self.partition_value:
             return self.child_right.insert(point)
+        else:
+            r, _ = self.query(point)
+            if point in r:
+                return False
+            self.child_left._insert(point)
+            return True
+
+    def _insert(self, point: Record) -> None:
+        """Insert a point even if it already exists in the KDTree"""
+        if not self.split:
+            self.points.append(point)
+            return
+        if getattr(point, self.variable) <= self.partition_value:
+            self.child_left._insert(point)
+        else:
+            self.child_right._insert(point)
+        return
 
     def delete(self, point: Record) -> bool:
         """Delete a Record from the KDTree. May unbalance the KDTree"""
@@ -91,12 +108,15 @@ class KDTree:
             except ValueError:
                 return False
 
-        if getattr(point, self.variable) < self.partition_value:
-            return self.child_left.delete(point)
-        else:
-            return self.child_right.delete(point)
+        if getattr(point, self.variable) <= self.partition_value:
+            if self.child_left.delete(point):
+                return True
+        if getattr(point, self.variable) >= self.partition_value:
+            if self.child_right.delete(point):
+                return True
+        return False
 
-    def query(self, point) -> tuple[Record | None, float]:
+    def query(self, point) -> tuple[list[Record], float]:
         """Find the nearest Record within the KDTree to a query Record"""
         if point.lon < 0:
             point2 = Record(point.lon + 360, point.lat)
@@ -106,32 +126,35 @@ class KDTree:
         r1, d1 = self._query(point)
         r2, d2 = self._query(point2)
         if d1 <= d2:
-            r = r1
+            return r1, d1
         else:
-            r = r2
-        return r, point.distance(r)
+            return r2, d2
 
     def _query(
         self,
         point: Record,
-        current_best: Record | None = None,
+        current_best: list[Record] | None = None,
         best_distance: float = inf,
-    ) -> tuple[Record | None, float]:
+    ) -> tuple[list[Record], float]:
+        if current_best is None:
+            current_best = list()
         if not self.split:
             for p in self.points:
                 dist = point.distance(p)
                 if dist < best_distance:
-                    current_best = p
+                    current_best = [p]
                     best_distance = dist
+                elif dist == best_distance:
+                    current_best.append(p)
             return current_best, best_distance
 
-        if getattr(point, self.variable) < self.partition_value:
+        if getattr(point, self.variable) <= self.partition_value:
             current_best, best_distance = self.child_left._query(
                 point, current_best, best_distance
             )
             if (
                 point.distance(self._get_partition_record(point))
-                < best_distance
+                <= best_distance
             ):
                 current_best, best_distance = self.child_right._query(
                     point, current_best, best_distance
@@ -142,7 +165,7 @@ class KDTree:
             )
             if (
                 point.distance(self._get_partition_record(point))
-                < best_distance
+                <= best_distance
             ):
                 current_best, best_distance = self.child_left._query(
                     point, current_best, best_distance

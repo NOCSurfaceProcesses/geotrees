@@ -3,6 +3,7 @@ from numpy import argmin
 from random import choice, sample
 from datetime import datetime, timedelta
 from GeoSpatialTools import find_nearest
+from GeoSpatialTools.neighbours import SortedError, SortedWarning
 
 
 class TestFindNearest(unittest.TestCase):
@@ -27,7 +28,13 @@ class TestFindNearest(unittest.TestCase):
 
         assert ours == greedy
 
-    pass
+    def test_sorted_warn(self):
+        with self.assertWarns(SortedWarning):
+            find_nearest([1., 2., 3.], 2.3, check_sorted=False)
+
+    def test_sorted_error(self):
+        with self.assertRaises(SortedError):
+            find_nearest([3., 1., 2.], 2.3)
 
 
 if __name__ == "__main__":

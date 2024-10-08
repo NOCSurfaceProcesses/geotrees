@@ -47,7 +47,7 @@ def find_nearest(
         List of values - this is the pool of values for which we are looking
         for a nearest match. This list MUST be sorted. Sortedness is not
         checked, nor is the list sorted.
-    test : list[Numeric]
+    test : list[Numeric] | Numeric
         List of query values
     check_sorted : bool
         Optionally check that the input vals is sorted. Raises an error if set
@@ -56,7 +56,7 @@ def find_nearest(
     Returns
     -------
     A list containing the index of the nearest neighbour in vals for each value
-    in test.
+    in test. Or the index of the nearest neighbour if test is a single value.
     """
     if check_sorted:
         s = _check_sorted(vals)

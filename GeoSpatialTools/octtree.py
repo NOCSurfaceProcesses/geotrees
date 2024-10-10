@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
-from .distance_metrics import haversine
+import datetime
 from .distance_metrics import haversine, destination
+from .utils import LatitudeError
 from math import degrees, sqrt
 
 
@@ -25,12 +26,14 @@ class SpaceTimeRecord:
         Horizontal coordinate (longitude).
     lat : float
         Vertical coordinate (latitude).
-    datetime : datetime
+    datetime : datetime.datetime
         Datetime of the record. Can also be a numeric value such as pentad.
         Comparisons between Records with datetime and Records with numeric
         datetime will fail.
     uid : str | None
         Unique Identifier.
+    fix_lon : bool
+        Force longitude to -180, 180
     **data
         Additional data passed to the SpaceTimeRecord for use by other functions
         or classes.
@@ -40,11 +43,19 @@ class SpaceTimeRecord:
         self,
         lon: float,
         lat: float,
-        datetime: datetime,
+        datetime: datetime.datetime,
         uid: str | None = None,
+        fix_lon: bool = True,
         **data,
     ) -> None:
         self.lon = lon
+        if fix_lon:
+            # Move lon to -180, 180
+            self.lon = ((self.lon + 540) % 360) - 180
+        if lat < -90 or lat > 90:
+            raise LatitudeError(
+                "Expected latitude value to be between -90 and 90 degrees"
+            )
         self.lat = lat
         self.datetime = datetime
         self.uid = uid
@@ -53,12 +64,15 @@ class SpaceTimeRecord:
         return None
 
     def __str__(self) -> str:
-        return f"Record(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
+        return f"SpaceTimeRecord(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
 
     def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SpaceTimeRecord):
+            return False
+        if self.uid and other.uid:
+            return self.uid == other.uid
         return (
-            isinstance(other, SpaceTimeRecord)
-            and self.lon == other.lon
+            self.lon == other.lon
             and self.lat == other.lat
             and self.datetime == other.datetime
             and (not (self.uid or other.uid) or self.uid == other.uid)

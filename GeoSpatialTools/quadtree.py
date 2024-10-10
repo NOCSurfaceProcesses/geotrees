@@ -5,12 +5,19 @@ for detecting nearby records for example
 
 from datetime import datetime
 from .distance_metrics import haversine, destination
+from .utils import LatitudeError
 from math import degrees, sqrt
 
 
 class Record:
     """
     ICOADS Record class
+
+    This is a simple instance of an ICOARDS record, it requires position data.
+    It can optionally include datetime, a UID, and extra data passed as
+    keyword arguments.
+
+    Equality is checked only on the required fields + UID if it is specified.
 
     Parameters
     ----------
@@ -22,6 +29,11 @@ class Record:
         Datetime of the record
     uid : str | None
         Unique Identifier
+    fix_lon : bool
+        Force longitude to -180, 180
+    **data
+        Additional data passed to the Record for use by other functions or
+        classes.
     """
 
     def __init__(
@@ -30,9 +42,17 @@ class Record:
         lat: float,
         datetime: datetime | None = None,
         uid: str | None = None,
+        fix_lon: bool = True,
         **data,
     ) -> None:
         self.lon = lon
+        if fix_lon:
+            # Move lon to -180, 180
+            self.lon = ((self.lon + 540) % 360) - 180
+        if lat < -90 or lat > 90:
+            raise LatitudeError(
+                "Expected latitude value to be between -90 and 90 degrees"
+            )
         self.lat = lat
         self.datetime = datetime
         self.uid = uid
@@ -44,9 +64,12 @@ class Record:
         return f"Record(lon = {self.lon}, lat = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
 
     def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Record):
+            return False
+        if self.uid and other.uid:
+            return self.uid == other.uid
         return (
-            isinstance(other, Record)
-            and self.lon == other.lon
+            self.lon == other.lon
             and self.lat == other.lat
             and self.datetime == other.datetime
             and (not (self.uid or other.uid) or self.uid == other.uid)

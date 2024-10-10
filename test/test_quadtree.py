@@ -1,5 +1,6 @@
-from math import pi
+import random
 import unittest
+
 from GeoSpatialTools import haversine
 from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle, Ellipse
 
@@ -28,6 +29,23 @@ class TestRect(unittest.TestCase):
         expected = [True, False, True]
         res = list(map(rect.intersects, test_rects))
         assert res == expected
+
+    def test_wrap(self):
+        rect = Rectangle(170, 45, 180, 20)
+        assert rect.east < 0
+        assert rect.west > 0
+        test_points: list[Record] = [
+            Record(-140, 40),
+            Record(0, 50),
+            Record(100, 45),
+        ]
+        expected = [True, False, True]
+        res = list(map(rect.contains, test_points))
+        assert res == expected
+
+        test_rect = Rectangle(-100, 40, 80, 40)
+        assert test_rect.east < rect.west
+        assert rect.intersects(test_rect)
 
 
 class TestQuadTree(unittest.TestCase):
@@ -97,6 +115,31 @@ class TestQuadTree(unittest.TestCase):
         res = qtree.query(test_rect)
 
         assert res == expected
+
+    def test_wrap_query(self):
+        N = 100
+        qt_boundary = Rectangle(0, 0, 360, 180)
+        qt = QuadTree(qt_boundary, capacity=3)
+
+        quert_rect = Rectangle(170, 45, 60, 10)
+        points_want: list[Record] = [
+            Record(175, 43),
+            Record(-172, 49),
+        ]
+        points: list[Record] = [
+            Record(
+                random.choice(range(-150, 130)),
+                random.choice(range(-90, 91)),
+            )
+            for _ in range(N)
+        ]
+        points.extend(points_want)
+        for p in points:
+            qt.insert(p)
+
+        res = qt.query(quert_rect)
+        assert len(res) == len(points_want)
+        assert all([p in res for p in points_want])
 
     def test_ellipse_query(self):
         d1 = haversine(0, 2.5, 1, 2.5)

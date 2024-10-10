@@ -3,6 +3,7 @@ Constuctors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example
 """
 
+from dataclasses import dataclass
 from datetime import datetime
 from .distance_metrics import haversine, destination
 from .utils import LatitudeError
@@ -82,6 +83,7 @@ class Record:
         return haversine(self.lon, self.lat, other.lon, other.lat)
 
 
+@dataclass
 class Rectangle:
     """
     A simple Rectangle class
@@ -98,46 +100,100 @@ class Rectangle:
         Height of the rectangle
     """
 
-    def __init__(
-        self,
-        lon: float,
-        lat: float,
-        lon_range: float,
-        lat_range: float,
-    ) -> None:
-        self.lon = lon
-        self.lat = lat
-        self.lon_range = lon_range
-        self.lat_range = lat_range
+    lon: float
+    lat: float
+    lon_range: float
+    lat_range: float
 
-    def __str__(self) -> str:
-        return f"Rectangle(x = {self.lon}, y = {self.lat}, w = {self.lon_range}, h = {self.lat_range})"
+    def __post_init__(self):
+        if self.lon > 180:
+            self.lon -= 360
+        if self.lat > 90 or self.lat < -90:
+            raise LatitudeError(
+                f"Central latitude value out of range {self.lat}, "
+                + "should be between -90, 90 degrees"
+            )
 
-    def __eq__(self, other: object) -> bool:
-        return (
-            isinstance(other, Rectangle)
-            and self.lon == other.lon
-            and self.lat == other.lat
-            and self.lon_range == other.lon_range
-            and self.lat_range == other.lat_range
+    @property
+    def west(self) -> float:
+        """Western boundary of the Rectangle"""
+        return (((self.lon - self.lon_range / 2) + 540) % 360) - 180
+
+    @property
+    def east(self) -> float:
+        """Eastern boundary of the Rectangle"""
+        return (((self.lon + self.lon_range / 2) + 540) % 360) - 180
+
+    @property
+    def north(self) -> float:
+        """Northern boundary of the Rectangle"""
+        north = self.lat + self.lat_range / 2
+        if north > 90:
+            raise LatitudeError(
+                "Rectangle crosses north pole - Use two Rectangles"
+            )
+        return north
+
+    @property
+    def south(self) -> float:
+        """Southern boundary of the Rectangle"""
+        south = self.lat - self.lat_range / 2
+        if south < -90:
+            raise LatitudeError(
+                "Rectangle crosses south pole - Use two Rectangles"
+            )
+        return south
+
+    @property
+    def edge_dist(self) -> float:
+        """Approximate maximum distance from the centre to an edge"""
+        corner_dist = max(
+            haversine(self.lon, self.lat, self.east, self.north),
+            haversine(self.lon, self.lat, self.east, self.south),
         )
+        if self.east * self.west < 0:
+            corner_dist = max(
+                corner_dist,
+                haversine(self.lon, self.lat, self.east, 0),
+            )
+        return corner_dist
+
+    def _test_east_west(self, lon: float) -> bool:
+        if self.lon_range >= 360:
+            # Rectangle encircles earth
+            return True
+        if self.east > self.lon and self.west < self.lon:
+            return lon <= self.east and lon >= self.west
+        if self.east < self.lon:
+            return not (lon > self.east and lon < self.west)
+        if self.west > self.lon:
+            return not (lon < self.east and lon > self.west)
+        return False
+
+    def _test_north_south(self, lat: float) -> bool:
+        return lat <= self.north and lat >= self.south
 
     def contains(self, point: Record) -> bool:
         """Test if a point is contained within the Rectangle"""
-        return (
-            point.lon <= self.lon + self.lon_range / 2
-            and point.lon >= self.lon - self.lon_range / 2
-            and point.lat <= self.lat + self.lat_range / 2
-            and point.lat >= self.lat - self.lat_range / 2
+        return self._test_north_south(point.lat) and self._test_east_west(
+            point.lon
         )
 
     def intersects(self, other: object) -> bool:
         """Test if another Rectangle object intersects this Rectangle"""
-        return isinstance(other, Rectangle) and not (
-            self.lon - self.lon_range / 2 > other.lon + other.lon_range / 2
-            or self.lon + self.lon_range / 2 < other.lon - other.lon_range / 2
-            or self.lat - self.lat_range / 2 > other.lat + other.lat_range / 2
-            or self.lat + self.lat_range / 2 < other.lat - other.lat_range / 2
+        if not isinstance(other, Rectangle):
+            raise TypeError(
+                f"other must be a Rectangle class, got {type(other)}"
+            )
+        if other.south > self.north:
+            # Other is fully north of self
+            return False
+        if other.north < self.south:
+            # Other is fully south of self
+            return False
+        # Handle east / west edges
+        return self._test_east_west(other.west) or self._test_east_west(
+            other.east
         )
 
     def nearby(
@@ -147,30 +203,9 @@ class Rectangle:
     ) -> bool:
         """Check if point is nearby the Rectangle"""
         # QUESTION: Is this sufficient? Possibly it is overkill
-        corner_dist = max(
-            haversine(
-                self.lon,
-                self.lat,
-                self.lon + self.lon_range / 2,
-                self.lat + self.lat_range / 2,
-            ),
-            haversine(
-                self.lon,
-                self.lat,
-                self.lon + self.lon_range / 2,
-                self.lat - self.lat_range / 2,
-            ),
-        )
-        if (self.lat + self.lat_range / 2) * (
-            self.lat - self.lat_range / 2
-        ) < 0:
-            corner_dist = max(
-                corner_dist,
-                haversine(self.lon, self.lat, self.lon + self.lon_range / 2, 0),
-            )
         return (
             haversine(self.lon, self.lat, point.lon, point.lat)
-            <= dist + corner_dist
+            <= dist + self.edge_dist
         )
 
 
@@ -235,33 +270,11 @@ class Ellipse:
 
     def nearby_rect(self, rect: Rectangle) -> bool:
         """Test if a rectangle is near to the Ellipse"""
-        # TODO: Check corners, and 0 lat
-        corner_dist = max(
-            haversine(
-                rect.lon,
-                rect.lat,
-                rect.lon + rect.lon_range / 2,
-                rect.lat + rect.lat_range / 2,
-            ),
-            haversine(
-                rect.lon,
-                rect.lat,
-                rect.lon + rect.lon_range / 2,
-                rect.lat - rect.lat_range / 2,
-            ),
-        )
-        if (rect.lat + rect.lat_range / 2) * (
-            rect.lat - rect.lat_range / 2
-        ) < 0:
-            corner_dist = max(
-                corner_dist,
-                haversine(rect.lon, rect.lat, rect.lon + rect.lon_range / 2, 0),
-            )
         return (
             haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
-            <= corner_dist + self.a
+            <= rect.edge_dist + self.a
             and haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
-            <= corner_dist + self.a
+            <= rect.edge_dist + self.a
         )
 
 

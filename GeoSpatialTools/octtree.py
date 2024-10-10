@@ -178,7 +178,7 @@ class SpaceTimeRectangle:
             haversine(self.lon, self.lat, self.east, self.north),
             haversine(self.lon, self.lat, self.east, self.south),
         )
-        if self.east * self.west < 0:
+        if self.north * self.south < 0:
             corner_dist = max(
                 corner_dist,
                 haversine(self.lon, self.lat, self.east, 0),

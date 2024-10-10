@@ -7,7 +7,7 @@ from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle, Ellipse
 
 class TestRect(unittest.TestCase):
     def test_contains(self):
-        rect = Rectangle(10, 5, 20, 10)
+        rect = Rectangle(0, 20, 0, 10)
         points: list[Record] = [
             Record(10, 5),
             Record(20, 10),
@@ -20,20 +20,20 @@ class TestRect(unittest.TestCase):
         assert res == expected
 
     def test_intersection(self):
-        rect = Rectangle(10, 5, 20, 10)
+        rect = Rectangle(0, 20, 0, 10)
         test_rects: list[Rectangle] = [
-            Rectangle(10, 5, 18, 8),
-            Rectangle(25, 5, 9, 12),
-            Rectangle(15, 8, 12, 7),
+            Rectangle(1, 19, 1, 9),
+            Rectangle(20.5, 29.5, -1, 11),
+            Rectangle(9, 21, 4.5, 11.5),
         ]
         expected = [True, False, True]
         res = list(map(rect.intersects, test_rects))
         assert res == expected
 
     def test_wrap(self):
-        rect = Rectangle(170, 45, 180, 20)
-        assert rect.east < 0
-        assert rect.west > 0
+        rect = Rectangle(80, -100, 35, 55)
+        assert rect.lon == 170
+        assert rect.lat == 45
         test_points: list[Record] = [
             Record(-140, 40),
             Record(0, 50),
@@ -43,20 +43,19 @@ class TestRect(unittest.TestCase):
         res = list(map(rect.contains, test_points))
         assert res == expected
 
-        test_rect = Rectangle(-100, 40, 80, 40)
-        assert test_rect.east < rect.west
+        test_rect = Rectangle(-140, -60, 20, 60)
         assert rect.intersects(test_rect)
 
 
 class TestQuadTree(unittest.TestCase):
     def test_divides(self):
-        boundary = Rectangle(10, 4, 20, 8)
+        boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary)
         expected: list[Rectangle] = [
-            Rectangle(5, 6, 10, 4),
-            Rectangle(15, 6, 10, 4),
-            Rectangle(5, 2, 10, 4),
-            Rectangle(15, 2, 10, 4),
+            Rectangle(0, 10, 4, 8),
+            Rectangle(10, 20, 4, 8),
+            Rectangle(0, 10, 0, 4),
+            Rectangle(10, 20, 0, 4),
         ]
         qtree.divide()
         res = [
@@ -68,7 +67,7 @@ class TestQuadTree(unittest.TestCase):
         assert res == expected
 
     def test_insert(self):
-        boundary = Rectangle(10, 4, 20, 8)
+        boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)
         points: list[Record] = [
             Record(10, 5),
@@ -97,7 +96,7 @@ class TestQuadTree(unittest.TestCase):
         assert res == expected
 
     def test_query(self):
-        boundary = Rectangle(10, 4, 20, 8)
+        boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)
         points: list[Record] = [
             Record(10, 5),
@@ -106,7 +105,7 @@ class TestQuadTree(unittest.TestCase):
             Record(-2, -9.2),
             Record(12.8, 2.1),
         ]
-        test_rect = Rectangle(12.5, 2.5, 1, 1)
+        test_rect = Rectangle(12, 13, 2, 3)
         expected = [Record(12.8, 2.1)]
 
         for point in points:
@@ -118,10 +117,20 @@ class TestQuadTree(unittest.TestCase):
 
     def test_wrap_query(self):
         N = 100
-        qt_boundary = Rectangle(0, 0, 360, 180)
+        qt_boundary = Rectangle(-180, 180, -90, 90)
+        assert qt_boundary.lon == 0
+        assert qt_boundary.lon_range == 360
+        assert qt_boundary.lat == 0
+        assert qt_boundary.lat_range == 180
+
         qt = QuadTree(qt_boundary, capacity=3)
 
-        quert_rect = Rectangle(170, 45, 60, 10)
+        quert_rect = Rectangle(140, -160, 40, 50)
+        assert quert_rect.lon == 170
+        assert quert_rect.lon_range == 60
+        assert quert_rect.lat == 45
+        assert quert_rect.lat_range == 10
+
         points_want: list[Record] = [
             Record(175, 43),
             Record(-172, 49),
@@ -163,7 +172,7 @@ class TestQuadTree(unittest.TestCase):
         assert not ellipse.contains(Record(12.5, 3.01))
         assert not ellipse.contains(Record(12.5, 1.99))
 
-        boundary = Rectangle(10, 4, 20, 8)
+        boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)
         points: list[Record] = [
             Record(10, 5),

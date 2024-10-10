@@ -90,59 +90,55 @@ class Rectangle:
 
     Parameters
     ----------
-    lon : float
-        Horizontal centre of the rectangle
-    lat : float
-        Vertical centre of the rectangle
-    lon_range : float
-        Width of the rectangle
-    lat_range : float
-        Height of the rectangle
+    west : float
+        Western boundary of the Rectangle
+    east : float
+        Eastern boundary of the Rectangle
+    south : float
+        Southern boundary of the Rectangle
+    north : float
+        Northern boundary of the Rectangle
     """
 
-    lon: float
-    lat: float
-    lon_range: float
-    lat_range: float
+    west: float
+    east: float
+    south: float
+    north: float
 
     def __post_init__(self):
-        if self.lon > 180:
-            self.lon -= 360
-        if self.lat > 90 or self.lat < -90:
+        if self.east > 180 or self.east < -180:
+            self.east = ((self.east + 540) % 360) - 180
+        if self.west > 180 or self.west < -180:
+            self.west = ((self.west + 540) % 360) - 180
+        if self.north > 90 or self.south < -90:
             raise LatitudeError(
-                f"Central latitude value out of range {self.lat}, "
-                + "should be between -90, 90 degrees"
+                "Latitude bounds are out of bounds. "
+                + f"{self.north = }, {self.south = }"
             )
 
     @property
-    def west(self) -> float:
-        """Western boundary of the Rectangle"""
-        return (((self.lon - self.lon_range / 2) + 540) % 360) - 180
+    def lat_range(self) -> float:
+        """Latitude range of the Rectangle"""
+        return self.north - self.south
 
     @property
-    def east(self) -> float:
-        """Eastern boundary of the Rectangle"""
-        return (((self.lon + self.lon_range / 2) + 540) % 360) - 180
+    def lat(self) -> float:
+        """Centre latitude of the Rectangle"""
+        return self.south + self.lat_range / 2
 
     @property
-    def north(self) -> float:
-        """Northern boundary of the Rectangle"""
-        north = self.lat + self.lat_range / 2
-        if north > 90:
-            raise LatitudeError(
-                "Rectangle crosses north pole - Use two Rectangles"
-            )
-        return north
+    def lon_range(self) -> float:
+        """Longitude range of the Rectangle"""
+        if self.east < self.west:
+            return self.east - self.west + 360
+
+        return self.east - self.west
 
     @property
-    def south(self) -> float:
-        """Southern boundary of the Rectangle"""
-        south = self.lat - self.lat_range / 2
-        if south < -90:
-            raise LatitudeError(
-                "Rectangle crosses south pole - Use two Rectangles"
-            )
-        return south
+    def lon(self) -> float:
+        """Centre longitude of the Rectangle"""
+        lon = self.west + self.lon_range / 2
+        return ((lon + 540) % 360) - 180
 
     @property
     def edge_dist(self) -> float:
@@ -332,10 +328,10 @@ class QuadTree:
         """Divide the QuadTree"""
         self.northwest = QuadTree(
             Rectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.lat,
+                self.boundary.north,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -343,10 +339,10 @@ class QuadTree:
         )
         self.northeast = QuadTree(
             Rectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.lat,
+                self.boundary.north,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -354,10 +350,10 @@ class QuadTree:
         )
         self.southwest = QuadTree(
             Rectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.south,
+                self.boundary.lat,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -365,10 +361,10 @@ class QuadTree:
         )
         self.southeast = QuadTree(
             Rectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.south,
+                self.boundary.lat,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,

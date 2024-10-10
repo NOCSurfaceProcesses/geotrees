@@ -1,3 +1,4 @@
+import random
 import unittest
 from datetime import datetime, timedelta
 
@@ -26,6 +27,50 @@ class TestRect(unittest.TestCase):
         expected = [True, True, False, True, True, False]
         res = list(map(rect.contains, points))
         assert res == expected
+
+    def test_intersection(self):
+        d = datetime(2009, 1, 1, 0, 0)
+        dt = timedelta(days=14)
+        rect = Rectangle(10, 5, d, 20, 10, dt)
+        test_rects: list[Rectangle] = [
+            Rectangle(10, 5, d + timedelta(days=2), 18, 8, dt),
+            Rectangle(25, 5, d, 9, 12, timedelta(hours=7)),
+            Rectangle(
+                15, 8, d - timedelta(hours=18), 12, 7, timedelta(hours=4)
+            ),
+            Rectangle(15, 8, d + timedelta(days=25), 12, 7, dt),
+        ]
+        expected = [True, False, True, False]
+        res = list(map(rect.intersects, test_rects))
+        assert res == expected
+
+    def test_wrap(self):
+        d = datetime(2009, 1, 1, 0, 0)
+        dt = timedelta(days=14)
+        rect = Rectangle(170, 45, d, 180, 20, dt)
+        assert rect.east < 0
+        assert rect.west > 0
+        test_points: list[Record] = [
+            Record(-140, 40, d),
+            Record(0, 50, d),
+            Record(100, 45, d - timedelta(hours=2)),
+            Record(100, 45, d + timedelta(days=12)),
+        ]
+        expected = [True, False, True, False]
+        res = list(map(rect.contains, test_points))
+        assert res == expected
+
+        test_rect = Rectangle(
+            -100, 40, d + timedelta(days=3), 80, 40, timedelta(days=2)
+        )
+        assert test_rect.east < rect.west
+        assert rect.intersects(test_rect)
+
+        # TEST: spatially match, time fail
+        test_rect = Rectangle(
+            -100, 40, d + timedelta(days=13), 80, 40, timedelta(days=2)
+        )
+        assert not rect.intersects(test_rect)
 
 
 class TestOctTree(unittest.TestCase):
@@ -129,6 +174,36 @@ class TestOctTree(unittest.TestCase):
         )
 
         assert res == expected
+
+    def test_wrap_query(self):
+        N = 100
+        d = datetime(2023, 3, 24, 12, 0)
+        dt = timedelta(days=10)
+        boundary = Rectangle(0, 0, d, 360, 180, dt)
+        ot = OctTree(boundary, capacity=3)
+
+        quert_rect = Rectangle(
+            170, 45, d + timedelta(days=4), 60, 10, timedelta(days=8)
+        )
+        points_want: list[Record] = [
+            Record(175, 43, d + timedelta(days=2)),
+            Record(-172, 49, d + timedelta(days=4)),
+        ]
+        points: list[Record] = [
+            Record(
+                random.choice(range(-150, 130)),
+                random.choice(range(-90, 91)),
+                d + timedelta(hours=random.choice(range(-120, 120))),
+            )
+            for _ in range(N)
+        ]
+        points.extend(points_want)
+        for p in points:
+            ot.insert(p)
+
+        res = ot.query(quert_rect)
+        assert len(res) == len(points_want)
+        assert all([p in res for p in points_want])
 
     def test_ellipse_query(self):
         d1 = haversine(0, 2.5, 1, 2.5)

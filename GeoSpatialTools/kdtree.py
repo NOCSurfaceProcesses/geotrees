@@ -49,12 +49,6 @@ class KDTree:
         points.sort(key=lambda p: getattr(p, self.variable))
         split_index = n_points // 2
         self.partition_value = getattr(points[split_index - 1], self.variable)
-        # while (
-        #     split_index < n_points
-        #     and getattr(points[split_index], self.variable)
-        #     == self.partition_value
-        # ):
-        #     split_index += 1
 
         self.split = True
 
@@ -119,9 +113,9 @@ class KDTree:
     def query(self, point) -> tuple[list[Record], float]:
         """Find the nearest Record within the KDTree to a query Record"""
         if point.lon < 0:
-            point2 = Record(point.lon + 360, point.lat)
+            point2 = Record(point.lon + 360, point.lat, fix_lon=False)
         else:
-            point2 = Record(point.lon - 360, point.lat)
+            point2 = Record(point.lon - 360, point.lat, fix_lon=False)
 
         r1, d1 = self._query(point)
         r2, d2 = self._query(point2)

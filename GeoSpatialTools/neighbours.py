@@ -11,10 +11,14 @@ Numeric = TypeVar("Numeric", int, float, datetime, date)
 
 
 class SortedWarning(Warning):
+    """Warning class for Sortedness"""
+
     pass
 
 
 class SortedError(Exception):
+    """Error class for Sortedness"""
+
     pass
 
 

@@ -1,6 +1,7 @@
-from datetime import datetime, timedelta
-from .distance_metrics import haversine
+from dataclasses import dataclass
+import datetime
 from .distance_metrics import haversine, destination
+from .utils import LatitudeError
 from math import degrees, sqrt
 
 
@@ -25,12 +26,14 @@ class SpaceTimeRecord:
         Horizontal coordinate (longitude).
     lat : float
         Vertical coordinate (latitude).
-    datetime : datetime
+    datetime : datetime.datetime
         Datetime of the record. Can also be a numeric value such as pentad.
         Comparisons between Records with datetime and Records with numeric
         datetime will fail.
     uid : str | None
         Unique Identifier.
+    fix_lon : bool
+        Force longitude to -180, 180
     **data
         Additional data passed to the SpaceTimeRecord for use by other functions
         or classes.
@@ -40,11 +43,19 @@ class SpaceTimeRecord:
         self,
         lon: float,
         lat: float,
-        datetime: datetime,
+        datetime: datetime.datetime,
         uid: str | None = None,
+        fix_lon: bool = True,
         **data,
     ) -> None:
         self.lon = lon
+        if fix_lon:
+            # Move lon to -180, 180
+            self.lon = ((self.lon + 540) % 360) - 180
+        if lat < -90 or lat > 90:
+            raise LatitudeError(
+                "Expected latitude value to be between -90 and 90 degrees"
+            )
         self.lat = lat
         self.datetime = datetime
         self.uid = uid
@@ -53,12 +64,15 @@ class SpaceTimeRecord:
         return None
 
     def __str__(self) -> str:
-        return f"Record(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
+        return f"SpaceTimeRecord(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
 
     def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SpaceTimeRecord):
+            return False
+        if self.uid and other.uid:
+            return self.uid == other.uid
         return (
-            isinstance(other, SpaceTimeRecord)
-            and self.lon == other.lon
+            self.lon == other.lon
             and self.lat == other.lat
             and self.datetime == other.datetime
             and (not (self.uid or other.uid) or self.uid == other.uid)
@@ -69,6 +83,7 @@ class SpaceTimeRecords(list[SpaceTimeRecord]):
     """List of SpaceTimeRecords"""
 
 
+@dataclass
 class SpaceTimeRectangle:
     """
     A simple Space Time SpaceTimeRectangle class.
@@ -90,73 +105,134 @@ class SpaceTimeRectangle:
         Horizontal centre of the rectangle (longitude).
     lat : float
         Vertical centre of the rectangle (latitude).
-    datetime : datetime
+    datetime : datetime.datetime
         Datetime centre of the rectangle.
     w : float
         Width of the rectangle (longitude range).
     h : float
         Height of the rectangle (latitude range).
-    dt : timedelta
+    dt : datetime.timedelta
         time extent of the rectangle.
     """
 
-    def __init__(
-        self,
-        lon: float,
-        lat: float,
-        datetime: datetime,
-        lon_range: float,
-        lat_range: float,
-        dt: timedelta,
-    ) -> None:
-        self.lon = lon
-        self.lat = lat
-        self.lon_range = lon_range
-        self.lat_range = lat_range
-        self.datetime = datetime
-        self.dt = dt
+    lon: float
+    lat: float
+    date: datetime.datetime
+    lon_range: float
+    lat_range: float
+    dt: datetime.timedelta
 
-    def __str__(self) -> str:
-        return f"SpaceTimeRectangle(x = {self.lon}, y = {self.lat}, w = {self.lon_range}, h = {self.lat_range}, t = {self.datetime}, dt = {self.dt})"
+    def __post_init__(self):
+        if self.lon > 180:
+            self.lon -= 360
+        if self.lat > 90 or self.lat < -90:
+            raise LatitudeError(
+                f"Central latitude value out of range {self.lat}, "
+                + "should be between -90, 90 degrees"
+            )
 
-    def __eq__(self, other: object) -> bool:
-        return (
-            isinstance(other, SpaceTimeRectangle)
-            and self.lon == other.lon
-            and self.lat == other.lat
-            and self.lon_range == other.lon_range
-            and self.lat_range == other.lat_range
-            and self.datetime == other.datetime
-            and self.dt == other.dt
+    @property
+    def west(self) -> float:
+        """Western boundary of the Rectangle"""
+        return (((self.lon - self.lon_range / 2) + 540) % 360) - 180
+
+    @property
+    def east(self) -> float:
+        """Eastern boundary of the Rectangle"""
+        return (((self.lon + self.lon_range / 2) + 540) % 360) - 180
+
+    @property
+    def north(self) -> float:
+        """Northern boundary of the Rectangle"""
+        north = self.lat + self.lat_range / 2
+        if north > 90:
+            raise LatitudeError(
+                "Rectangle crosses north pole - Use two Rectangles"
+            )
+        return north
+
+    @property
+    def south(self) -> float:
+        """Southern boundary of the Rectangle"""
+        south = self.lat - self.lat_range / 2
+        if south < -90:
+            raise LatitudeError(
+                "Rectangle crosses south pole - Use two Rectangles"
+            )
+        return south
+
+    @property
+    def start(self) -> datetime.datetime:
+        """Start date of the Rectangle"""
+        return self.date - self.dt / 2
+
+    @property
+    def end(self) -> datetime.datetime:
+        """End date of the Rectangle"""
+        return self.date + self.dt / 2
+
+    @property
+    def edge_dist(self) -> float:
+        """Approximate maximum distance from the centre to an edge"""
+        corner_dist = max(
+            haversine(self.lon, self.lat, self.east, self.north),
+            haversine(self.lon, self.lat, self.east, self.south),
         )
+        if self.north * self.south < 0:
+            corner_dist = max(
+                corner_dist,
+                haversine(self.lon, self.lat, self.east, 0),
+            )
+        return corner_dist
+
+    def _test_east_west(self, lon: float) -> bool:
+        if self.lon_range >= 360:
+            # Rectangle encircles earth
+            return True
+        if self.east > self.lon and self.west < self.lon:
+            return lon <= self.east and lon >= self.west
+        if self.east < self.lon:
+            return not (lon > self.east and lon < self.west)
+        if self.west > self.lon:
+            return not (lon < self.east and lon > self.west)
+        return False
+
+    def _test_north_south(self, lat: float) -> bool:
+        return lat <= self.north and lat >= self.south
 
     def contains(self, point: SpaceTimeRecord) -> bool:
         """Test if a point is contained within the SpaceTimeRectangle"""
-        return (
-            point.lon <= self.lon + self.lon_range / 2
-            and point.lon >= self.lon - self.lon_range / 2
-            and point.lat <= self.lat + self.lat_range / 2
-            and point.lat >= self.lat - self.lat_range / 2
-            and point.datetime <= self.datetime + self.dt / 2
-            and point.datetime >= self.datetime - self.dt / 2
+        if point.datetime > self.end or point.datetime < self.start:
+            return False
+        return self._test_north_south(point.lat) and self._test_east_west(
+            point.lon
         )
 
     def intersects(self, other: object) -> bool:
         """Test if another Rectangle object intersects this Rectangle"""
-        return isinstance(other, SpaceTimeRectangle) and not (
-            self.lon - self.lon_range / 2 > other.lon + other.lon_range / 2
-            or self.lon + self.lon_range / 2 < other.lon - other.lon_range / 2
-            or self.lat - self.lat_range / 2 > other.lat + other.lat_range / 2
-            or self.lat + self.lat_range / 2 < other.lat - other.lat_range / 2
-            or self.datetime - self.dt / 2 > other.datetime + other.dt / 2
-            or self.datetime + self.dt / 2 < other.datetime - other.dt / 2
+        if not isinstance(other, SpaceTimeRectangle):
+            raise TypeError(
+                f"other must be a Rectangle class, got {type(other)}"
+            )
+        if other.end < self.start or other.start > self.end:
+            # Not in the same time range
+            return False
+        if other.south > self.north:
+            # Other is fully north of self
+            return False
+        if other.north < self.south:
+            # Other is fully south of self
+            return False
+        # Handle east / west edges
+        return self._test_east_west(other.west) or self._test_east_west(
+            other.east
         )
 
     def nearby(
         self,
         point: SpaceTimeRecord,
         dist: float,
-        t_dist: timedelta,
+        t_dist: datetime.timedelta,
     ) -> bool:
         """
         Check if point is nearby the Rectangle
@@ -178,42 +254,21 @@ class SpaceTimeRectangle:
         ----------
         point : SpaceTimeRecord
         dist : float,
-        t_dist : timedelta
+        t_dist : datetime.timedelta
 
         Returns
         -------
         bool : True if the point is <= dist + max(dist(centre, corners))
         """
         if (
-            point.datetime - t_dist > self.datetime + self.dt / 2
-            or point.datetime + t_dist < self.datetime - self.dt / 2
+            point.datetime - t_dist > self.date + self.dt / 2
+            or point.datetime + t_dist < self.date - self.dt / 2
         ):
             return False
         # QUESTION: Is this sufficient? Possibly it is overkill
-        corner_dist = max(
-            haversine(
-                self.lon,
-                self.lat,
-                self.lon + self.lon_range / 2,
-                self.lat + self.lat_range / 2,
-            ),
-            haversine(
-                self.lon,
-                self.lat,
-                self.lon + self.lon_range / 2,
-                self.lat - self.lat_range / 2,
-            ),
-        )
-        if (self.lat + self.lat_range / 2) * (
-            self.lat - self.lat_range / 2
-        ) < 0:
-            corner_dist = max(
-                corner_dist,
-                haversine(self.lon, self.lat, self.lon + self.lon_range / 2, 0),
-            )
         return (
             haversine(self.lon, self.lat, point.lon, point.lat)
-            <= dist + corner_dist
+            <= dist + self.edge_dist
         )
 
 
@@ -227,7 +282,7 @@ class SpaceTimeEllipse:
         Horizontal centre of the ellipse
     lat : float
         Vertical centre of the ellipse
-    datetime : datetime
+    datetime : datetime.datetime
         Datetime centre of the ellipse.
     a : float
         Length of the semi-major axis
@@ -235,7 +290,7 @@ class SpaceTimeEllipse:
         Length of the semi-minor axis
     theta : float
         Angle of the semi-major axis from horizontal anti-clockwise in radians
-    dt : timedelta
+    dt : datetime.timedelta
         (full) time extent of the ellipse.
     """
 
@@ -243,11 +298,11 @@ class SpaceTimeEllipse:
         self,
         lon: float,
         lat: float,
-        datetime: datetime,
+        datetime: datetime.datetime,
         a: float,
         b: float,
         theta: float,
-        dt: timedelta,
+        dt: datetime.timedelta,
     ) -> None:
         self.a = a
         self.b = b
@@ -276,53 +331,28 @@ class SpaceTimeEllipse:
             (self.bearing - 180) % 360,
             self.c,
         )
+        self.start = self.datetime - self.dt / 2
+        self.end = self.datetime + self.dt / 2
 
     def contains(self, point: SpaceTimeRecord) -> bool:
         """Test if a point is contained within the Ellipse"""
+        if point.datetime > self.end or point.datetime < self.start:
+            return False
         return (
-            (
-                haversine(self.p1_lon, self.p1_lat, point.lon, point.lat)
-                + haversine(self.p2_lon, self.p2_lat, point.lon, point.lat)
-            )
-            <= 2 * self.a
-            and point.datetime <= self.datetime + self.dt / 2
-            and point.datetime >= self.datetime - self.dt / 2
-        )
+            haversine(self.p1_lon, self.p1_lat, point.lon, point.lat)
+            + haversine(self.p2_lon, self.p2_lat, point.lon, point.lat)
+        ) <= 2 * self.a
 
     def nearby_rect(self, rect: SpaceTimeRectangle) -> bool:
         """Test if a rectangle is near to the Ellipse"""
-        if (
-            rect.datetime - rect.dt / 2 > self.datetime + self.dt / 2
-            or rect.datetime + rect.dt / 2 < self.datetime - self.dt / 2
-        ):
+        if rect.start > self.end or rect.end < self.start:
             return False
         # TODO: Check corners, and 0 lat
-        corner_dist = max(
-            haversine(
-                rect.lon,
-                rect.lat,
-                rect.lon + rect.lon_range / 2,
-                rect.lat + rect.lat_range / 2,
-            ),
-            haversine(
-                rect.lon,
-                rect.lat,
-                rect.lon + rect.lon_range / 2,
-                rect.lat - rect.lat_range / 2,
-            ),
-        )
-        if (rect.lat + rect.lat_range / 2) * (
-            rect.lat - rect.lat_range / 2
-        ) < 0:
-            corner_dist = max(
-                corner_dist,
-                haversine(rect.lon, rect.lat, rect.lon + rect.lon_range / 2, 0),
-            )
         return (
             haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
-            <= corner_dist + self.a
+            <= rect.edge_dist + self.a
             and haversine(self.p2_lon, self.p2_lat, rect.lon, rect.lat)
-            <= corner_dist + self.a
+            <= rect.edge_dist + self.a
         )
 
 
@@ -405,7 +435,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon - self.boundary.lon_range / 4,
                 self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.datetime + self.boundary.dt / 4,
+                self.boundary.date + self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -418,7 +448,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon + self.boundary.lon_range / 4,
                 self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.datetime + self.boundary.dt / 4,
+                self.boundary.date + self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -431,7 +461,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon - self.boundary.lon_range / 4,
                 self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.datetime + self.boundary.dt / 4,
+                self.boundary.date + self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -444,7 +474,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon + self.boundary.lon_range / 4,
                 self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.datetime + self.boundary.dt / 4,
+                self.boundary.date + self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -457,7 +487,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon - self.boundary.lon_range / 4,
                 self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.datetime - self.boundary.dt / 4,
+                self.boundary.date - self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -470,7 +500,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon + self.boundary.lon_range / 4,
                 self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.datetime - self.boundary.dt / 4,
+                self.boundary.date - self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -483,7 +513,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon - self.boundary.lon_range / 4,
                 self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.datetime - self.boundary.dt / 4,
+                self.boundary.date - self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -496,7 +526,7 @@ class OctTree:
             SpaceTimeRectangle(
                 self.boundary.lon + self.boundary.lon_range / 4,
                 self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.datetime - self.boundary.dt / 4,
+                self.boundary.date - self.boundary.dt / 4,
                 self.boundary.lon_range / 2,
                 self.boundary.lat_range / 2,
                 self.boundary.dt / 2,
@@ -508,7 +538,7 @@ class OctTree:
         self.divided = True
 
     def _datetime_is_numeric(self) -> bool:
-        return not isinstance(self.boundary.datetime, datetime)
+        return not isinstance(self.boundary.date, datetime)
 
     def insert(self, point: SpaceTimeRecord) -> bool:
         """
@@ -604,7 +634,7 @@ class OctTree:
         self,
         point: SpaceTimeRecord,
         dist: float,
-        t_dist: timedelta,
+        t_dist: datetime.timedelta,
         points: SpaceTimeRecords | None = None,
     ) -> SpaceTimeRecords:
         """
@@ -623,7 +653,7 @@ class OctTree:
             The distance for comparison. Note that Haversine distance is used
             as the distance metric as the query SpaceTimeRecord and OctTree are
             assumed to lie on the surface of Earth.
-        t_dist : timedelta
+        t_dist : datetime.timedelta
             Max time gap between SpaceTimeRecords within the OctTree and the
             query SpaceTimeRecord. Can be numeric if the OctTree boundaries,
             SpaceTimeRecords, and query SpaceTimeRecord have numeric datetime

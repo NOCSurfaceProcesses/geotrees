@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 import datetime
 from .distance_metrics import haversine, destination
-from .utils import LatitudeError
+from .utils import LatitudeError, DateWarning
 from math import degrees, sqrt
+from warnings import warn
 
 
 class SpaceTimeRecord:
@@ -101,75 +102,64 @@ class SpaceTimeRectangle:
 
     Parameters
     ----------
-    lon : float
-        Horizontal centre of the rectangle (longitude).
-    lat : float
-        Vertical centre of the rectangle (latitude).
-    datetime : datetime.datetime
-        Datetime centre of the rectangle.
-    w : float
-        Width of the rectangle (longitude range).
-    h : float
-        Height of the rectangle (latitude range).
-    dt : datetime.timedelta
-        time extent of the rectangle.
+    west : float
+        Western boundary of the Rectangle
+    east : float
+        Eastern boundary of the Rectangle
+    south : float
+        Southern boundary of the Rectangle
+    north : float
+        Northern boundary of the Rectangle
+    start : datetime.datetime
+        Start datetime of the Rectangle
+    end : datetime.datetime
+        End datetime of the Rectangle
     """
 
-    lon: float
-    lat: float
-    date: datetime.datetime
-    lon_range: float
-    lat_range: float
-    dt: datetime.timedelta
+    west: float
+    east: float
+    south: float
+    north: float
+    start: datetime.datetime
+    end: datetime.datetime
 
     def __post_init__(self):
-        if self.lon > 180:
-            self.lon -= 360
-        if self.lat > 90 or self.lat < -90:
+        if self.east > 180 or self.east < -180:
+            self.east = ((self.east + 540) % 360) - 180
+        if self.west > 180 or self.west < -180:
+            self.west = ((self.west + 540) % 360) - 180
+        if self.north > 90 or self.south < -90:
             raise LatitudeError(
-                f"Central latitude value out of range {self.lat}, "
-                + "should be between -90, 90 degrees"
+                "Latitude bounds are out of bounds. "
+                + f"{self.north = }, {self.south = }"
             )
+        if self.end < self.start:
+            warn("End date is before start date. Swapping", DateWarning)
+            self.start, self.end = self.end, self.start
 
     @property
-    def west(self) -> float:
-        """Western boundary of the Rectangle"""
-        return (((self.lon - self.lon_range / 2) + 540) % 360) - 180
+    def lat_range(self) -> float:
+        """Latitude range of the Rectangle"""
+        return self.north - self.south
 
     @property
-    def east(self) -> float:
-        """Eastern boundary of the Rectangle"""
-        return (((self.lon + self.lon_range / 2) + 540) % 360) - 180
+    def lat(self) -> float:
+        """Centre latitude of the Rectangle"""
+        return self.south + self.lat_range / 2
 
     @property
-    def north(self) -> float:
-        """Northern boundary of the Rectangle"""
-        north = self.lat + self.lat_range / 2
-        if north > 90:
-            raise LatitudeError(
-                "Rectangle crosses north pole - Use two Rectangles"
-            )
-        return north
+    def lon_range(self) -> float:
+        """Longitude range of the Rectangle"""
+        if self.east < self.west:
+            return self.east - self.west + 360
+
+        return self.east - self.west
 
     @property
-    def south(self) -> float:
-        """Southern boundary of the Rectangle"""
-        south = self.lat - self.lat_range / 2
-        if south < -90:
-            raise LatitudeError(
-                "Rectangle crosses south pole - Use two Rectangles"
-            )
-        return south
-
-    @property
-    def start(self) -> datetime.datetime:
-        """Start date of the Rectangle"""
-        return self.date - self.dt / 2
-
-    @property
-    def end(self) -> datetime.datetime:
-        """End date of the Rectangle"""
-        return self.date + self.dt / 2
+    def lon(self) -> float:
+        """Centre longitude of the Rectangle"""
+        lon = self.west + self.lon_range / 2
+        return ((lon + 540) % 360) - 180
 
     @property
     def edge_dist(self) -> float:
@@ -184,6 +174,14 @@ class SpaceTimeRectangle:
                 haversine(self.lon, self.lat, self.east, 0),
             )
         return corner_dist
+
+    @property
+    def time_range(self) -> datetime.timedelta:
+        return self.end - self.start
+
+    @property
+    def centre_datetime(self) -> datetime.datetime:
+        return self.start + (self.end - self.start) / 2
 
     def _test_east_west(self, lon: float) -> bool:
         if self.lon_range >= 360:
@@ -267,8 +265,8 @@ class SpaceTimeRectangle:
         bool : True if the point is <= dist + max(dist(centre, corners))
         """
         if (
-            point.datetime - t_dist > self.date + self.dt / 2
-            or point.datetime + t_dist < self.date - self.dt / 2
+            point.datetime - t_dist > self.end
+            or point.datetime + t_dist < self.start
         ):
             return False
         # QUESTION: Is this sufficient? Possibly it is overkill
@@ -288,34 +286,40 @@ class SpaceTimeEllipse:
         Horizontal centre of the ellipse
     lat : float
         Vertical centre of the ellipse
-    datetime : datetime.datetime
-        Datetime centre of the ellipse.
     a : float
         Length of the semi-major axis
     b : float
         Length of the semi-minor axis
     theta : float
         Angle of the semi-major axis from horizontal anti-clockwise in radians
-    dt : datetime.timedelta
-        (full) time extent of the ellipse.
+    start : datetime.datetime
+        Start date of the Ellipse
+    end : datetime.datetime
+        Send date of the Ellipse
     """
 
     def __init__(
         self,
         lon: float,
         lat: float,
-        datetime: datetime.datetime,
         a: float,
         b: float,
         theta: float,
-        dt: datetime.timedelta,
+        start: datetime.datetime,
+        end: datetime.datetime,
     ) -> None:
         self.a = a
         self.b = b
         self.lon = lon
+        if self.lon > 180:
+            self.lon = ((self.lon + 540) % 360) - 180
         self.lat = lat
-        self.datetime = datetime
-        self.dt = dt
+        self.start = start
+        self.end = end
+
+        if self.end < self.start:
+            warn("End date is before start date. Swapping")
+            self.start, self.end = self.end, self.start
         # theta is anti-clockwise angle from horizontal in radians
         self.theta = theta
         # bearing is angle clockwise from north in degrees
@@ -337,8 +341,6 @@ class SpaceTimeEllipse:
             (self.bearing - 180) % 360,
             self.c,
         )
-        self.start = self.datetime - self.dt / 2
-        self.end = self.datetime + self.dt / 2
 
     def contains(self, point: SpaceTimeRecord) -> bool:
         """Test if a point is contained within the Ellipse"""
@@ -439,12 +441,12 @@ class OctTree:
         """Divide the QuadTree"""
         self.northwestfwd = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.date + self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.lat,
+                self.boundary.north,
+                self.boundary.centre_datetime,
+                self.boundary.end,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -452,12 +454,12 @@ class OctTree:
         )
         self.northeastfwd = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.date + self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.lat,
+                self.boundary.north,
+                self.boundary.centre_datetime,
+                self.boundary.end,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -465,12 +467,12 @@ class OctTree:
         )
         self.southwestfwd = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.date + self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.south,
+                self.boundary.lat,
+                self.boundary.centre_datetime,
+                self.boundary.end,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -478,12 +480,12 @@ class OctTree:
         )
         self.southeastfwd = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.date + self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.south,
+                self.boundary.lat,
+                self.boundary.centre_datetime,
+                self.boundary.end,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -491,12 +493,12 @@ class OctTree:
         )
         self.northwestback = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.date - self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.lat,
+                self.boundary.north,
+                self.boundary.start,
+                self.boundary.centre_datetime,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -504,12 +506,12 @@ class OctTree:
         )
         self.northeastback = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat + self.boundary.lat_range / 4,
-                self.boundary.date - self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.lat,
+                self.boundary.north,
+                self.boundary.start,
+                self.boundary.centre_datetime,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -517,12 +519,12 @@ class OctTree:
         )
         self.southwestback = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon - self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.date - self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.west,
+                self.boundary.lon,
+                self.boundary.south,
+                self.boundary.lat,
+                self.boundary.start,
+                self.boundary.centre_datetime,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
@@ -530,21 +532,18 @@ class OctTree:
         )
         self.southeastback = OctTree(
             SpaceTimeRectangle(
-                self.boundary.lon + self.boundary.lon_range / 4,
-                self.boundary.lat - self.boundary.lat_range / 4,
-                self.boundary.date - self.boundary.dt / 4,
-                self.boundary.lon_range / 2,
-                self.boundary.lat_range / 2,
-                self.boundary.dt / 2,
+                self.boundary.lon,
+                self.boundary.east,
+                self.boundary.south,
+                self.boundary.lat,
+                self.boundary.start,
+                self.boundary.centre_datetime,
             ),
             capacity=self.capacity,
             depth=self.depth + 1,
             max_depth=self.max_depth,
         )
         self.divided = True
-
-    def _datetime_is_numeric(self) -> bool:
-        return not isinstance(self.boundary.date, datetime)
 
     def insert(self, point: SpaceTimeRecord) -> bool:
         """

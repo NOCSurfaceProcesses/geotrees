@@ -9,13 +9,16 @@ from GeoSpatialTools.octtree import (
     SpaceTimeRectangle as Rectangle,
     SpaceTimeEllipse as Ellipse,
 )
+from GeoSpatialTools.utils import DateWarning
 
 
 class TestRect(unittest.TestCase):
     def test_contains(self):
         d = datetime(2009, 1, 1, 0, 0)
-        dt = timedelta(days=14)
-        rect = Rectangle(10, 5, d, 20, 10, dt)
+        dt = timedelta(days=7)
+        start = d - dt
+        end = d + dt
+        rect = Rectangle(0, 20, 0, 10, start, end)
         points: list[Record] = [
             Record(10, 5, d),
             Record(20, 10, d + timedelta(hours=4)),
@@ -30,15 +33,34 @@ class TestRect(unittest.TestCase):
 
     def test_intersection(self):
         d = datetime(2009, 1, 1, 0, 0)
-        dt = timedelta(days=14)
-        rect = Rectangle(10, 5, d, 20, 10, dt)
+        dt = timedelta(days=7)
+        start = d - dt
+        end = d + dt
+        rect = Rectangle(0, 20, 0, 10, start, end)
+
         test_rects: list[Rectangle] = [
-            Rectangle(10, 5, d + timedelta(days=2), 18, 8, dt),
-            Rectangle(25, 5, d, 9, 12, timedelta(hours=7)),
             Rectangle(
-                15, 8, d - timedelta(hours=18), 12, 7, timedelta(hours=4)
+                1, 19, 1, 9, d - timedelta(days=1), d + timedelta(days=1)
             ),
-            Rectangle(15, 8, d + timedelta(days=25), 12, 7, dt),
+            Rectangle(
+                20.5,
+                29.5,
+                -1,
+                11,
+                d - timedelta(hours=7),
+                d + timedelta(hours=7),
+            ),
+            Rectangle(
+                9,
+                21,
+                4.5,
+                11.5,
+                d - timedelta(hours=20),
+                d - timedelta(hours=16),
+            ),
+            Rectangle(
+                9, 21, 4.5, 11.5, d + timedelta(days=25), d + timedelta(days=27)
+            ),
         ]
         expected = [True, False, True, False]
         res = list(map(rect.intersects, test_rects))
@@ -46,10 +68,14 @@ class TestRect(unittest.TestCase):
 
     def test_wrap(self):
         d = datetime(2009, 1, 1, 0, 0)
-        dt = timedelta(days=14)
-        rect = Rectangle(170, 45, d, 180, 20, dt)
-        assert rect.east < 0
-        assert rect.west > 0
+        dt = timedelta(days=7)
+        start = d - dt
+        end = d + dt
+        rect = Rectangle(80, -100, 35, 55, start, end)
+
+        assert rect.lon == 170
+        assert rect.lat == 45
+
         test_points: list[Record] = [
             Record(-140, 40, d),
             Record(0, 50, d),
@@ -61,23 +87,49 @@ class TestRect(unittest.TestCase):
         assert res == expected
 
         test_rect = Rectangle(
-            -100, 40, d + timedelta(days=3), 80, 40, timedelta(days=2)
+            -140,
+            60,
+            20,
+            60,
+            d + timedelta(days=2),
+            d + timedelta(days=4),
         )
         assert test_rect.east < rect.west
         assert rect.intersects(test_rect)
 
         # TEST: spatially match, time fail
         test_rect = Rectangle(
-            -100, 40, d + timedelta(days=13), 80, 40, timedelta(days=2)
+            -140,
+            60,
+            20,
+            60,
+            d + timedelta(days=12),
+            d + timedelta(days=14),
         )
         assert not rect.intersects(test_rect)
 
+    def test_swap_date(self):
+        d = datetime(2009, 1, 1, 0, 0)
+        dt = timedelta(days=7)
+        start = d - dt
+        end = d + dt
+        with self.assertWarns(DateWarning):
+            rect = Rectangle(80, -100, 35, 55, end, start)
+
+        assert rect.start == start
+        assert rect.end == end
+
     def test_inside(self):
         # TEST: rectangle fully inside another
-        d = datetime(1978, 5, 17, 2, 33)
-        dt = timedelta(days=4, hours=7)
-        outer = Rectangle(-10, 10, d, -10, 10, dt)
-        inner = Rectangle(-5, 5, d, -5, 5, timedelta(days=1, hours=3))
+        d = datetime(2009, 1, 1, 0, 0)
+        dt = timedelta(days=7)
+        start = d - dt
+        end = d + dt
+
+        outer = Rectangle(-10, 10, -10, 10, start, end)
+        inner = Rectangle(
+            -5, 5, -5, 5, start + timedelta(days=1), end - timedelta(days=1)
+        )
 
         assert outer.intersects(inner)
         assert inner.intersects(outer)
@@ -87,22 +139,31 @@ class TestOctTree(unittest.TestCase):
     def test_divides(self):
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=1)
+        start = d - dt / 2
+        end = d + dt / 2
 
+        # TEST: Could construct start and ends for OctTree children using
+        #       the start and end of the boundary, but I want to verify that
+        #       the values are what I expect
         d1 = datetime(2023, 3, 24, 6, 0)
         d2 = datetime(2023, 3, 24, 18, 0)
         dt2 = timedelta(hours=12)
+        start1 = d1 - dt2 / 2
+        end1 = d1 + dt2 / 2
+        start2 = d2 - dt2 / 2
+        end2 = d2 + dt2 / 2
 
-        boundary = Rectangle(10, 4, d, 20, 8, dt)
+        boundary = Rectangle(0, 20, 0, 8, start, end)
         otree = OctTree(boundary)
         expected: list[Rectangle] = [
-            Rectangle(5, 6, d1, 10, 4, dt2),
-            Rectangle(15, 6, d1, 10, 4, dt2),
-            Rectangle(5, 2, d1, 10, 4, dt2),
-            Rectangle(15, 2, d1, 10, 4, dt2),
-            Rectangle(5, 6, d2, 10, 4, dt2),
-            Rectangle(15, 6, d2, 10, 4, dt2),
-            Rectangle(5, 2, d2, 10, 4, dt2),
-            Rectangle(15, 2, d2, 10, 4, dt2),
+            Rectangle(0, 10, 4, 8, start1, end1),
+            Rectangle(10, 20, 4, 8, start1, end1),
+            Rectangle(0, 10, 0, 4, start1, end1),
+            Rectangle(10, 20, 0, 4, start1, end1),
+            Rectangle(0, 10, 4, 8, start2, end2),
+            Rectangle(10, 20, 4, 8, start2, end2),
+            Rectangle(0, 10, 0, 4, start2, end2),
+            Rectangle(10, 20, 0, 4, start2, end2),
         ]
         otree.divide()
         res = [
@@ -120,7 +181,10 @@ class TestOctTree(unittest.TestCase):
     def test_insert(self):
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)
-        boundary = Rectangle(10, 4, d, 20, 8, dt)
+        start = d - dt
+        end = d + dt
+
+        boundary = Rectangle(0, 20, 0, 8, start, end)
         otree = OctTree(boundary, capacity=3)
         points: list[Record] = [
             Record(10, 4, d, "main"),
@@ -162,7 +226,9 @@ class TestOctTree(unittest.TestCase):
     def test_query(self):
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)
-        boundary = Rectangle(10, 4, d, 20, 8, dt)
+        start = d - dt
+        end = d + dt
+        boundary = Rectangle(0, 20, 0, 8, start, end)
         otree = OctTree(boundary, capacity=3)
         points: list[Record] = [
             Record(10, 4, d, "main"),
@@ -189,12 +255,12 @@ class TestOctTree(unittest.TestCase):
         N = 100
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)
-        boundary = Rectangle(0, 0, d, 360, 180, dt)
+        start = d - dt
+        end = d + dt
+        boundary = Rectangle(-180, 180, -90, 90, start, end)
         ot = OctTree(boundary, capacity=3)
 
-        quert_rect = Rectangle(
-            170, 45, d + timedelta(days=4), 60, 10, timedelta(days=8)
-        )
+        quert_rect = Rectangle(140, -160, 40, 50, d, d + timedelta(days=8))
         points_want: list[Record] = [
             Record(175, 43, d + timedelta(days=2)),
             Record(-172, 49, d + timedelta(days=4)),
@@ -222,11 +288,20 @@ class TestOctTree(unittest.TestCase):
 
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)
+        start = d - dt
+        end = d + dt
 
         test_datetime = d + timedelta(hours=4)
         test_timedelta = timedelta(hours=5)
+
         ellipse = Ellipse(
-            12.5, 2.5, test_datetime, d1, d2, theta, test_timedelta
+            12.5,
+            2.5,
+            d1,
+            d2,
+            theta,
+            test_datetime - test_timedelta / 2,
+            test_datetime + test_timedelta / 2,
         )
         # TEST: distint locii
         assert (ellipse.p1_lon, ellipse.p1_lat) != (
@@ -244,7 +319,7 @@ class TestOctTree(unittest.TestCase):
         assert not ellipse.contains(Record(12.5, 3.01, test_datetime))
         assert not ellipse.contains(Record(12.5, 1.99, test_datetime))
 
-        boundary = Rectangle(10, 4, d, 20, 8, dt)
+        boundary = Rectangle(0, 20, 0, 8, start, end)
 
         otree = OctTree(boundary, capacity=3)
         points: list[Record] = [

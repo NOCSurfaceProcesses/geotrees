@@ -10,7 +10,7 @@ to usage of type annotations.
 As a dependency with `pip`
 
 ```bash
-pip install git+git@git.noc.ac.uk:nocsurfaceprocesses/geospatialtools.git
+pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
 ```
 
 ## Neighbours

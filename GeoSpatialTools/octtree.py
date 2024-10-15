@@ -201,8 +201,6 @@ class SpaceTimeRectangle:
     def contains(self, point: SpaceTimeRecord) -> bool:
         """Test if a point is contained within the SpaceTimeRectangle"""
         if point.datetime > self.end or point.datetime < self.start:
-            print("DATETIME FAILS")
-            print(point.datetime)
             return False
         return self._test_north_south(point.lat) and self._test_east_west(
             point.lon

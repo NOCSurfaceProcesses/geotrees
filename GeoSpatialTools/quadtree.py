@@ -192,8 +192,14 @@ class Rectangle:
             # Other is fully south of self
             return False
         # Handle east / west edges
-        return self._test_east_west(other.west) or self._test_east_west(
-            other.east
+        return (
+            self._test_east_west(other.west)
+            or self._test_east_west(other.east)
+            # Fully contained within other
+            or (
+                other._test_east_west(self.west)
+                and other._test_east_west(self.east)
+            )
         )
 
     def nearby(

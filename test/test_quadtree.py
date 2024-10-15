@@ -47,6 +47,14 @@ class TestRect(unittest.TestCase):
         assert test_rect.east < rect.west
         assert rect.intersects(test_rect)
 
+    def test_inside(self):
+        # TEST: rectangle fully inside another
+        outer = Rectangle(-10, 10, -10, 10)
+        inner = Rectangle(-5, 5, -5, 5)
+
+        assert outer.intersects(inner)
+        assert inner.intersects(outer)
+
 
 class TestQuadTree(unittest.TestCase):
     def test_divides(self):

@@ -72,6 +72,16 @@ class TestRect(unittest.TestCase):
         )
         assert not rect.intersects(test_rect)
 
+    def test_inside(self):
+        # TEST: rectangle fully inside another
+        d = datetime(1978, 5, 17, 2, 33)
+        dt = timedelta(days=4, hours=7)
+        outer = Rectangle(-10, 10, d, -10, 10, dt)
+        inner = Rectangle(-5, 5, d, -5, 5, timedelta(days=1, hours=3))
+
+        assert outer.intersects(inner)
+        assert inner.intersects(outer)
+
 
 class TestOctTree(unittest.TestCase):
     def test_divides(self):

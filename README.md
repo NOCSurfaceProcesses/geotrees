@@ -101,14 +101,21 @@ QuadTree(
     max_depth: int,
     depth: int = 0  # Internal parameter
 )
+```
 
+The boundary is defined by a `Rectangle` class, which is defined by the bounding box.
+
+```python
 Rectangle(
-    lon: float,  # Centre longitude
-    lat: float,  # Centre latitude
-    lon_range: float,  # Full width of rectangle (degrees)
-    lat_range: float,  # Full height of rectangle (degrees)
+    west: float,   # Western edge
+    east: float,   # Eastern edge
+    south: float,  # Southern edge
+    north: float,  # Northern edge
 )
 ```
+
+The `Rectangle` class will raise an error if the northern or southern boundary go beyond the north
+or south pole.
 
 ```python
 from GeoSpatialTools import QuadTree, Record, Rectangle
@@ -119,7 +126,7 @@ lat_range = list(range(-90, 90))
 N_samples = 1000
 
 # Construct Tree
-boundary = Rectangle(0, 0, 360, 180)  # Full domain
+boundary = Rectangle(-180, 180, -90, 90)  # Full domain
 qt = QuadTree(boundary)
 
 records: list[Record] = [Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)]
@@ -134,7 +141,10 @@ neighbours: list[Record] = qt.nearby_points(test_value, dist)
 
 #### OctTree - 3d QuadTree
 
-Adds `SpaceTimeRecord`, `SpaceTimeRectangle` and `OctTree` classes.
+Adds `SpaceTimeRecord`, `SpaceTimeRectangle` and `OctTree` classes. This allows for querying in a
+third dimension, specifically this adds a time dimension. Typically the time dimension is assumed
+to be of `datetime.datetime` type, however this is expected to work with numeric values, for example
+pentad, day of year. However, this non-datetime behaviour is not intended.
 
 ```python
 SpaceTimeRecord(
@@ -144,14 +154,19 @@ SpaceTimeRecord(
     uid: str | None,
     **data
 )
+```
 
+As with the `Rectangle` class for the `QuadTree`, the `SpaceTimeRectangle` defines the boundary of
+an `OctTree` class, and is defined by the space-time bounding box.
+
+```python
 SpaceTimeRectangle(
-    lon: float,          # Centre longitude
-    lat: float,          # Centre latitude
-    datetime: datetime,  # Central datetime
-    w: float,            # Full width of rectangle (degrees)
-    h: float,            # Full height of rectangle (degrees)
-    dt: timedelta,       # Time extent of rectangle
+    west: float,               # Western edge
+    east: float,               # Eastern edge
+    south: float,              # Southern edge
+    north: float,              # Northern edge
+    start: datetime.datetime,  # Start datetime
+    end: datetime.datetime,    # End datetime
 )
 ```
 
@@ -175,7 +190,7 @@ dates = date_range(
 N_samples = 1000
 
 # Construct Tree
-boundary = SpaceTimeRectangle(0, 0, datetime(2009, 1, 15, 12), 360, 180, timedelta(days=31))  # Full domain
+boundary = SpaceTimeRectangle(-180, 180, -90, 90, datetime(2009, 1, 1, 0), datetime(2009, 1, 2, 23))  # Full domain
 ot = OctTree(boundary)
 
 records: list[SpaceTimeRecord] = [

@@ -240,6 +240,8 @@ class Ellipse:
         self.a = a
         self.b = b
         self.lon = lon
+        if self.lon > 180:
+            self.lon = ((self.lon + 540) % 360) - 180
         self.lat = lat
         # theta is anti-clockwise angle from horizontal in radians
         self.theta = theta

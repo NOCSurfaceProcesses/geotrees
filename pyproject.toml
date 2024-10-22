@@ -45,6 +45,11 @@ notebooks = [
 test = [
     "pytest",
 ]
+all = [
+    "ipykernel",
+    "polars",
+    "pytest",
+]
 
 [tool.ruff]
 line-length = 80

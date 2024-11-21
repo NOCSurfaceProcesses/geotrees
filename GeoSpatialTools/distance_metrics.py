@@ -4,6 +4,7 @@ navigational information to DataFrames.
 """
 
 from math import acos, asin, atan2, cos, sin, degrees, radians, sqrt
+from typing import Tuple
 
 
 def gcd_slc(
@@ -124,7 +125,7 @@ def bearing(
 
 def destination(
     lon: float, lat: float, bearing: float, distance: float
-) -> tuple[float, float]:
+) -> Tuple[float, float]:
     """
     Compute destination of a great circle path.
 
@@ -173,7 +174,7 @@ def midpoint(
     lat0: float,
     lon1: float,
     lat1: float,
-) -> tuple[float, float]:
+) -> Tuple[float, float]:
     """
     Compute the midpoint of a great circle track
 

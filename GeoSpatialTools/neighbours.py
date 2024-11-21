@@ -2,7 +2,7 @@
 
 from numpy import argmin
 from bisect import bisect
-from typing import TypeVar
+from typing import List, TypeVar, Union
 from datetime import date, datetime
 from warnings import warn
 
@@ -22,7 +22,7 @@ class SortedError(Exception):
     pass
 
 
-def _find_nearest(vals: list[Numeric], test: Numeric) -> int:
+def _find_nearest(vals: List[Numeric], test: Numeric) -> int:
     i = bisect(vals, test)  # Position that test would be inserted
 
     # Handle edges
@@ -36,10 +36,10 @@ def _find_nearest(vals: list[Numeric], test: Numeric) -> int:
 
 
 def find_nearest(
-    vals: list[Numeric],
-    test: list[Numeric] | Numeric,
+    vals: List[Numeric],
+    test: Union[List[Numeric], Numeric],
     check_sorted: bool = True,
-) -> list[int] | int:
+) -> Union[List[int], int]:
     """
     Find the nearest value in a list of values for each test value.
 

@@ -2,8 +2,7 @@
 
 Python module containing useful functions and classes for Spatial Analysis.
 
-Tested on Python versions 3.11, 3.12, and 3.13. Not expected to work with Python 3.9 or below due
-to usage of type annotations.
+Tested on Python versions 3.9 to 3.13.
 
 ## Installation
 

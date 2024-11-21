@@ -16,7 +16,7 @@ version = "0.6.0"
 dependencies = [
     "numpy",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 authors = [
     {name = "Joseph Siddons", email = "josidd@noc.ac.uk"},
     {name = "Richard Cornes", email = "rcornes@noc.ac.uk"},

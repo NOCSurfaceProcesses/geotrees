@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List, Optional
 import datetime
 from .distance_metrics import haversine, destination
 from .utils import LatitudeError, DateWarning
@@ -45,7 +46,7 @@ class SpaceTimeRecord:
         lon: float,
         lat: float,
         datetime: datetime.datetime,
-        uid: str | None = None,
+        uid: Optional[str] = None,
         fix_lon: bool = True,
         **data,
     ) -> None:
@@ -80,7 +81,7 @@ class SpaceTimeRecord:
         )
 
 
-class SpaceTimeRecords(list[SpaceTimeRecord]):
+class SpaceTimeRecords(List[SpaceTimeRecord]):
     """List of SpaceTimeRecords"""
 
 
@@ -402,7 +403,7 @@ class OctTree:
         boundary: SpaceTimeRectangle,
         capacity: int = 5,
         depth: int = 0,
-        max_depth: int | None = None,
+        max_depth: Optional[int] = None,
     ) -> None:
         self.boundary = boundary
         self.capacity = capacity
@@ -584,7 +585,7 @@ class OctTree:
     def query(
         self,
         rect: SpaceTimeRectangle,
-        points: SpaceTimeRecords | None = None,
+        points: Optional[SpaceTimeRecords] = None,
     ) -> SpaceTimeRecords:
         """Get points that fall in a SpaceTimeRectangle"""
         if not points:
@@ -611,7 +612,7 @@ class OctTree:
     def query_ellipse(
         self,
         ellipse: SpaceTimeEllipse,
-        points: SpaceTimeRecords | None = None,
+        points: Optional[SpaceTimeRecords] = None,
     ) -> SpaceTimeRecords:
         """Get points that fall in an ellipse."""
         if not points:
@@ -640,7 +641,7 @@ class OctTree:
         point: SpaceTimeRecord,
         dist: float,
         t_dist: datetime.timedelta,
-        points: SpaceTimeRecords | None = None,
+        points: Optional[SpaceTimeRecords] = None,
     ) -> SpaceTimeRecords:
         """
         Get all points that are nearby another point.

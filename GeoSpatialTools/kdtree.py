@@ -5,6 +5,7 @@ Useful tool for quickly searching for nearest neighbours.
 
 from . import Record
 from numpy import inf
+from typing import List, Optional, Tuple
 
 
 class KDTree:
@@ -33,7 +34,7 @@ class KDTree:
     """
 
     def __init__(
-        self, points: list[Record], depth: int = 0, max_depth: int = 20
+        self, points: List[Record], depth: int = 0, max_depth: int = 20
     ) -> None:
         self.depth = depth
         n_points = len(points)
@@ -110,7 +111,7 @@ class KDTree:
                 return True
         return False
 
-    def query(self, point) -> tuple[list[Record], float]:
+    def query(self, point) -> Tuple[List[Record], float]:
         """Find the nearest Record within the KDTree to a query Record"""
         if point.lon < 0:
             point2 = Record(point.lon + 360, point.lat, fix_lon=False)
@@ -127,9 +128,9 @@ class KDTree:
     def _query(
         self,
         point: Record,
-        current_best: list[Record] | None = None,
+        current_best: Optional[List[Record]] = None,
         best_distance: float = inf,
-    ) -> tuple[list[Record], float]:
+    ) -> Tuple[List[Record], float]:
         if current_best is None:
             current_best = list()
         if not self.split:

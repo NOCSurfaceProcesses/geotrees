@@ -4,6 +4,7 @@ for detecting nearby records for example
 """
 
 from dataclasses import dataclass
+from typing import List, Optional
 from datetime import datetime
 from .distance_metrics import haversine, destination
 from .utils import LatitudeError
@@ -41,8 +42,8 @@ class Record:
         self,
         lon: float,
         lat: float,
-        datetime: datetime | None = None,
-        uid: str | None = None,
+        datetime: Optional[datetime] = None,
+        uid: Optional[str] = None,
         fix_lon: bool = True,
         **data,
     ) -> None:
@@ -305,13 +306,13 @@ class QuadTree:
         boundary: Rectangle,
         capacity: int = 5,
         depth: int = 0,
-        max_depth: int | None = None,
+        max_depth: Optional[int] = None,
     ) -> None:
         self.boundary = boundary
         self.capacity = capacity
         self.depth = depth
         self.max_depth = max_depth
-        self.points: list[Record] = list()
+        self.points: List[Record] = list()
         self.divided: bool = False
         return None
 
@@ -406,8 +407,8 @@ class QuadTree:
     def query(
         self,
         rect: Rectangle,
-        points: list[Record] | None = None,
-    ) -> list[Record]:
+        points: Optional[List[Record]] = None,
+    ) -> List[Record]:
         """Get points that fall in a rectangle"""
         if not points:
             points = list()
@@ -429,8 +430,8 @@ class QuadTree:
     def query_ellipse(
         self,
         ellipse: Ellipse,
-        points: list[Record] | None = None,
-    ) -> list[Record]:
+        points: Optional[List[Record]] = None,
+    ) -> List[Record]:
         """Get points that fall in an ellipse."""
         if not points:
             points = list()
@@ -453,8 +454,8 @@ class QuadTree:
         self,
         point: Record,
         dist: float,
-        points: list[Record] | None = None,
-    ) -> list[Record]:
+        points: Optional[List[Record]] = None,
+    ) -> List[Record]:
         """Get all points that are nearby another point"""
         if not points:
             points = list()

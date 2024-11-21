@@ -12,11 +12,11 @@ packages = ["GeoSpatialTools"]
 
 [project]
 name = "GeoSpatialTools"
-version = "0.6.0"
+version = "0.7.0"
 dependencies = [
     "numpy",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 authors = [
     {name = "Joseph Siddons", email = "josidd@noc.ac.uk"},
     {name = "Richard Cornes", email = "rcornes@noc.ac.uk"},
@@ -43,6 +43,11 @@ notebooks = [
     "polars"
 ]
 test = [
+    "pytest",
+]
+all = [
+    "ipykernel",
+    "polars",
     "pytest",
 ]
 

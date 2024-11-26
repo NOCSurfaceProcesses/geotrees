@@ -101,4 +101,4 @@ scipy = "sp"
 xarray = "xr"
 
 [project.urls]
-Repository = "https://git.noc.ac.uk/josidd/geospatialtools"
+Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"

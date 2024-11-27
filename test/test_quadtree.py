@@ -103,6 +103,29 @@ class TestQuadTree(unittest.TestCase):
         ]
         assert res == expected
 
+    def test_remove(self):
+        boundary = Rectangle(0, 20, 0, 8)
+        qtree = QuadTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 5),
+            Record(19, 1),
+            Record(0, 0),
+            Record(-2, -9.2),
+            Record(12.8, 2.1),
+        ]
+        to_remove = points[2]
+        for point in points:
+            qtree.insert(point)
+        q_res = qtree.nearby_points(to_remove, dist=0.1)
+
+        # TEST: get the point
+        assert len(q_res) == 1
+
+        # TEST: Point is removed
+        assert qtree.remove(to_remove)
+        q_res = qtree.nearby_points(to_remove, dist=0.1)
+        assert len(q_res) == 0
+
     def test_query(self):
         boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)

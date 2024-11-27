@@ -591,6 +591,41 @@ class OctTree:
                 return True
             return False
 
+    def remove(self, point: SpaceTimeRecord) -> bool:
+        """
+        Remove a SpaceTimeRecord from the OctTree if it is in the OctTree.
+
+        Returns True if the SpaceTimeRecord is removed.
+        """
+        if not self.boundary.contains(point):
+            return False
+
+        if point in self.points:
+            self.points.remove(point)
+            return True
+
+        if not self.divided:
+            return False
+
+        if self.northwestback.remove(point):
+            return True
+        elif self.northeastback.remove(point):
+            return True
+        elif self.southwestback.remove(point):
+            return True
+        elif self.southeastback.remove(point):
+            return True
+        elif self.northwestfwd.remove(point):
+            return True
+        elif self.northeastfwd.remove(point):
+            return True
+        elif self.southwestfwd.remove(point):
+            return True
+        elif self.southeastfwd.remove(point):
+            return True
+
+        return False
+
     def query(
         self,
         rect: SpaceTimeRectangle,

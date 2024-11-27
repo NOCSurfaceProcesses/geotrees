@@ -223,6 +223,41 @@ class TestOctTree(unittest.TestCase):
         ]
         assert res == expected
 
+    def test_remove(self):
+        d = datetime(2023, 3, 24, 12, 0)
+        dt = timedelta(days=10)
+        start = d - dt
+        end = d + dt
+
+        boundary = Rectangle(0, 20, 0, 8, start, end)
+        otree = OctTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 4, d, "main"),
+            Record(12, 1, d + timedelta(hours=3), "main2"),
+            Record(3, 7, d - timedelta(days=3), "main3"),
+            Record(13, 2, d + timedelta(hours=17), "southeastfwd"),
+            Record(3, 6, d - timedelta(days=1), "northwestback"),
+            Record(10, 4, d, "northwestback"),
+            Record(18, 2, d + timedelta(days=23), "not added"),
+            Record(11, 7, d + timedelta(hours=2), "northeastfwd"),
+        ]
+        to_remove = points[4]
+        for point in points:
+            otree.insert(point)
+
+        # TEST: query works before remove
+        q_res = otree.nearby_points(
+            to_remove, dist=0.1, t_dist=timedelta(minutes=5)
+        )
+        assert len(q_res) == 1
+
+        # TEST: point is removed and query fails
+        assert otree.remove(to_remove)
+        q_res = otree.nearby_points(
+            to_remove, dist=0.1, t_dist=timedelta(minutes=5)
+        )
+        assert len(q_res) == 0
+
     def test_query(self):
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)

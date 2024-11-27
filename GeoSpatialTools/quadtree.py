@@ -404,6 +404,33 @@ class QuadTree:
                 return True
             return False
 
+    def remove(self, point: Record) -> bool:
+        """
+        Remove a Record from the QuadTree if it is in the QuadTree.
+
+        Returns True if the Record is removed.
+        """
+        if not self.boundary.contains(point):
+            return False
+
+        if point in self.points:
+            self.points.remove(point)
+            return True
+
+        if not self.divided:
+            return False
+
+        if self.northwest.remove(point):
+            return True
+        elif self.northeast.remove(point):
+            return True
+        elif self.southwest.remove(point):
+            return True
+        elif self.southeast.remove(point):
+            return True
+
+        return False
+
     def query(
         self,
         rect: Rectangle,

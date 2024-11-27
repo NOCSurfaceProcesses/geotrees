@@ -80,6 +80,15 @@ class SpaceTimeRecord:
             and (not (self.uid or other.uid) or self.uid == other.uid)
         )
 
+    def distance(self, other: object) -> float:
+        """
+        Compute the Haversine distance to another SpaceTimeRecord.
+        Only computes spatial distance.
+        """
+        if not isinstance(other, SpaceTimeRecord):
+            raise TypeError("Argument other must be an instance of Record")
+        return haversine(self.lon, self.lat, other.lon, other.lat)
+
 
 class SpaceTimeRecords(List[SpaceTimeRecord]):
     """List of SpaceTimeRecords"""

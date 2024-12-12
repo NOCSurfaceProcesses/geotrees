@@ -45,10 +45,18 @@ notebooks = [
 test = [
     "pytest",
 ]
+docs = [
+    "sphinx>=7.4.7",
+    "sphinx-autodoc-typehints>=2.3.0",
+    "sphinx-rtd-theme>=3.0.2",
+]
 all = [
     "ipykernel",
     "polars",
     "pytest",
+    "sphinx>=7.4.7",
+    "sphinx-autodoc-typehints>=2.3.0",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.ruff]

@@ -1,4 +1,8 @@
-"""Functions for finding nearest neighbours using bisection."""
+"""
+Neighbours
+----------
+Functions for finding nearest neighbours using bisection.
+"""
 
 from numpy import argmin
 from bisect import bisect

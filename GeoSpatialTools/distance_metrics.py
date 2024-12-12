@@ -1,4 +1,6 @@
 """
+Distance Metrics
+----------------
 Functions for computing navigational information. Can be used to add
 navigational information to DataFrames.
 """

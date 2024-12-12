@@ -1,4 +1,9 @@
-"""Class for a Great Circle object."""
+"""
+GreatCircle
+-----------
+Constructors and methods for interacting with GreatCircle objects, including
+comparisons between GreatCircle objects.
+"""
 
 import numpy as np
 

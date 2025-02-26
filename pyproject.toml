@@ -78,7 +78,8 @@ extend-select = [
 ignore = [
   "D205", # blank-line-after-summary
   "D400", # ends-in-period
-  "D401" # non-imperative-mood
+  "D401", # non-imperative-mood
+  "D105" # missing docstring in magic method
 ]
 preview = true
 select = [

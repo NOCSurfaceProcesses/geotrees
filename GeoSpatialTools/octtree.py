@@ -75,7 +75,10 @@ class SpaceTimeRecord:
         return None
 
     def __str__(self) -> str:
-        return f"SpaceTimeRecord(x = {self.lon}, y = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
+        return (
+            f"SpaceTimeRecord(x = {self.lon}, y = {self.lat}, "
+            + f"datetime = {self.datetime}, uid = {self.uid})"
+        )
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, SpaceTimeRecord):
@@ -196,10 +199,12 @@ class SpaceTimeRectangle:
 
     @property
     def time_range(self) -> datetime.timedelta:
+        """The time extent of the Rectangle"""
         return self.end - self.start
 
     @property
     def centre_datetime(self) -> datetime.datetime:
+        """The midpoint time of the Rectangle"""
         return self.start + (self.end - self.start) / 2
 
     def _test_east_west(self, lon: float) -> bool:
@@ -564,7 +569,7 @@ class OctTree:
         )
         self.divided = True
 
-    def insert(self, point: SpaceTimeRecord) -> bool:
+    def insert(self, point: SpaceTimeRecord) -> bool:  # noqa: C901
         """
         Insert a SpaceTimeRecord into the QuadTree.
 
@@ -600,7 +605,7 @@ class OctTree:
                 return True
             return False
 
-    def remove(self, point: SpaceTimeRecord) -> bool:
+    def remove(self, point: SpaceTimeRecord) -> bool:  # noqa: C901
         """
         Remove a SpaceTimeRecord from the OctTree if it is in the OctTree.
 

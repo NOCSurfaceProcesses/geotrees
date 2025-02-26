@@ -67,7 +67,10 @@ class Record:
         return None
 
     def __str__(self) -> str:
-        return f"Record(lon = {self.lon}, lat = {self.lat}, datetime = {self.datetime}, uid = {self.uid})"
+        return (
+            f"Record(lon = {self.lon}, lat = {self.lat}, "
+            + f"datetime = {self.datetime}, uid = {self.uid})"
+        )
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Record):

@@ -1,9 +1,9 @@
 [build-system]
 requires = [
-    "setuptools>=42",
-    "wheel",
-    "setuptools_scm[toml]>=3.4",
-    "setuptools_scm_git_archive"
+  "setuptools>=42",
+  "wheel",
+  "setuptools_scm[toml]>=3.4",
+  "setuptools_scm_git_archive",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -13,90 +13,73 @@ packages = ["GeoSpatialTools"]
 [project]
 name = "GeoSpatialTools"
 version = "0.11.0"
-dependencies = [
-    "numpy",
-]
+dependencies = ["numpy"]
 requires-python = ">=3.9"
 authors = [
-    {name = "Joseph Siddons", email = "josidd@noc.ac.uk"},
-    {name = "Richard Cornes", email = "rcornes@noc.ac.uk"},
+  { name = "Joseph Siddons", email = "josidd@noc.ac.uk" },
+  { name = "Richard Cornes", email = "rcornes@noc.ac.uk" },
 ]
-maintainers = [
-    {name = "Joseph Siddons", email = "josidd@noc.ac.uk"},
-]
+maintainers = [{ name = "Joseph Siddons", email = "josidd@noc.ac.uk" }]
 description = "Tools for processing geo spatial data."
 readme = "README.md"
-license = {file = "LICENSE"}
-keywords = [
-    "spatial", "geospatial", "quadtree", "octtree", "nearest neighbour",
-]
+license = { file = "LICENSE" }
+keywords = ["spatial", "geospatial", "quadtree", "octtree", "nearest neighbour"]
 classifiers = [
-    "Development Status :: 1 - PreAlpha",
-    "Intended Audience :: Science/Research",
-    "Programming Language :: Python :: 3.11",
-    "Operating System :: OS Independent",
+  "Development Status :: 1 - PreAlpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3.11",
+  "Operating System :: OS Independent",
 ]
 
 [project.optional-dependencies]
-notebooks = [
-    "ipykernel",
-    "polars"
-]
-test = [
-    "pytest",
-]
+notebooks = ["ipykernel", "polars"]
+test = ["pytest>=8.3.4"]
 docs = [
-    "sphinx>=7.4.7",
-    "sphinx-autodoc-typehints>=2.3.0",
-    "sphinx-rtd-theme>=3.0.2",
+  "sphinx>=8.2.1",
+  "sphinx-autodoc-typehints>=3.1.0",
+  "sphinx-rtd-theme>=3.0.2",
 ]
 all = [
-    "ipykernel",
-    "polars",
-    "pytest",
-    "sphinx>=7.4.7",
-    "sphinx-autodoc-typehints>=2.3.0",
-    "sphinx-rtd-theme>=3.0.2",
+  "ipykernel",
+  "polars",
+  "pytest",
+  "sphinx>=8.2.1",
+  "sphinx-autodoc-typehints>=3.1.0",
+  "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.ruff]
 line-length = 80
 indent-width = 4
 target-version = "py311"
-exclude = [
-    ".eggs",
-    ".git",
-    ".venv",
-    "build",
-    "venv",
-]
+exclude = [".eggs", ".git", ".venv", "build", "venv"]
 
 [tool.ruff.lint]
 extend-select = [
-  "RUF022" # unsorted-dunder-all
+  "RUF022", # unsorted-dunder-all
 ]
 ignore = [
   "D205", # blank-line-after-summary
   "D400", # ends-in-period
   "D401", # non-imperative-mood
-  "D105" # missing docstring in magic method
+  "D105", # missing docstring in magic method
 ]
 preview = true
 select = [
-  "C90", # mccabe-complexity
-  "D", # docstrings
-  "E", # pycodestyle errors
-  "F", # pyflakes
+  "C90",  # mccabe-complexity
+  "D",    # docstrings
+  "E",    # pycodestyle errors
+  "F",    # pyflakes
   "N802", # invalid-function-name
-  "S", # bandit
-  "W" # pycodestyle warnings
+  "S",    # bandit
+  "W",    # pycodestyle warnings
 ]
 
 [tool.ruff.format]
-quote-style = "double" # Like Black, use double quotes for strings.
-indent-style = "space" # Like Black, indent with spaces, rather than tabs.
+quote-style = "double"            # Like Black, use double quotes for strings.
+indent-style = "space"            # Like Black, indent with spaces, rather than tabs.
 skip-magic-trailing-comma = false # Like Black, respect magic trailing commas.
-line-ending = "auto" # Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"              # Like Black, automatically detect the appropriate line ending.
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -113,6 +96,4 @@ xarray = "xr"
 Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"
 
 [dependency-groups]
-dev = [
-    "bpython>=0.25",
-]
+dev = ["bpython>=0.25"]

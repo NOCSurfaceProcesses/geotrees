@@ -198,6 +198,7 @@ class TestOctTree(unittest.TestCase):
         ]
         for point in points:
             otree.insert(point)
+        assert otree.len() == len(points) - 1  # NOTE: 1 point not added
         assert otree.divided
         expected = [
             points[:3],

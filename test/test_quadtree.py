@@ -94,6 +94,7 @@ class TestQuadTree(unittest.TestCase):
         for point in points:
             qtree.insert(point)
         assert qtree.divided
+        assert qtree.len() == len(points)
         res = [
             qtree.points,
             qtree.northwest.points,

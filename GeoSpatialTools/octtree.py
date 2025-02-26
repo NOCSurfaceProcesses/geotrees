@@ -461,6 +461,24 @@ class OctTree:
             out += f"{self.southeastfwd}"
         return out
 
+    def len(self, _current_len: int = 0) -> int:
+        """Get the number of points in the OctTree"""
+        _current_len += len(self.points)
+        print(_current_len)
+        if not self.divided:
+            return _current_len
+
+        _current_len = self.northeastback.len(_current_len)
+        _current_len = self.northwestback.len(_current_len)
+        _current_len = self.southeastback.len(_current_len)
+        _current_len = self.southwestback.len(_current_len)
+        _current_len = self.northeastfwd.len(_current_len)
+        _current_len = self.northwestfwd.len(_current_len)
+        _current_len = self.southeastfwd.len(_current_len)
+        _current_len = self.southwestfwd.len(_current_len)
+
+        return _current_len
+
     def divide(self):
         """Divide the QuadTree"""
         self.northwestfwd = OctTree(

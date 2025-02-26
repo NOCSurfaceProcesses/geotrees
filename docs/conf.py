@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath("../"))
 project = "GeoSpatialTools"
 copyright = "2024, National Oceanography Centre"
 author = "NOC Surface Processes"
-release = "0.11.0"
+release = "0.11.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

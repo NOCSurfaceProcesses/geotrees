@@ -43,7 +43,7 @@
 
 
 \usepackage[Bjarne]{fncychap}
-\usepackage[,numfigreset=2,mathnumfig]{sphinx}
+\usepackage[,numfigreset=2,mathnumfig,mathnumsep={.}]{sphinx}
 
 \fvset{fontsize=auto}
 \usepackage{geometry}
@@ -166,7 +166,8 @@ Functions for finding nearest neighbours using bisection.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.neighbours.SortedError}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{exception\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedError}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedError}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Error class for Sortedness
@@ -178,7 +179,8 @@ Error class for Sortedness
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.neighbours.SortedWarning}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{exception\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedWarning}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedWarning}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Warning class for Sortedness
@@ -190,7 +192,10 @@ Warning class for Sortedness
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.neighbours.find_nearest}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{find\_nearest}}}{\sphinxparam{\DUrole{n}{vals}}\sphinxparamcomma \sphinxparam{\DUrole{n}{test}}\sphinxparamcomma \sphinxparam{\DUrole{n}{check\_sorted}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{find\_nearest}}}
+{\sphinxparam{\DUrole{n}{vals}}\sphinxparamcomma \sphinxparam{\DUrole{n}{test}}\sphinxparamcomma \sphinxparam{\DUrole{n}{check\_sorted}\DUrole{o}{=}\DUrole{default_value}{True}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Find the nearest value in a list of values for each test value.
@@ -252,7 +257,10 @@ neighbours.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Ellipse}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Ellipse}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Ellipse}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A simple Ellipse Class for an ellipse on the surface of a sphere.
@@ -286,7 +294,10 @@ A simple Ellipse Class for an ellipse on the surface of a sphere.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Ellipse.contains}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{contains}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{contains}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a point is contained within the Ellipse
@@ -304,7 +315,10 @@ Test if a point is contained within the Ellipse
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Ellipse.nearby_rect}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby\_rect}}}{\sphinxparam{\DUrole{n}{rect}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby\_rect}}}
+{\sphinxparam{\DUrole{n}{rect}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a rectangle is near to the Ellipse
@@ -325,7 +339,10 @@ Test if a rectangle is near to the Ellipse
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{QuadTree}}}{\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{QuadTree}}}
+{\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A Simple QuadTree class for PyCOADS
@@ -357,7 +374,10 @@ capacity for cells at the maximum depth.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.divide}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{divide}}}{}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{divide}}}
+{}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Divide the QuadTree
@@ -369,7 +389,10 @@ Divide the QuadTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.insert}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{insert}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{insert}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Insert a point into the QuadTree
@@ -387,7 +410,10 @@ Insert a point into the QuadTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.len}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{len}}}{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{len}}}
+{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get the number of points in the OctTree
@@ -405,7 +431,10 @@ Get the number of points in the OctTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.nearby_points}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby\_points}}}{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby\_points}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get all points that are nearby another point
@@ -423,7 +452,10 @@ Get all points that are nearby another point
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.query}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{query}}}{\sphinxparam{\DUrole{n}{rect}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{query}}}
+{\sphinxparam{\DUrole{n}{rect}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get points that fall in a rectangle
@@ -441,7 +473,10 @@ Get points that fall in a rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.query_ellipse}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{query\_ellipse}}}{\sphinxparam{\DUrole{n}{ellipse}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{query\_ellipse}}}
+{\sphinxparam{\DUrole{n}{ellipse}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get points that fall in an ellipse.
@@ -459,7 +494,10 @@ Get points that fall in an ellipse.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.QuadTree.remove}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{remove}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{remove}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Remove a Record from the QuadTree if it is in the QuadTree.
@@ -483,7 +521,10 @@ Returns True if the Record is removed.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Record}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Record}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Record}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 ICOADS Record class
@@ -530,7 +571,10 @@ classes.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Record.distance}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{distance}}}{\sphinxparam{\DUrole{n}{other}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{distance}}}
+{\sphinxparam{\DUrole{n}{other}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the Haversine distance to another Record
@@ -551,7 +595,10 @@ Compute the Haversine distance to another Record
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Rectangle}}}{\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{Rectangle}}}
+{\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A simple Rectangle class
@@ -581,7 +628,10 @@ A simple Rectangle class
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.contains}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{contains}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{contains}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a point is contained within the Rectangle
@@ -599,7 +649,8 @@ Test if a point is contained within the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.edge_dist}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Approximate maximum distance from the centre to an edge
@@ -611,7 +662,10 @@ Approximate maximum distance from the centre to an edge
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.intersects}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{intersects}}}{\sphinxparam{\DUrole{n}{other}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{intersects}}}
+{\sphinxparam{\DUrole{n}{other}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if another Rectangle object intersects this Rectangle
@@ -629,7 +683,8 @@ Test if another Rectangle object intersects this Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.lat}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Centre latitude of the Rectangle
@@ -641,7 +696,8 @@ Centre latitude of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.lat_range}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Latitude range of the Rectangle
@@ -653,7 +709,8 @@ Latitude range of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.lon}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Centre longitude of the Rectangle
@@ -665,7 +722,8 @@ Centre longitude of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.lon_range}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Longitude range of the Rectangle
@@ -677,7 +735,10 @@ Longitude range of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.quadtree.Rectangle.nearby}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby}}}{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Check if point is nearby the Rectangle
@@ -707,7 +768,10 @@ neighbours.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{OctTree}}}{\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{OctTree}}}
+{\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A Simple OctTree class for PyCOADS.
@@ -757,7 +821,10 @@ capacity for cells at the maximum depth.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.divide}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{divide}}}{}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{divide}}}
+{}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Divide the QuadTree
@@ -769,7 +836,10 @@ Divide the QuadTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.insert}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{insert}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{insert}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Insert a SpaceTimeRecord into the QuadTree.
@@ -791,7 +861,10 @@ is consistent with the OctTree.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.len}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{len}}}{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{len}}}
+{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get the number of points in the OctTree
@@ -809,7 +882,10 @@ Get the number of points in the OctTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.nearby_points}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby\_points}}}{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby\_points}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get all points that are nearby another point.
@@ -881,7 +957,10 @@ children OctTrees.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.query}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{query}}}{\sphinxparam{\DUrole{n}{rect}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{query}}}
+{\sphinxparam{\DUrole{n}{rect}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get points that fall in a SpaceTimeRectangle
@@ -899,7 +978,10 @@ Get points that fall in a SpaceTimeRectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.query_ellipse}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{query\_ellipse}}}{\sphinxparam{\DUrole{n}{ellipse}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{query\_ellipse}}}
+{\sphinxparam{\DUrole{n}{ellipse}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get points that fall in an ellipse.
@@ -917,7 +999,10 @@ Get points that fall in an ellipse.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.OctTree.remove}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{remove}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{remove}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Remove a SpaceTimeRecord from the OctTree if it is in the OctTree.
@@ -941,7 +1026,10 @@ Returns True if the SpaceTimeRecord is removed.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeEllipse}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeEllipse}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeEllipse}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A simple Ellipse Class for an ellipse on the surface of a sphere.
@@ -983,7 +1071,10 @@ A simple Ellipse Class for an ellipse on the surface of a sphere.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeEllipse.contains}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{contains}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{contains}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a point is contained within the Ellipse
@@ -1001,7 +1092,10 @@ Test if a point is contained within the Ellipse
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeEllipse.nearby_rect}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby\_rect}}}{\sphinxparam{\DUrole{n}{rect}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby\_rect}}}
+{\sphinxparam{\DUrole{n}{rect}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a rectangle is near to the Ellipse
@@ -1022,7 +1116,10 @@ Test if a rectangle is near to the Ellipse
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRecord}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecord}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecord}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 ICOADS Record class.
@@ -1077,7 +1174,10 @@ or classes.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRecord.distance}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{distance}}}{\sphinxparam{\DUrole{n}{other}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{distance}}}
+{\sphinxparam{\DUrole{n}{other}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the Haversine distance to another SpaceTimeRecord.
@@ -1099,7 +1199,10 @@ Only computes spatial distance.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRecords}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecords}}}{\sphinxparam{\DUrole{n}{iterable}\DUrole{o}{=}\DUrole{default_value}{()}}\sphinxparamcomma \sphinxparam{\DUrole{o}{/}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecords}}}
+{\sphinxparam{\DUrole{n}{iterable}\DUrole{o}{=}\DUrole{default_value}{()}}\sphinxparamcomma \sphinxparam{\DUrole{positional-only-separator}{\DUrole{o}{\sphinxstyleabbreviation{/} (Positional\sphinxhyphen{}only parameter separator (PEP 570))}}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 List of SpaceTimeRecords
@@ -1111,7 +1214,10 @@ List of SpaceTimeRecords
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRectangle}}}{\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRectangle}}}
+{\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A simple Space Time SpaceTimeRectangle class.
@@ -1163,7 +1269,8 @@ the time extent (dt) is the full time range of the box.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.centre_datetime}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{centre\_datetime}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }datetime}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{centre\_datetime}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }datetime}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 The midpoint time of the Rectangle
@@ -1175,7 +1282,10 @@ The midpoint time of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.contains}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{contains}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{contains}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if a point is contained within the SpaceTimeRectangle
@@ -1193,7 +1303,8 @@ Test if a point is contained within the SpaceTimeRectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.edge_dist}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Approximate maximum distance from the centre to an edge
@@ -1205,7 +1316,10 @@ Approximate maximum distance from the centre to an edge
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.intersects}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{intersects}}}{\sphinxparam{\DUrole{n}{other}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{intersects}}}
+{\sphinxparam{\DUrole{n}{other}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Test if another Rectangle object intersects this Rectangle
@@ -1223,7 +1337,8 @@ Test if another Rectangle object intersects this Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.lat}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Centre latitude of the Rectangle
@@ -1235,7 +1350,8 @@ Centre latitude of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.lat_range}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Latitude range of the Rectangle
@@ -1247,7 +1363,8 @@ Latitude range of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.lon}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Centre longitude of the Rectangle
@@ -1259,7 +1376,8 @@ Centre longitude of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.lon_range}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Longitude range of the Rectangle
@@ -1271,7 +1389,10 @@ Longitude range of the Rectangle
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.nearby}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{nearby}}}{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{nearby}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Check if point is nearby the Rectangle
@@ -1324,7 +1445,8 @@ True if the point is \textless{}= dist + max(dist(centre, corners))
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.octtree.SpaceTimeRectangle.time_range}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{property\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{time\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }timedelta}}}
+\pysigline
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{time\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }timedelta}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 The time extent of the Rectangle
@@ -1351,7 +1473,10 @@ of the earth is accounted for.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.kdtree.KDTree}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.kdtree.}}\sphinxbfcode{\sphinxupquote{KDTree}}}{\sphinxparam{\DUrole{n}{points}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{20}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.kdtree.}}\sphinxbfcode{\sphinxupquote{KDTree}}}
+{\sphinxparam{\DUrole{n}{points}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{20}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A Haverine distance implementation of a balanced KDTree.
@@ -1390,7 +1515,10 @@ only 1 point in the branch.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.kdtree.KDTree.delete}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{delete}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{delete}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Delete a Record from the KDTree. May unbalance the KDTree
@@ -1408,7 +1536,10 @@ Delete a Record from the KDTree. May unbalance the KDTree
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.kdtree.KDTree.insert}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{insert}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{insert}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Insert a Record into the KDTree. May unbalance the KDTree.
@@ -1429,7 +1560,10 @@ The point will not be inserted if it is already in the KDTree.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.kdtree.KDTree.query}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{query}}}{\sphinxparam{\DUrole{n}{point}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{query}}}
+{\sphinxparam{\DUrole{n}{point}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Find the nearest Record within the KDTree to a query Record
@@ -1457,7 +1591,10 @@ comparisons between GreatCircle objects.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{GreatCircle}}}{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{GreatCircle}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 A GreatCircle object for a pair of positions.
@@ -1497,7 +1634,10 @@ Construct a great circle path between a pair of positions.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.dist_from_point}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{dist\_from\_point}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{dist\_from\_point}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute distance from the GreatCircle to a point on the sphere.
@@ -1530,7 +1670,10 @@ float
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.intersection}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{intersection}}}{\sphinxparam{\DUrole{n}{other}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{0.01}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{intersection}}}
+{\sphinxparam{\DUrole{n}{other}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{0.01}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Determine intersection position with another GreatCircle.
@@ -1572,7 +1715,10 @@ Position of intersection
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.intersection_angle}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{intersection\_angle}}}{\sphinxparam{\DUrole{n}{other}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{0.01}}}{}
+\pysiglinewithargsret
+{\sphinxbfcode{\sphinxupquote{intersection\_angle}}}
+{\sphinxparam{\DUrole{n}{other}}\sphinxparamcomma \sphinxparam{\DUrole{n}{epsilon}\DUrole{o}{=}\DUrole{default_value}{0.01}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get angle of intersection with another GreatCircle.
@@ -1616,7 +1762,10 @@ float | None
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.cartesian_to_lonlat}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{cartesian\_to\_lonlat}}}{\sphinxparam{\DUrole{n}{x}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y}}\sphinxparamcomma \sphinxparam{\DUrole{n}{z}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{cartesian\_to\_lonlat}}}
+{\sphinxparam{\DUrole{n}{x}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y}}\sphinxparamcomma \sphinxparam{\DUrole{n}{z}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{False}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Get lon, and lat from cartesian coordinates.
@@ -1667,7 +1816,10 @@ Get lon, and lat from cartesian coordinates.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.polar_to_cartesian}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{polar\_to\_cartesian}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{normalised}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{polar\_to\_cartesian}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{normalised}\DUrole{o}{=}\DUrole{default_value}{True}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Convert from polars coordinates to cartesian.
@@ -1724,7 +1876,10 @@ navigational information to DataFrames.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.bearing}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{bearing}}}{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{bearing}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the bearing of a track from (lon0, lat0) to (lon1, lat1).
@@ -1768,7 +1923,10 @@ float
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.destination}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{destination}}}{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bearing}}\sphinxparamcomma \sphinxparam{\DUrole{n}{distance}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{destination}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bearing}}\sphinxparamcomma \sphinxparam{\DUrole{n}{distance}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute destination of a great circle path.
@@ -1816,7 +1974,10 @@ tuple{[}float, float{]}
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.gcd_slc}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{gcd\_slc}}}{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{gcd\_slc}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute great circle distance on earth surface between two locations.
@@ -1857,7 +2018,10 @@ float
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.haversine}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{haversine}}}{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{haversine}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute Haversine distance between two points.
@@ -1898,7 +2062,10 @@ float
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.midpoint}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{midpoint}}}{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}{}
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{midpoint}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
+{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Compute the midpoint of a great circle track

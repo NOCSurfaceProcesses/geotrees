@@ -81,7 +81,7 @@ class TestQuadTree(unittest.TestCase):
             Record(10, 5),
             Record(19, 1),
             Record(0, 0),
-            Record(-2, -9.2),
+            Record(-2, -9.2),  # Not included
             Record(12.8, 2.1),
         ]
         expected = [
@@ -94,7 +94,7 @@ class TestQuadTree(unittest.TestCase):
         for point in points:
             qtree.insert(point)
         assert qtree.divided
-        assert qtree.len() == len(points)
+        assert qtree.len() == len(points) - 1
         res = [
             qtree.points,
             qtree.northwest.points,

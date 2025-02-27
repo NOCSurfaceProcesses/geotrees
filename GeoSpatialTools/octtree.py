@@ -464,7 +464,6 @@ class OctTree:
     def len(self, _current_len: int = 0) -> int:
         """Get the number of points in the OctTree"""
         _current_len += len(self.points)
-        print(_current_len)
         if not self.divided:
             return _current_len
 

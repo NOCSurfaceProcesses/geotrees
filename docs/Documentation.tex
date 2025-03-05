@@ -64,7 +64,7 @@
 
 
 \title{GeoSpatialTools}
-\date{Feb 27, 2025}
+\date{Mar 05, 2025}
 \release{0.11.2}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -248,7 +248,7 @@ to True (default), displays a warning if set to False.
 \section{QuadTree}
 \label{\detokenize{users_guide:quadtree}}\label{\detokenize{users_guide:module-GeoSpatialTools.quadtree}}
 \sphinxAtStartPar
-Constuctors for QuadTree classes that can decrease the number of comparisons
+Constructors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -759,7 +759,7 @@ Check if point is nearby the Rectangle
 \section{OctTree}
 \label{\detokenize{users_guide:octtree}}\label{\detokenize{users_guide:module-GeoSpatialTools.octtree}}
 \sphinxAtStartPar
-Constuctors for OctTree classes that can decrease the number of comparisons
+Constructors for OctTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -1131,7 +1131,7 @@ temporal data. It can optionally include a UID and extra data.
 \sphinxAtStartPar
 The temporal component was designed to use \sphinxtitleref{datetime} values, however all
 methods will work with numeric datetime information \sphinxhyphen{} for example a pentad,
-timestamp, julian day, etc. Note that any uses within an OctTree and
+time\sphinxhyphen{}stamp, julian day, etc. Note that any uses within an OctTree and
 SpaceTimeRectangle must also have timedelta values replaced with numeric
 ranges in this case.
 
@@ -1484,7 +1484,7 @@ A Haverine distance implementation of a balanced KDTree.
 \sphinxAtStartPar
 This implementation is a \_balanced\_ KDTree, each leaf node should have the
 same number of points (or differ by 1 depending on the number of points
-the KDTree is intialised with).
+the KDTree is initialised with).
 
 \sphinxAtStartPar
 The KDTree partitions in each of the lon and lat dimensions alternatively
@@ -1503,7 +1503,7 @@ internally.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The maximium depth of the KDTree. The leaf nodes will have depth no
+\sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The maximum depth of the KDTree. The leaf nodes will have depth no
 larger than this value. Leaf nodes will not be created if there is
 only 1 point in the branch.
 

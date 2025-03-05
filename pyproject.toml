@@ -52,7 +52,7 @@ all = [
 line-length = 80
 indent-width = 4
 target-version = "py311"
-exclude = [".eggs", ".git", ".venv", "build", "venv", "test"]
+exclude = [".eggs", ".git", ".venv", "build", "venv"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -75,6 +75,10 @@ select = [
   "S",    # bandit
   "W",    # pycodestyle warnings
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"docs/*.py" = ["D100", "D101", "D102", "D103"]
+"test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101"]
 
 [tool.ruff.format]
 quote-style = "double"            # Like Black, use double quotes for strings.
@@ -102,6 +106,4 @@ quiet-level = 3
 Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"
 
 [dependency-groups]
-dev = [
-    "bpython>=0.25",
-]
+dev = ["bpython>=0.25"]

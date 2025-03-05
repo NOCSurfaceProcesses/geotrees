@@ -1,9 +1,9 @@
 variables:
-  UV_VERSION: 0.5
-  PYTHON_VERSION: 3.12
-  BASE_LAYER: bookworm-slim
-  UV_CACHE_DIR: .uv-cache
-  UV_SYSTEM_PYTHON: 1
+  UV_VERSION: "0.5"
+  PYTHON_VERSION: "3.12"
+  BASE_LAYER: "bookworm-slim"
+  UV_CACHE_DIR: ".uv-cache"
+  UV_SYSTEM_PYTHON: "1"
 stages:
   - build
   - test

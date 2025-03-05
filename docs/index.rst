@@ -9,8 +9,8 @@ Welcome to GeoSpatialTool's documentation!
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
-    
-   introduction 
+
+   introduction
    getting_started
    authors
    users_guide

@@ -30,11 +30,11 @@ class TestFindNearest(unittest.TestCase):
 
     def test_sorted_warn(self):
         with self.assertWarns(SortedWarning):
-            find_nearest([1., 2., 3.], 2.3, check_sorted=False)
+            find_nearest([1.0, 2.0, 3.0], 2.3, check_sorted=False)
 
     def test_sorted_error(self):
         with self.assertRaises(SortedError):
-            find_nearest([3., 1., 2.], 2.3)
+            find_nearest([3.0, 1.0, 2.0], 2.3)
 
 
 if __name__ == "__main__":

@@ -52,7 +52,7 @@ all = [
 line-length = 80
 indent-width = 4
 target-version = "py311"
-exclude = [".eggs", ".git", ".venv", "build", "venv"]
+exclude = [".eggs", ".git", ".venv", "build", "venv", "test"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -63,6 +63,7 @@ ignore = [
   "D400", # ends-in-period
   "D401", # non-imperative-mood
   "D105", # missing docstring in magic method
+  "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
 ]
 preview = true
 select = [

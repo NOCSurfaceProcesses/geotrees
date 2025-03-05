@@ -17,9 +17,9 @@ from math import degrees, sqrt
 
 class Record:
     """
-    ICOADS Record class
+    Record class
 
-    This is a simple instance of an ICOARDS record, it requires position data.
+    This is a simple instance of a record, it requires position data.
     It can optionally include datetime, a UID, and extra data passed as
     keyword arguments.
 

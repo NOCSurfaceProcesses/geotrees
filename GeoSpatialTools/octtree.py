@@ -18,14 +18,14 @@ from warnings import warn
 
 class SpaceTimeRecord:
     """
-    ICOADS Record class.
+    SpaceTimeRecord class.
 
-    This is a simple instance of an ICOARDS record, it requires position and
-    temporal data. It can optionally include a UID and extra data.
+    This is a simple instance of a record, it requires position and temporal
+    data. It can optionally include a UID and extra data.
 
     The temporal component was designed to use `datetime` values, however all
     methods will work with numeric datetime information - for example a pentad,
-    time-stamp, julian day, etc. Note that any uses within an OctTree and
+    time-stamp, Julian day, etc. Note that any uses within an OctTree and
     SpaceTimeRectangle must also have timedelta values replaced with numeric
     ranges in this case.
 

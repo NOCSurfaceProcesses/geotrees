@@ -64,7 +64,6 @@ ignore = [
   "D400", # ends-in-period
   "D401", # non-imperative-mood
   "D105", # missing docstring in magic method
-  "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
 ]
 preview = true
 select = [
@@ -79,7 +78,8 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "docs/*.py" = ["D100", "D101", "D102", "D103"]
-"test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101"]
+"test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
+"notebooks/*.ipynb" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
 
 [tool.ruff.format]
 quote-style = "double"            # Like Black, use double quotes for strings.

@@ -11,16 +11,34 @@ defined by the timedelta.
 Whilst the Quadtree divides into 4 children after the capacity is reached, the Octtree divides into 8 children. The
 divisions are at the longitude midpoint, the latitude midpoint, and the datetime midpoint of the boundary.
 
+Documentation
+=============
+
+Inserting Records
+-----------------
+
+A ``SpaceTimeRecord`` can be added to an ``OctTree`` with ``OctTree.insert`` which will return ``True`` if the operation
+was successful, ``False`` otherwise. The ``OctTree`` is modified in place.
+
+Removing Records
+----------------
+
+A ``SpaceTimeRecord`` can be removed from an ``OctTree`` with ``OctTree.remove`` which will return ``True`` if the operation
+was successful, ``False`` otherwise. The ``OctTree`` is modified in place.
+
+Querying
+--------
+
 The ``OctTree`` class defined in ``GeoSpatialTools.octtree`` can be queried in the following ways:
 
 * with a ``SpaceTimeRecord``, a spatial range, and a time range (specified by a ``datetime.timedelta``) with 
   ``OctTree.nearby_points``. All points within the spatial range and time range of the ``SpaceTimeRecord`` will be
   returned in a list.
-* with a ``SpaceTimeRectangle``. All points within the specified ``SpaceTimeRectangle`` will be returned in a list.
-* with a ``SpaceTimeEllipse``. All points within the specified ``SpaceTimeEllipse`` will be returned in a list.
+* with a ``SpaceTimeRectangle`` using ``OctTree.query``. All points within the specified ``SpaceTimeRectangle`` will be returned in a list.
+* with a ``SpaceTimeEllipse`` using ``OctTree.query_ellipse``. All points within the specified ``SpaceTimeEllipse`` will be returned in a list.
 
 Example
--------
+=======
 
 .. code-block:: python
 
@@ -32,7 +50,7 @@ Example
    lon_range = list(range(-180, 180))
    lat_range = list(range(-90, 90))
 
-   dates = date_range(
+   dates = datetime_range(
        start=datetime(2009, 1, 1, 0, 0),
        end=datetime(2009, 2, 1, 0, 0),
        interval=timedelta(hours=1),
@@ -76,7 +94,7 @@ Example
    )
 
 octtree Module
---------------
+==============
 
 .. automodule:: GeoSpatialTools.octtree
    :members:

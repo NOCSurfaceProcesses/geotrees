@@ -25,6 +25,7 @@ great-circles.
     
    authors
    installation
+   record
    quadtree
    octtree
    users_guide

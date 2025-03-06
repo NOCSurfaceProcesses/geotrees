@@ -4,13 +4,17 @@
 
 Contributors to this version: Joseph Siddons (@josidd)
 
+### Internal changes
+
+* Added changelog (!26).
+
 ## 0.11.2 (2025-02-27)
 
 Contributors to this version: Joseph Siddons (@josidd)
 
 ### Bug fixes
 
-* Removed debug print statement from `OctTree.len` and `QuadTree.len` (!23)
+* Removed debug print statement from `OctTree.len` and `QuadTree.len` (!23).
 
 ## 0.11.1 (2025-02-26)
 

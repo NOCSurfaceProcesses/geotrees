@@ -1,4 +1,15 @@
-"""DOCUMENTATION"""
+"""
+Record objects used for containing data passed to QuadTree, OctTree and KDTree
+classes. Require positions defined by "lon" and "lat", SpaceTimeRecord objects
+also require "datetime". Optional fields are "uid", other data can be passed as
+keyword arguments. Only positional, temporal, and uid values are used for
+equality checks.
+
+Distances between records is calculated using Haversine distance.
+
+Classes prefixed by "SpaceTime" include a temporal dimension and should be used
+with OctTree classes.
+"""
 
 from typing import List, Optional
 from datetime import datetime

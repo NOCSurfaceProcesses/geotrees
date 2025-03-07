@@ -13,3 +13,11 @@
 .. _uv: https://docs.astral.sh/uv
 
 .. _haversine: https://en.wikipedia.org/wiki/Haversine_formula
+
+.. _NumPy: https://numpy.org/
+
+.. _polars: https://pola.rs/
+
+.. _Jupyter: https://jupyter.org/
+
+.. _NOC: https://noc.ac.uk

@@ -11,6 +11,17 @@ defined by the timedelta.
 Whilst the Quadtree divides into 4 children after the capacity is reached, the Octtree divides into 8 children. The
 divisions are at the longitude midpoint, the latitude midpoint, and the datetime midpoint of the boundary.
 
+The implementation of Octtree within this library, the ``OctTree`` class, utilises the Haversine distance as a metric
+for indentifying records within the queried region. This allows the Octtree to account for the spherical geometry of the
+Earth. Boundary checks with query regions also account for the wrapping of longitude at -180, 180 degrees.
+
+The ``OctTree`` object is defined by a bounding box in space and time, i.e. boundaries at the western, eastern,
+southern, and northern edges as well as the start and end datetimes of the data that will be inserted into the ``OctTree``.
+Additionally, a capacity and maximum depth can be provided. If the capacity is exceeded whilst inserting records the
+``OctTree`` will divide and new records will be inserted into the appropriate child ``OctTree``. The maxium depth is the
+maximum height of the ``OctTree``, if capacity is also specified then this will be overridden if the ``OctTree`` is at this
+depth, and the ``OctTree`` will not divide.
+
 Documentation
 =============
 
@@ -18,7 +29,8 @@ Inserting Records
 -----------------
 
 A ``SpaceTimeRecord`` can be added to an ``OctTree`` with ``OctTree.insert`` which will return ``True`` if the operation
-was successful, ``False`` otherwise. The ``OctTree`` is modified in place.
+was successful, ``False`` otherwise. The ``OctTree`` is modified in place. Records that fall outside the bounds of the
+``OctTree`` will not be inserted as the boundary is fixed.
 
 Removing Records
 ----------------
@@ -42,7 +54,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools.octtree import OctTree, SpaceTimeRecord, SpaceTimeRectangle
+   from GeoSpatialTools import OctTree, SpaceTimeRecord, SpaceTimeRectangle
    from datetime import datetime, timedelta
    from random import choice
    from polars import datetime_range

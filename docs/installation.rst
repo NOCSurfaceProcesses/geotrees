@@ -3,10 +3,14 @@ Installation
 ============
 
 ``GeoSpatialTools`` is not currently available on PyPI so must be installed either from source or directly from the
-GitLab repository.
+GitLab repository. Versions of python between 3.9 and 3.13, inclusive, are supported, however the recommended version of
+python is 3.12.
 
 We recommend the installation of ``GeoSpatialTools`` using the uv_ package manager, however it can be installed using
 pip_.
+
+The only required dependency of the project is NumPy_. Additional dependency polars_ is required to run the Jupyter_
+notebooks.
 
 Via UV
 ======
@@ -26,12 +30,20 @@ cloning the repository and creating a new uv environment.
 
 .. code-block:: bash
 
+   # Get the code
    git clone git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
    cd geospatialtools
-   uv sync --all-extras --dev --python 3.12  # Install with all dependencies and create an environment with python 3.12
-   source .venv/bin/activate                 # Load the environment
 
-The recommended python version is python 3.12. By default, uv creates a virtual environment in ``.venv``.
+   # Install with all dependencies and create an environment with python 3.12
+   uv sync --all-extras --dev --python 3.12 
+
+   # Load the environment
+   source .venv/bin/activate
+
+   # Run the unit tests
+   uv run pytest test
+
+.. note:: The recommended python version is python 3.12. By default, uv creates a virtual environment in ``.venv``.
 
 Via Pip
 =======

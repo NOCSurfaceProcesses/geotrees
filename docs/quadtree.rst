@@ -2,6 +2,29 @@
 Quadtree
 ========
 
+A Quadtree is a data-structure where each internal node has exactly four children, and are used to recursively partition
+a two-dimensional spatial domain. Each child note is itself a Quadtree, whose spatial domain represents one of the
+quadrants (north-west, north-east, south-west, south-east) of its parent's domain. The partitioning of data in this way
+is dependent on the spatial density of data inserted into the Quadtree. The Quadtree is typically initialised with a
+capacity value, once the capacity is reached (by inserting data points), the Quadtree divides and subsequent data points
+are added to the appropriate child-node.
+
+Quadtree structures allow for fast identification of data within some query region. The structure of the tree ensures
+that only nodes whose domain boundary intersects (or contains or is contained by) the query region are evaluated. The
+time-complexity of these query operations is :math:`O(\log(n))`, the space-complexity of a Quadtree is :math:`O(n)`.
+
+Typically, it is assumed that the data uses a cartesian coordinate system, so comparisons between boundaries and query
+shapes utilise cartesian geometry and euclidean distances. The implementation of Quadtree within this library, the
+``QuadTree`` class, utilises the Haversine distance as a metric for indentifying records within the queried region.
+This allows the Quadtree to account for the spherical geometry of the Earth. Boundary checks with query regions also
+account for the wrapping of longitude at -180, 180 degrees.
+
+The ``QuadTree`` object is defined by a bounding box, i.e. boundaries at the western, eastern, southern, and northern edges of
+the data that will be inserted into the ``QuadTree``. Additionally, a capacity and maximum depth can be provided. If the
+capacity is exceeded whilst inserting records the ``QuadTree`` will divide and new records will be inserted into the appropriate
+child ``QuadTree``. The maxium depth is the maximum height of the ``QuadTree``, if capacity is also specified then this will be
+overridden if the ``QuadTree`` is at this depth, and the ``QuadTree`` will not divide.
+
 Documentation
 =============
 
@@ -32,7 +55,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle
+   from GeoSpatialTools import QuadTree, Record, Rectangle
    from random import choice
 
    lon_range = list(range(-180, 180))

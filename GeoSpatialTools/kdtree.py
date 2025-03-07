@@ -117,6 +117,7 @@ class KDTree:
 
     def query(self, point) -> Tuple[List[Record], float]:
         """Find the nearest Record within the KDTree to a query Record"""
+        # Perform two checks (-180, 180) and (0, 360) longitude
         if point.lon < 0:
             point2 = Record(point.lon + 360, point.lat, fix_lon=False)
         else:

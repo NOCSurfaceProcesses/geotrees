@@ -3,7 +3,9 @@
 from .neighbours import find_nearest
 from .distance_metrics import haversine
 from .great_circle import GreatCircle
-from .quadtree import Ellipse, QuadTree, Record, Rectangle
+from .record import Record
+from .quadtree import QuadTree
+from .shape import Ellipse, Rectangle
 from .kdtree import KDTree
 
 __all__ = [

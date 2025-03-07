@@ -2,7 +2,7 @@ import unittest
 import random
 
 from numpy import min, argmin
-from GeoSpatialTools import haversine, KDTree, Record
+from GeoSpatialTools import KDTree, Record
 
 
 class TestKDTree(unittest.TestCase):

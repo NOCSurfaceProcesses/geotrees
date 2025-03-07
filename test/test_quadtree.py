@@ -2,7 +2,9 @@ import random
 import unittest
 
 from GeoSpatialTools import haversine
-from GeoSpatialTools.quadtree import QuadTree, Record, Rectangle, Ellipse
+from GeoSpatialTools.quadtree import QuadTree
+from GeoSpatialTools.record import Record
+from GeoSpatialTools.shape import Ellipse, Rectangle
 
 
 class TestRect(unittest.TestCase):

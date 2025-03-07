@@ -1,0 +1,172 @@
+"""DOCUMENTATION"""
+
+from typing import List, Optional
+from datetime import datetime
+from .utils import LatitudeError
+from .distance_metrics import haversine
+
+
+class Record:
+    """
+    Record class
+
+    This is a simple instance of an record, it requires position data.
+    It can optionally include datetime, a UID, and extra data passed as
+    keyword arguments.
+
+    Equality is checked only on the required fields + UID if it is specified.
+
+    Parameters
+    ----------
+    lon : float
+        Horizontal coordinate
+    lat : float
+        Vertical coordinate
+    datetime : datetime | None
+        Datetime of the record
+    uid : str | None
+        Unique Identifier
+    fix_lon : bool
+        Force longitude to -180, 180
+    **data
+        Additional data passed to the Record for use by other functions or
+        classes.
+    """
+
+    def __init__(
+        self,
+        lon: float,
+        lat: float,
+        datetime: Optional[datetime] = None,
+        uid: Optional[str] = None,
+        fix_lon: bool = True,
+        **data,
+    ) -> None:
+        self.lon = lon
+        if fix_lon:
+            # Move lon to -180, 180
+            self.lon = ((self.lon + 540) % 360) - 180
+        if lat < -90 or lat > 90:
+            raise LatitudeError(
+                "Expected latitude value to be between -90 and 90 degrees"
+            )
+        self.lat = lat
+        self.datetime = datetime
+        self.uid = uid
+        for var, val in data.items():
+            setattr(self, var, val)
+        return None
+
+    def __str__(self) -> str:
+        return (
+            f"Record(lon = {self.lon}, lat = {self.lat}, "
+            + f"datetime = {self.datetime}, uid = {self.uid})"
+        )
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Record):
+            return False
+        if self.uid and other.uid:
+            return self.uid == other.uid
+        return (
+            self.lon == other.lon
+            and self.lat == other.lat
+            and self.datetime == other.datetime
+            and (not (self.uid or other.uid) or self.uid == other.uid)
+        )
+
+    def distance(self, other: object) -> float:
+        """Compute the Haversine distance to another Record"""
+        if not isinstance(other, Record):
+            raise TypeError("Argument other must be an instance of Record")
+        return haversine(self.lon, self.lat, other.lon, other.lat)
+
+
+class SpaceTimeRecord:
+    """
+    ICOADS Record class.
+
+    This is a simple instance of an ICOARDS record, it requires position and
+    temporal data. It can optionally include a UID and extra data.
+
+    The temporal component was designed to use `datetime` values, however all
+    methods will work with numeric datetime information - for example a pentad,
+    timestamp, julian day, etc. Note that any uses within an OctTree and
+    SpaceTimeRectangle must also have timedelta values replaced with numeric
+    ranges in this case.
+
+    Equality is checked only on the required fields + UID if it is specified.
+
+    Parameters
+    ----------
+    lon : float
+        Horizontal coordinate (longitude).
+    lat : float
+        Vertical coordinate (latitude).
+    datetime : datetime.datetime
+        Datetime of the record. Can also be a numeric value such as pentad.
+        Comparisons between Records with datetime and Records with numeric
+        datetime will fail.
+    uid : str | None
+        Unique Identifier.
+    fix_lon : bool
+        Force longitude to -180, 180
+    **data
+        Additional data passed to the SpaceTimeRecord for use by other functions
+        or classes.
+    """
+
+    def __init__(
+        self,
+        lon: float,
+        lat: float,
+        datetime: datetime,
+        uid: Optional[str] = None,
+        fix_lon: bool = True,
+        **data,
+    ) -> None:
+        self.lon = lon
+        if fix_lon:
+            # Move lon to -180, 180
+            self.lon = ((self.lon + 540) % 360) - 180
+        if lat < -90 or lat > 90:
+            raise LatitudeError(
+                "Expected latitude value to be between -90 and 90 degrees"
+            )
+        self.lat = lat
+        self.datetime = datetime
+        self.uid = uid
+        for var, val in data.items():
+            setattr(self, var, val)
+        return None
+
+    def __str__(self) -> str:
+        return (
+            f"SpaceTimeRecord(x = {self.lon}, y = {self.lat}, "
+            + f"datetime = {self.datetime}, uid = {self.uid})"
+        )
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, SpaceTimeRecord):
+            return False
+        if self.uid and other.uid:
+            return self.uid == other.uid
+        return (
+            self.lon == other.lon
+            and self.lat == other.lat
+            and self.datetime == other.datetime
+            and (not (self.uid or other.uid) or self.uid == other.uid)
+        )
+
+    def distance(self, other: object) -> float:
+        """
+        Compute the Haversine distance to another SpaceTimeRecord.
+        Only computes spatial distance.
+        """
+        if not isinstance(other, SpaceTimeRecord):
+            raise TypeError("Argument other must be an instance of Record")
+        return haversine(self.lon, self.lat, other.lon, other.lat)
+
+
+class SpaceTimeRecords(List[SpaceTimeRecord]):
+    """List of SpaceTimeRecords"""

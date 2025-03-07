@@ -5,10 +5,10 @@ Haversine distances for comparisons between records for identification of
 neighbours.
 """
 
-from typing import Optional
+from typing import List, Optional
 import datetime
 from .distance_metrics import haversine
-from .record import SpaceTimeRecord, SpaceTimeRecords
+from .record import SpaceTimeRecord
 from .shape import SpaceTimeEllipse, SpaceTimeRectangle
 
 
@@ -56,7 +56,7 @@ class OctTree:
         self.capacity = capacity
         self.depth = depth
         self.max_depth = max_depth
-        self.points = SpaceTimeRecords()
+        self.points: list[SpaceTimeRecord] = list()
         self.divided: bool = False
         return None
 
@@ -284,11 +284,24 @@ class OctTree:
     def query(
         self,
         rect: SpaceTimeRectangle,
-        points: Optional[SpaceTimeRecords] = None,
-    ) -> SpaceTimeRecords:
-        """Get points that fall in a SpaceTimeRectangle"""
+        points: Optional[List[SpaceTimeRecord]] = None,
+    ) -> List[SpaceTimeRecord]:
+        """
+        Get SpaceTimeRecords contained within the OctTree that fall in a
+        SpaceTimeRectangle
+
+        Parameters
+        ----------
+        rect : SpaceTimeRectangle
+
+        Returns
+        -------
+        List[SpaceTimeRecord]
+            The SpaceTimeRecord values contained within the OctTree that fall
+            within the bounds of rect.
+        """
         if not points:
-            points = SpaceTimeRecords()
+            points = list()
         if not self.boundary.intersects(rect):
             return points
 
@@ -311,11 +324,24 @@ class OctTree:
     def query_ellipse(
         self,
         ellipse: SpaceTimeEllipse,
-        points: Optional[SpaceTimeRecords] = None,
-    ) -> SpaceTimeRecords:
-        """Get points that fall in an ellipse."""
+        points: Optional[List[SpaceTimeRecord]] = None,
+    ) -> List[SpaceTimeRecord]:
+        """
+        Get SpaceTimeRecords contained within the OctTree that fall in a
+        SpaceTimeEllipse
+
+        Parameters
+        ----------
+        ellipse : SpaceTimeEllipse
+
+        Returns
+        -------
+        List[SpaceTimeRecord]
+            The SpaceTimeRecord values contained within the OctTree that fall
+            within the bounds of ellipse.
+        """
         if not points:
-            points = SpaceTimeRecords()
+            points = list()
         if not ellipse.nearby_rect(self.boundary):
             return points
 
@@ -340,10 +366,11 @@ class OctTree:
         point: SpaceTimeRecord,
         dist: float,
         t_dist: datetime.timedelta,
-        points: Optional[SpaceTimeRecords] = None,
-    ) -> SpaceTimeRecords:
+        points: Optional[List[SpaceTimeRecord]] = None,
+    ) -> List[SpaceTimeRecord]:
         """
-        Get all points that are nearby another point.
+        Get all SpaceTimeRecords contained in the OctTree that are nearby
+        another query SpaceTimeRecord.
 
         Query the OctTree to find all SpaceTimeRecords within the OctTree that
         are nearby to the query SpaceTimeRecord. This search should be faster
@@ -363,20 +390,21 @@ class OctTree:
             query SpaceTimeRecord. Can be numeric if the OctTree boundaries,
             SpaceTimeRecords, and query SpaceTimeRecord have numeric datetime
             values and ranges.
-        points : SpaceTimeRecords | None
+        points : List[SpaceTimeRecord] | None
             List of SpaceTimeRecords already found. Most use cases will be to
             not set this value, since it's main use is for passing onto the
             children OctTrees.
 
         Returns
         -------
-        SpaceTimeRecords : A list of SpaceTimeRecords whose distance to the
-        query SpaceTimeRecord is <= dist, and the datetimes of the
-        SpaceTimeRecords fall within the datetime range of the query
-        SpaceTimeRecord.
+        list[SpaceTimeRecord]
+            A list of SpaceTimeRecords whose distance to the
+            query SpaceTimeRecord is <= dist, and the datetimes of the
+            SpaceTimeRecords fall within the datetime range of the query
+            SpaceTimeRecord.
         """
         if not points:
-            points = SpaceTimeRecords()
+            points = list()
         if not self.boundary.nearby(point, dist, t_dist):
             return points
 

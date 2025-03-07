@@ -177,7 +177,3 @@ class SpaceTimeRecord:
         if not isinstance(other, SpaceTimeRecord):
             raise TypeError("Argument other must be an instance of Record")
         return haversine(self.lon, self.lat, other.lon, other.lat)
-
-
-class SpaceTimeRecords(List[SpaceTimeRecord]):
-    """List of SpaceTimeRecords"""

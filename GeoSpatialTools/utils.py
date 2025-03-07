@@ -1,4 +1,8 @@
-"""Utility functions. Including Error classes and Warnings."""
+"""
+Utils
+=====
+Utility functions. Including Error classes and Warnings.
+"""
 
 
 class LatitudeError(ValueError):

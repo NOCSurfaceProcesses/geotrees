@@ -62,7 +62,7 @@ class QuadTree:
         return out
 
     def len(self, _current_len: int = 0) -> int:
-        """Get the number of points in the OctTree"""
+        """Get the number of points in the QuadTree"""
         _current_len += len(self.points)
         if not self.divided:
             return _current_len
@@ -177,7 +177,20 @@ class QuadTree:
         rect: Rectangle,
         points: Optional[List[Record]] = None,
     ) -> List[Record]:
-        """Get points that fall in a rectangle"""
+        """
+        Get Records contained within the QuadTree that fall in a
+        Rectangle
+
+        Parameters
+        ----------
+        rect : Rectangle
+
+        Returns
+        -------
+        list[Record]
+            The Record values contained within the QuadTree that fall
+            within the bounds of rect.
+        """
         if not points:
             points = list()
         if not self.boundary.intersects(rect):
@@ -200,7 +213,20 @@ class QuadTree:
         ellipse: Ellipse,
         points: Optional[List[Record]] = None,
     ) -> List[Record]:
-        """Get points that fall in an ellipse."""
+        """
+        Get Records contained within the QuadTree that fall in a
+        Ellipse
+
+        Parameters
+        ----------
+        ellipse : Ellipse
+
+        Returns
+        -------
+        list[Record]
+            The Record values contained within the QuadTree that fall
+            within the bounds of ellipse.
+        """
         if not points:
             points = list()
         if not ellipse.nearby_rect(self.boundary):
@@ -224,7 +250,36 @@ class QuadTree:
         dist: float,
         points: Optional[List[Record]] = None,
     ) -> List[Record]:
-        """Get all points that are nearby another point"""
+        """
+        Get all Records contained in the QuadTree that are nearby
+        another query Record.
+
+        Query the QuadTree to find all Records within the QuadTree that
+        are nearby to the query Record. This search should be faster
+        than searching through all records, since only QuadTree children whose
+        boundaries are close to the query Record are evaluated.
+
+        Parameters
+        ----------
+        point : Record
+            The query point.
+        dist : float
+            The distance for comparison. Note that Haversine distance is used
+            as the distance metric as the query Record and QuadTree are
+            assumed to lie on the surface of Earth.
+        points : Records | None
+            List of Records already found. Most use cases will be to
+            not set this value, since it's main use is for passing onto the
+            children QuadTrees.
+
+        Returns
+        -------
+        list[Record]
+            A list of Records whose distance to the
+            query Record is <= dist, and the datetimes of the
+            Records fall within the datetime range of the query
+            Record.
+        """
         if not points:
             points = list()
         if not self.boundary.nearby(point, dist):

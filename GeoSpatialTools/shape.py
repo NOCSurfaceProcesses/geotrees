@@ -25,7 +25,7 @@ from .record import Record, SpaceTimeRecord
 @dataclass
 class Rectangle:
     """
-    A simple Rectangle class
+    A simple Rectangle class for GeoSpatial analysis. Defined by a bounding box.
 
     Parameters
     ----------
@@ -109,7 +109,7 @@ class Rectangle:
         return lat <= self.north and lat >= self.south
 
     def contains(self, point: Record) -> bool:
-        """Test if a point is contained within the Rectangle"""
+        """Test if a Record is contained within the Rectangle"""
         return self._test_north_south(point.lat) and self._test_east_west(
             point.lon
         )
@@ -142,7 +142,7 @@ class Rectangle:
         point: Record,
         dist: float,
     ) -> bool:
-        """Check if point is nearby the Rectangle"""
+        """Check if Record is nearby the Rectangle"""
         # QUESTION: Is this sufficient? Possibly it is overkill
         return (
             haversine(self.lon, self.lat, point.lon, point.lat)
@@ -157,9 +157,9 @@ class Ellipse:
     Parameters
     ----------
     lon : float
-        Horizontal centre of the ellipse
+        Horizontal centre of the Ellipse
     lat : float
-        Vertical centre of the ellipse
+        Vertical centre of the Ellipse
     a : float
         Length of the semi-major axis
     b : float
@@ -205,14 +205,14 @@ class Ellipse:
         )
 
     def contains(self, point: Record) -> bool:
-        """Test if a point is contained within the Ellipse"""
+        """Test if a Record is contained within the Ellipse"""
         return (
             haversine(self.p1_lon, self.p1_lat, point.lon, point.lat)
             + haversine(self.p2_lon, self.p2_lat, point.lon, point.lat)
         ) <= 2 * self.a
 
     def nearby_rect(self, rect: Rectangle) -> bool:
-        """Test if a rectangle is near to the Ellipse"""
+        """Test if a Rectangle is near to the Ellipse"""
         return (
             haversine(self.p1_lon, self.p1_lat, rect.lon, rect.lat)
             <= rect.edge_dist + self.a
@@ -224,33 +224,23 @@ class Ellipse:
 @dataclass
 class SpaceTimeRectangle:
     """
-    A simple Space Time SpaceTimeRectangle class.
-
-    This constructs a simple Rectangle object.
-    The defining coordinates are the centres of the box, and the extents
-    are the full width, height, and time extent.
-
-    Whilst the rectangle is assumed to lie on the surface of Earth, this is
-    a projection as the rectangle is defined by a longitude/latitude range.
-
-    The temporal components are defined in the same way as the spatial
-    components, that is that the `datetime` component (t) is the "centre", and
-    the time extent (dt) is the full time range of the box.
+    A simple SpaceTimeRectangle class for GeoSpatial analysis. Defined by a
+    bounding box in space and time.
 
     Parameters
     ----------
     west : float
-        Western boundary of the Rectangle
+        Western boundary of the SpaceTimeRectangle
     east : float
-        Eastern boundary of the Rectangle
+        Eastern boundary of the SpaceTimeRectangle
     south : float
-        Southern boundary of the Rectangle
+        Southern boundary of the SpaceTimeRectangle
     north : float
-        Northern boundary of the Rectangle
+        Northern boundary of the SpaceTimeRectangle
     start : datetime.datetime
-        Start datetime of the Rectangle
+        Start datetime of the SpaceTimeRectangle
     end : datetime.datetime
-        End datetime of the Rectangle
+        End datetime of the SpaceTimeRectangle
     """
 
     west: float
@@ -276,17 +266,17 @@ class SpaceTimeRectangle:
 
     @property
     def lat_range(self) -> float:
-        """Latitude range of the Rectangle"""
+        """Latitude range of the SpaceTimeRectangle"""
         return self.north - self.south
 
     @property
     def lat(self) -> float:
-        """Centre latitude of the Rectangle"""
+        """Centre latitude of the SpaceTimeRectangle"""
         return self.south + self.lat_range / 2
 
     @property
     def lon_range(self) -> float:
-        """Longitude range of the Rectangle"""
+        """Longitude range of the SpaceTimeRectangle"""
         if self.east < self.west:
             return self.east - self.west + 360
 
@@ -294,7 +284,7 @@ class SpaceTimeRectangle:
 
     @property
     def lon(self) -> float:
-        """Centre longitude of the Rectangle"""
+        """Centre longitude of the SpaceTimeRectangle"""
         lon = self.west + self.lon_range / 2
         return ((lon + 540) % 360) - 180
 
@@ -319,7 +309,7 @@ class SpaceTimeRectangle:
 
     @property
     def centre_datetime(self) -> datetime:
-        """The midpoint time of the Rectangle"""
+        """The midpoint time of the SpaceTimeRectangle"""
         return self.start + (self.end - self.start) / 2
 
     def _test_east_west(self, lon: float) -> bool:
@@ -338,7 +328,9 @@ class SpaceTimeRectangle:
         return lat <= self.north and lat >= self.south
 
     def contains(self, point: SpaceTimeRecord) -> bool:
-        """Test if a point is contained within the SpaceTimeRectangle"""
+        """
+        Test if a SpaceTimeRecord is contained within the SpaceTimeRectangle
+        """  # noqa: D200
         if point.datetime > self.end or point.datetime < self.start:
             return False
         return self._test_north_south(point.lat) and self._test_east_west(
@@ -346,7 +338,10 @@ class SpaceTimeRectangle:
         )
 
     def intersects(self, other: object) -> bool:
-        """Test if another Rectangle object intersects this Rectangle"""
+        """
+        Test if another SpaceTimeRectangle object intersects this
+        SpaceTimeRectangle.
+        """
         if not isinstance(other, SpaceTimeRectangle):
             raise TypeError(
                 f"other must be a Rectangle class, got {type(other)}"
@@ -378,7 +373,7 @@ class SpaceTimeRectangle:
         t_dist: timedelta,
     ) -> bool:
         """
-        Check if point is nearby the Rectangle
+        Check if SpaceTimeRecord is nearby the SpaceTimeRectangle
 
         Determines if a SpaceTimeRecord that falls on the surface of Earth is
         nearby to the rectangle in space and time. This calculation uses the
@@ -391,7 +386,7 @@ class SpaceTimeRectangle:
         combination with the input distance.
 
         The primary use-case of this method is for querying an OctTree for
-        nearby Records.
+        nearby SpaceTimeRecords.
 
         Parameters
         ----------
@@ -417,14 +412,18 @@ class SpaceTimeRectangle:
 
 class SpaceTimeEllipse:
     """
-    A simple Ellipse Class for an ellipse on the surface of a sphere.
+    A simple SpaceTimeEllipse Class for an ellipse on the surface of a sphere
+    with an additional time dimension.
+
+    The representation of the shape is an elliptical cylinder, with the time
+    dimension representing the height of the cylinder.
 
     Parameters
     ----------
     lon : float
-        Horizontal centre of the ellipse
+        Horizontal centre of the SpaceTimeEllipse
     lat : float
-        Vertical centre of the ellipse
+        Vertical centre of the SpaceTimeEllipse
     a : float
         Length of the semi-major axis
     b : float
@@ -432,9 +431,9 @@ class SpaceTimeEllipse:
     theta : float
         Angle of the semi-major axis from horizontal anti-clockwise in radians
     start : datetime.datetime
-        Start date of the Ellipse
+        Start date of the SpaceTimeEllipse
     end : datetime.datetime
-        Send date of the Ellipse
+        Send date of the SpaceTimeEllipse
     """
 
     def __init__(
@@ -482,7 +481,7 @@ class SpaceTimeEllipse:
         )
 
     def contains(self, point: SpaceTimeRecord) -> bool:
-        """Test if a point is contained within the Ellipse"""
+        """Test if a SpaceTimeRecord is contained within the SpaceTimeEllipse"""
         if point.datetime > self.end or point.datetime < self.start:
             return False
         return (
@@ -491,7 +490,7 @@ class SpaceTimeEllipse:
         ) <= 2 * self.a
 
     def nearby_rect(self, rect: SpaceTimeRectangle) -> bool:
-        """Test if a rectangle is near to the Ellipse"""
+        """Test if a SpaceTimeRectangle is near to the SpaceTimeEllipse"""
         if rect.start > self.end or rect.end < self.start:
             return False
         # TODO: Check corners, and 0 lat

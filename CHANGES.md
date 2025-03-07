@@ -4,6 +4,11 @@
 
 Contributors to this version: Joseph Siddons (@josidd)
 
+### Breaking Changes
+
+* `Record` and `SpaceTimeRecord` classes moved to `GeoSpatialTools.record` module (!27).
+* `Rectangle`, `Ellipse`, `SpaceTimeRectangle`, `SpaceTimeEllipse` classes moved to `GeoSpatialTools.shape` module (!27).
+
 ### Internal changes
 
 * Added changelog (!26).

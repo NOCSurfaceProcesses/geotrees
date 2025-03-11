@@ -34,11 +34,7 @@ classifiers = [
 [project.optional-dependencies]
 notebooks = ["ipykernel", "polars"]
 test = ["pytest"]
-docs = [
-  "sphinx",
-  "sphinx-autodoc-typehints",
-  "sphinx-rtd-theme",
-]
+docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
 all = [
   "ipykernel",
   "polars",
@@ -97,11 +93,6 @@ pandas = "pd"
 polars = "pl"
 scipy = "sp"
 xarray = "xr"
-
-[tool.codespell]
-skip = "./docs/_build"
-count = true
-quiet-level = 3
 
 [project.urls]
 Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"

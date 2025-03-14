@@ -6,6 +6,7 @@ Contributors to this version: Joseph Siddons (@josidd)
 
 ### Internal changes
 
+* Added CI/CD scripts for GitLab (!25).
 * Added changelog (!26).
 
 ## 0.11.2 (2025-02-27)

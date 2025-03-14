@@ -33,22 +33,19 @@ classifiers = [
 
 [project.optional-dependencies]
 notebooks = ["ipykernel", "polars"]
-test = ["pytest>=8.3.4"]
-docs = [
-  "sphinx>=8.2.1",
-  "sphinx-autodoc-typehints>=3.1.0",
-  "sphinx-rtd-theme>=3.0.2",
-]
+test = ["pytest"]
+docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
 all = [
   "ipykernel",
   "polars",
   "pytest",
-  "sphinx>=8.2.1",
-  "sphinx-autodoc-typehints>=3.1.0",
-  "sphinx-rtd-theme>=3.0.2",
+  "sphinx",
+  "sphinx-autodoc-typehints",
+  "sphinx-rtd-theme",
 ]
 
 [tool.ruff]
+src = ["geospatialtools"]
 line-length = 80
 indent-width = 4
 target-version = "py311"
@@ -74,6 +71,11 @@ select = [
   "S",    # bandit
   "W",    # pycodestyle warnings
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"docs/*.py" = ["D100", "D101", "D102", "D103"]
+"test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
+"notebooks/*.ipynb" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
 
 [tool.ruff.format]
 quote-style = "double"            # Like Black, use double quotes for strings.

@@ -1,7 +1,7 @@
 """
 QuadTree
 --------
-Constuctors for QuadTree classes that can decrease the number of comparisons
+Constructors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -17,9 +17,9 @@ from math import degrees, sqrt
 
 class Record:
     """
-    ICOADS Record class
+    Record class
 
-    This is a simple instance of an ICOARDS record, it requires position data.
+    This is a simple instance of a record, it requires position data.
     It can optionally include datetime, a UID, and extra data passed as
     keyword arguments.
 

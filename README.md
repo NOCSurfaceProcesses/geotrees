@@ -81,11 +81,11 @@ N_samples = 1000
 
 records: list[Record] = [Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)]
 # Construct Tree
-kt = KDTree(records)
+kdtree = KDTree(records)
 
 test_value: Record = Record(lon=47.6, lat=-31.1)
 neighbours: list[Record] = []
-neighbours, dist = kt.query(test_value)
+neighbours, dist = kdtree.query(test_value)
 ```
 
 ### Points within distance (2d \& 3d)
@@ -126,16 +126,16 @@ N_samples = 1000
 
 # Construct Tree
 boundary = Rectangle(-180, 180, -90, 90)  # Full domain
-qt = QuadTree(boundary)
+quadtree = QuadTree(boundary)
 
 records: list[Record] = [Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)]
 for record in records:
-    qt.insert(record)
+    quadtree.insert(record)
 
 test_value: Record = Record(lon=47.6, lat=-31.1)
 dist: float = 340  # km
 
-neighbours: list[Record] = qt.nearby_points(test_value, dist)
+neighbours: list[Record] = quadtree.nearby_points(test_value, dist)
 ```
 
 #### OctTree - 3d QuadTree
@@ -190,16 +190,16 @@ N_samples = 1000
 
 # Construct Tree
 boundary = SpaceTimeRectangle(-180, 180, -90, 90, datetime(2009, 1, 1, 0), datetime(2009, 1, 2, 23))  # Full domain
-ot = OctTree(boundary)
+octtree = OctTree(boundary)
 
 records: list[SpaceTimeRecord] = [
     SpaceTimeRecord(choice(lon_range), choice(lat_range), choice(dates)) for _ in range(N_samples)]
 for record in records:
-    ot.insert(record)
+    octtree.insert(record)
 
 test_value: SpaceTimeRecord = SpaceTimeRecord(lon=47.6, lat=-31.1, datetime=datetime(2009, 1, 23, 17, 41))
 dist: float = 340  # km
 t_dist = timedelta(hours=4)
 
-neighbours: list[Record] = ot.nearby_points(test_value, dist, t_dist)
+neighbours: list[Record] = octtree.nearby_points(test_value, dist, t_dist)
 ```

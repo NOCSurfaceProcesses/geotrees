@@ -1,7 +1,7 @@
 """
 OctTree
 -------
-Constuctors for OctTree classes that can decrease the number of comparisons
+Constructors for OctTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -18,14 +18,14 @@ from warnings import warn
 
 class SpaceTimeRecord:
     """
-    ICOADS Record class.
+    SpaceTimeRecord class.
 
-    This is a simple instance of an ICOARDS record, it requires position and
-    temporal data. It can optionally include a UID and extra data.
+    This is a simple instance of a record, it requires position and temporal
+    data. It can optionally include a UID and extra data.
 
     The temporal component was designed to use `datetime` values, however all
     methods will work with numeric datetime information - for example a pentad,
-    timestamp, julian day, etc. Note that any uses within an OctTree and
+    time-stamp, Julian day, etc. Note that any uses within an OctTree and
     SpaceTimeRectangle must also have timedelta values replaced with numeric
     ranges in this case.
 

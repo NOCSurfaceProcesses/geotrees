@@ -6,6 +6,7 @@ comparisons between GreatCircle objects.
 """
 
 import numpy as np
+from typing import Optional, Tuple
 
 from .distance_metrics import bearing, gcd_slc
 
@@ -15,7 +16,7 @@ def cartesian_to_lonlat(
     y: float,
     z: float,
     to_radians: bool = False,
-) -> tuple[float, float]:
+) -> Tuple[float, float]:
     """
     Get lon, and lat from cartesian coordinates.
 
@@ -54,7 +55,7 @@ def polar_to_cartesian(
     R: float = 6371,
     to_radians: bool = True,
     normalised: bool = True,
-) -> tuple[float, float, float]:
+) -> Tuple[float, float, float]:
     """
     Convert from polars coordinates to cartesian.
 
@@ -196,7 +197,7 @@ class GreatCircle:
 
     def intersection(
         self, other: object, epsilon: float = 0.01
-    ) -> tuple[float, float] | None:
+    ) -> Optional[Tuple[float, float]]:
         """
         Determine intersection position with another GreatCircle.
 
@@ -241,7 +242,7 @@ class GreatCircle:
         self,
         other: object,
         epsilon: float = 0.01,
-    ) -> float | None:
+    ) -> Optional[float]:
         """
         Get angle of intersection with another GreatCircle.
 

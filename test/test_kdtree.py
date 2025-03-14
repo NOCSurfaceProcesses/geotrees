@@ -2,7 +2,7 @@ import unittest
 import random
 
 from numpy import min, argmin
-from GeoSpatialTools import haversine, KDTree, Record
+from GeoSpatialTools import KDTree, Record
 
 
 class TestKDTree(unittest.TestCase):
@@ -87,7 +87,7 @@ class TestKDTree(unittest.TestCase):
         kt.insert(Record(45, -21, uid="1"))
         kt.insert(Record(45, -21, uid="2"))
 
-        r, d = kt.query(Record(44, -21, uid="3"))
+        r, _ = kt.query(Record(44, -21, uid="3"))
         assert len(r) == 2
 
     def test_wrap(self):

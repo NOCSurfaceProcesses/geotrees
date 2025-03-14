@@ -1,0 +1,52 @@
+variables:
+  UV_VERSION: "0.5"
+  PYTHON_VERSION: "3.12"
+  BASE_LAYER: "bookworm-slim"
+  UV_CACHE_DIR: ".uv-cache"
+  UV_SYSTEM_PYTHON: "1"
+stages:
+  - build
+  - test
+  - lint
+pre-commit:
+  stage: build
+  image: python:3.11
+  script:
+    - pip install pre-commit
+    - pre-commit run --all-files
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+pytest:
+  stage: test
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  cache:
+    - key:
+        files:
+          - uv.lock
+      paths:
+        - $UV_CACHE_DIR
+  script:
+    - uv --version
+    - uv sync --all-extras
+    - uv pip list
+    - uv run pytest test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+ruff:
+  stage: lint
+  interruptible: true
+  image:
+    name: ghcr.io/astral-sh/ruff:0.9.9-alpine
+  before_script:
+    - cd $CI_PROJECT_DIR
+    - ruff --version
+  script:
+    - ruff check --output-format=gitlab > code-quality-report.json
+  artifacts:
+    reports:
+      codequality: $CI_PROJECT_DIR/code-quality-report.json
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"

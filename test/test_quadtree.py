@@ -155,7 +155,7 @@ class TestQuadTree(unittest.TestCase):
         assert qt_boundary.lat == 0
         assert qt_boundary.lat_range == 180
 
-        qt = QuadTree(qt_boundary, capacity=3)
+        quadtree = QuadTree(qt_boundary, capacity=3)
 
         quert_rect = Rectangle(140, -160, 40, 50)
         assert quert_rect.lon == 170
@@ -176,9 +176,9 @@ class TestQuadTree(unittest.TestCase):
         ]
         points.extend(points_want)
         for p in points:
-            qt.insert(p)
+            quadtree.insert(p)
 
-        res = qt.query(quert_rect)
+        res = quadtree.query(quert_rect)
         assert len(res) == len(points_want)
         assert all([p in res for p in points_want])
 
@@ -188,7 +188,7 @@ class TestQuadTree(unittest.TestCase):
         theta = 0
 
         ellipse = Ellipse(12.5, 2.5, d1, d2, theta)
-        # TEST: distint locii
+        # TEST: distinct locii
         assert (ellipse.p1_lon, ellipse.p1_lat) != (
             ellipse.p2_lon,
             ellipse.p2_lat,

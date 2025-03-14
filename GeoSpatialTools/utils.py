@@ -12,6 +12,6 @@ class LatitudeError(ValueError):
 
 
 class DateWarning(Warning):
-    """Warnning for Datetime Value"""
+    """Warning for Datetime Value"""
 
     pass

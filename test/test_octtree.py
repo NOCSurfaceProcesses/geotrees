@@ -294,7 +294,7 @@ class TestOctTree(unittest.TestCase):
         start = d - dt
         end = d + dt
         boundary = Rectangle(-180, 180, -90, 90, start, end)
-        ot = OctTree(boundary, capacity=3)
+        octree = OctTree(boundary, capacity=3)
 
         quert_rect = Rectangle(140, -160, 40, 50, d, d + timedelta(days=8))
         points_want: list[Record] = [
@@ -311,9 +311,9 @@ class TestOctTree(unittest.TestCase):
         ]
         points.extend(points_want)
         for p in points:
-            ot.insert(p)
+            octree.insert(p)
 
-        res = ot.query(quert_rect)
+        res = octree.query(quert_rect)
         assert len(res) == len(points_want)
         assert all([p in res for p in points_want])
 
@@ -339,7 +339,7 @@ class TestOctTree(unittest.TestCase):
             test_datetime - test_timedelta / 2,
             test_datetime + test_timedelta / 2,
         )
-        # TEST: distint locii
+        # TEST: distinct locii
         assert (ellipse.p1_lon, ellipse.p1_lat) != (
             ellipse.p2_lon,
             ellipse.p2_lat,

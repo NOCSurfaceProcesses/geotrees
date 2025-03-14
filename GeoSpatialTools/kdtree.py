@@ -18,7 +18,7 @@ class KDTree:
 
     This implementation is a _balanced_ KDTree, each leaf node should have the
     same number of points (or differ by 1 depending on the number of points
-    the KDTree is intialised with).
+    the KDTree is initialised with).
 
     The KDTree partitions in each of the lon and lat dimensions alternatively
     in sequence by splitting at the median of the dimension of the points
@@ -32,7 +32,7 @@ class KDTree:
         The current depth of the KDTree, you should set this to 0, it is used
         internally.
     max_depth : int
-        The maximium depth of the KDTree. The leaf nodes will have depth no
+        The maximum depth of the KDTree. The leaf nodes will have depth no
         larger than this value. Leaf nodes will not be created if there is
         only 1 point in the branch.
     """

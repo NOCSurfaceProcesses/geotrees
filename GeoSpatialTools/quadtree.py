@@ -1,5 +1,5 @@
 """
-Constuctors for QuadTree classes that can decrease the number of comparisons
+Constructors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.

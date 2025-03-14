@@ -15,14 +15,14 @@ time-complexity of these query operations is :math:`O(\log(n))`, the space-compl
 
 Typically, it is assumed that the data uses a cartesian coordinate system, so comparisons between boundaries and query
 shapes utilise cartesian geometry and euclidean distances. The implementation of Quadtree within this library, the
-``QuadTree`` class, utilises the Haversine distance as a metric for indentifying records within the queried region.
+``QuadTree`` class, utilises the Haversine distance as a metric for identifying records within the queried region.
 This allows the Quadtree to account for the spherical geometry of the Earth. Boundary checks with query regions also
 account for the wrapping of longitude at -180, 180 degrees.
 
 The ``QuadTree`` object is defined by a bounding box, i.e. boundaries at the western, eastern, southern, and northern edges of
 the data that will be inserted into the ``QuadTree``. Additionally, a capacity and maximum depth can be provided. If the
 capacity is exceeded whilst inserting records the ``QuadTree`` will divide and new records will be inserted into the appropriate
-child ``QuadTree``. The maxium depth is the maximum height of the ``QuadTree``, if capacity is also specified then this will be
+child ``QuadTree``. The maximum depth is the maximum height of the ``QuadTree``, if capacity is also specified then this will be
 overridden if the ``QuadTree`` is at this depth, and the ``QuadTree`` will not divide.
 
 Documentation

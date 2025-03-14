@@ -12,13 +12,13 @@ Whilst the Quadtree divides into 4 children after the capacity is reached, the O
 divisions are at the longitude midpoint, the latitude midpoint, and the datetime midpoint of the boundary.
 
 The implementation of Octtree within this library, the ``OctTree`` class, utilises the Haversine distance as a metric
-for indentifying records within the queried region. This allows the Octtree to account for the spherical geometry of the
+for identifying records within the queried region. This allows the Octtree to account for the spherical geometry of the
 Earth. Boundary checks with query regions also account for the wrapping of longitude at -180, 180 degrees.
 
 The ``OctTree`` object is defined by a bounding box in space and time, i.e. boundaries at the western, eastern,
 southern, and northern edges as well as the start and end datetimes of the data that will be inserted into the ``OctTree``.
 Additionally, a capacity and maximum depth can be provided. If the capacity is exceeded whilst inserting records the
-``OctTree`` will divide and new records will be inserted into the appropriate child ``OctTree``. The maxium depth is the
+``OctTree`` will divide and new records will be inserted into the appropriate child ``OctTree``. The maximum depth is the
 maximum height of the ``OctTree``, if capacity is also specified then this will be overridden if the ``OctTree`` is at this
 depth, and the ``OctTree`` will not divide.
 

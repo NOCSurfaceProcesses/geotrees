@@ -11,7 +11,7 @@ Classes prefixed by "SpaceTime" include a temporal dimension and should be used
 with OctTree classes.
 """
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 from .utils import LatitudeError
 from .distance_metrics import haversine

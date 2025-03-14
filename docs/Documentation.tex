@@ -64,7 +64,7 @@
 
 
 \title{GeoSpatialTools}
-\date{Mar 07, 2025}
+\date{Mar 14, 2025}
 \release{0.11.2}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1236,7 +1236,7 @@ time\sphinxhyphen{}complexity of these query operations is \(O(\log(n))\), the s
 \sphinxAtStartPar
 Typically, it is assumed that the data uses a cartesian coordinate system, so comparisons between boundaries and query
 shapes utilise cartesian geometry and euclidean distances. The implementation of Quadtree within this library, the
-\sphinxcode{\sphinxupquote{QuadTree}} class, utilises the Haversine distance as a metric for indentifying records within the queried region.
+\sphinxcode{\sphinxupquote{QuadTree}} class, utilises the Haversine distance as a metric for identifying records within the queried region.
 This allows the Quadtree to account for the spherical geometry of the Earth. Boundary checks with query regions also
 account for the wrapping of longitude at \sphinxhyphen{}180, 180 degrees.
 
@@ -1244,7 +1244,7 @@ account for the wrapping of longitude at \sphinxhyphen{}180, 180 degrees.
 The \sphinxcode{\sphinxupquote{QuadTree}} object is defined by a bounding box, i.e. boundaries at the western, eastern, southern, and northern edges of
 the data that will be inserted into the \sphinxcode{\sphinxupquote{QuadTree}}. Additionally, a capacity and maximum depth can be provided. If the
 capacity is exceeded whilst inserting records the \sphinxcode{\sphinxupquote{QuadTree}} will divide and new records will be inserted into the appropriate
-child \sphinxcode{\sphinxupquote{QuadTree}}. The maxium depth is the maximum height of the \sphinxcode{\sphinxupquote{QuadTree}}, if capacity is also specified then this will be
+child \sphinxcode{\sphinxupquote{QuadTree}}. The maximum depth is the maximum height of the \sphinxcode{\sphinxupquote{QuadTree}}, if capacity is also specified then this will be
 overridden if the \sphinxcode{\sphinxupquote{QuadTree}} is at this depth, and the \sphinxcode{\sphinxupquote{QuadTree}} will not divide.
 
 
@@ -1326,7 +1326,7 @@ with a \sphinxcode{\sphinxupquote{Ellipse}} using \sphinxcode{\sphinxupquote{Qua
 \section{quadtree Module}
 \label{\detokenize{quadtree:module-GeoSpatialTools.quadtree}}\label{\detokenize{quadtree:quadtree-module}}\index{module@\spxentry{module}!GeoSpatialTools.quadtree@\spxentry{GeoSpatialTools.quadtree}}\index{GeoSpatialTools.quadtree@\spxentry{GeoSpatialTools.quadtree}!module@\spxentry{module}}
 \sphinxAtStartPar
-Constuctors for QuadTree classes that can decrease the number of comparisons
+Constructors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -1584,14 +1584,14 @@ divisions are at the longitude midpoint, the latitude midpoint, and the datetime
 
 \sphinxAtStartPar
 The implementation of Octtree within this library, the \sphinxcode{\sphinxupquote{OctTree}} class, utilises the Haversine distance as a metric
-for indentifying records within the queried region. This allows the Octtree to account for the spherical geometry of the
+for identifying records within the queried region. This allows the Octtree to account for the spherical geometry of the
 Earth. Boundary checks with query regions also account for the wrapping of longitude at \sphinxhyphen{}180, 180 degrees.
 
 \sphinxAtStartPar
 The \sphinxcode{\sphinxupquote{OctTree}} object is defined by a bounding box in space and time, i.e. boundaries at the western, eastern,
 southern, and northern edges as well as the start and end datetimes of the data that will be inserted into the \sphinxcode{\sphinxupquote{OctTree}}.
 Additionally, a capacity and maximum depth can be provided. If the capacity is exceeded whilst inserting records the
-\sphinxcode{\sphinxupquote{OctTree}} will divide and new records will be inserted into the appropriate child \sphinxcode{\sphinxupquote{OctTree}}. The maxium depth is the
+\sphinxcode{\sphinxupquote{OctTree}} will divide and new records will be inserted into the appropriate child \sphinxcode{\sphinxupquote{OctTree}}. The maximum depth is the
 maximum height of the \sphinxcode{\sphinxupquote{OctTree}}, if capacity is also specified then this will be overridden if the \sphinxcode{\sphinxupquote{OctTree}} is at this
 depth, and the \sphinxcode{\sphinxupquote{OctTree}} will not divide.
 
@@ -1695,7 +1695,7 @@ with a \sphinxcode{\sphinxupquote{SpaceTimeEllipse}} using \sphinxcode{\sphinxup
 \section{octtree Module}
 \label{\detokenize{octtree:module-GeoSpatialTools.octtree}}\label{\detokenize{octtree:octtree-module}}\index{module@\spxentry{module}!GeoSpatialTools.octtree@\spxentry{GeoSpatialTools.octtree}}\index{GeoSpatialTools.octtree@\spxentry{GeoSpatialTools.octtree}!module@\spxentry{module}}
 \sphinxAtStartPar
-Constuctors for OctTree classes that can decrease the number of comparisons
+Constructors for OctTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
@@ -2076,7 +2076,7 @@ A Haverine distance implementation of a balanced KDTree.
 \sphinxAtStartPar
 This implementation is a \_balanced\_ KDTree, each leaf node should have the
 same number of points (or differ by 1 depending on the number of points
-the KDTree is intialised with).
+the KDTree is initialised with).
 
 \sphinxAtStartPar
 The KDTree partitions in each of the lon and lat dimensions alternatively
@@ -2095,7 +2095,7 @@ internally.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The maximium depth of the KDTree. The leaf nodes will have depth no
+\sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The maximum depth of the KDTree. The leaf nodes will have depth no
 larger than this value. Leaf nodes will not be created if there is
 only 1 point in the branch.
 
@@ -2388,7 +2388,7 @@ Get lon, and lat from cartesian coordinates.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{tuple}}{[}\sphinxcode{\sphinxupquote{float}}, \sphinxcode{\sphinxupquote{float}}{]}}
+\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{Tuple}}{[}\sphinxcode{\sphinxupquote{float}}, \sphinxcode{\sphinxupquote{float}}{]}}
 
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
@@ -2713,7 +2713,7 @@ Utility functions. Including Error classes and Warnings.
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.utils.}}\sphinxbfcode{\sphinxupquote{DateWarning}}}
 \pysigstopsignatures
 \sphinxAtStartPar
-Warnning for Datetime Value
+Warning for Datetime Value
 
 \end{fulllineitems}
 

@@ -10,7 +10,7 @@ GeoSpatialTools
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
-    
+
    introduction
    installation
    bisection
@@ -30,4 +30,3 @@ GeoSpatialTools
 .. * :ref:`genindex`
 .. * :ref:`modindex`
 .. * :ref:`search`
-

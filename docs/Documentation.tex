@@ -114,7 +114,7 @@ great\sphinxhyphen{}circles.
 
 \subsection{Development Lead}
 \label{\detokenize{introduction:development-lead}}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 Joseph T. Siddons \textless{}\sphinxhref{mailto:josidd@noc.ac.uk}{josidd@noc.ac.uk}\textgreater{} \sphinxhref{git.noc.ac.uk/josidd}{@josidd}
 
@@ -123,7 +123,7 @@ Joseph T. Siddons \textless{}\sphinxhref{mailto:josidd@noc.ac.uk}{josidd@noc.ac.
 
 \subsection{Contributoring Developers}
 \label{\detokenize{introduction:contributoring-developers}}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 Richard C. Cornes \textless{}\sphinxhref{mailto:rcornes@noc.ac.uk}{rcornes@noc.ac.uk}\textgreater{} \sphinxhref{git.noc.ac.uk/ricorne}{@ricorne}
 
@@ -318,17 +318,17 @@ each value in test. Or the index of the nearest neighbour if test is a
 single value.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{vals}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}\sphinxstyleliteralemphasis{\sphinxupquote{Numeric}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) \textendash{} List of values \sphinxhyphen{} this is the pool of values for which we are looking
 for a nearest match. This list MUST be sorted. Sortedness is not
 checked, nor is the list sorted.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{test}} (\sphinxstyleliteralemphasis{\sphinxupquote{Numeric}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}\sphinxstyleliteralemphasis{\sphinxupquote{Numeric}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) \textendash{} Query value(s)
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{check\_sorted}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Optionally check that the input vals is sorted. Raises an error if set
 to True (default), displays a warning if set to False.
@@ -360,13 +360,13 @@ consistent input data\sphinxhyphen{}type across all classes in the library.
 \sphinxAtStartPar
 There are two classes of \sphinxcode{\sphinxupquote{Record}}:
 \begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{GeoSpatialTools.record.Record}} for two\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude) and \sphinxcode{\sphinxupquote{lat}}
 (latitude). Optionally, one can pass \sphinxcode{\sphinxupquote{datetime}} and \sphinxcode{\sphinxupquote{uid}}, as well as additional data attributes with keyword
 arguments.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{GeoSpatialTools.record.SpaceTimeRecord}} for three\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude),
 \sphinxcode{\sphinxupquote{lat}} (latitude), and \sphinxcode{\sphinxupquote{datetime}}. Optionally, one can pass \sphinxcode{\sphinxupquote{uid}}, as well as additional data attributes with
@@ -431,27 +431,27 @@ keyword arguments.
 Equality is checked only on the required fields + UID if it is specified.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Horizontal coordinate
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Vertical coordinate
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{datetime}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} Datetime of the record
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{uid}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} Unique Identifier
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fix\_lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Force longitude to \sphinxhyphen{}180, 180
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{**data}} \textendash{} Additional data passed to the Record for use by other functions or
 classes.
@@ -511,29 +511,29 @@ ranges in this case.
 Equality is checked only on the required fields + UID if it is specified.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Horizontal coordinate (longitude).
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Vertical coordinate (latitude).
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{datetime}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.datetime}}) \textendash{} Datetime of the record. Can also be a numeric value such as pentad.
 Comparisons between Records with datetime and Records with numeric
 datetime will fail.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{uid}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} Unique Identifier.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fix\_lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Force longitude to \sphinxhyphen{}180, 180
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{**data}} \textendash{} Additional data passed to the SpaceTimeRecord for use by other functions
 or classes.
@@ -652,23 +652,23 @@ with OctTree classes.
 A simple Ellipse Class for an ellipse on the surface of a sphere.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Horizontal centre of the Ellipse
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Vertical centre of the Ellipse
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{a}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Length of the semi\sphinxhyphen{}major axis
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{b}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Length of the semi\sphinxhyphen{}minor axis
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{theta}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Angle of the semi\sphinxhyphen{}major axis from horizontal anti\sphinxhyphen{}clockwise in radians
 
@@ -734,19 +734,19 @@ Test if a Rectangle is near to the Ellipse
 A simple Rectangle class for GeoSpatial analysis. Defined by a bounding box.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{west}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Western boundary of the Rectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{east}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Eastern boundary of the Rectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{south}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Southern boundary of the Rectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{north}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Northern boundary of the Rectangle
 
@@ -903,31 +903,31 @@ The representation of the shape is an elliptical cylinder, with the time
 dimension representing the height of the cylinder.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Horizontal centre of the SpaceTimeEllipse
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Vertical centre of the SpaceTimeEllipse
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{a}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Length of the semi\sphinxhyphen{}major axis
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{b}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Length of the semi\sphinxhyphen{}minor axis
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{theta}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Angle of the semi\sphinxhyphen{}major axis from horizontal anti\sphinxhyphen{}clockwise in radians
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{start}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.datetime}}) \textendash{} Start date of the SpaceTimeEllipse
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{end}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.datetime}}) \textendash{} Send date of the SpaceTimeEllipse
 
@@ -994,27 +994,27 @@ A simple SpaceTimeRectangle class for GeoSpatial analysis. Defined by a
 bounding box in space and time.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{west}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Western boundary of the SpaceTimeRectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{east}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Eastern boundary of the SpaceTimeRectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{south}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Southern boundary of the SpaceTimeRectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{north}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Northern boundary of the SpaceTimeRectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{start}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.datetime}}) \textendash{} Start datetime of the SpaceTimeRectangle
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{end}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.datetime}}) \textendash{} End datetime of the SpaceTimeRectangle
 
@@ -1172,15 +1172,15 @@ The primary use\sphinxhyphen{}case of this method is for querying an OctTree for
 nearby SpaceTimeRecords.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}})
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{dist}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{,}})
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{t\_dist}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.timedelta}})
 
@@ -1270,16 +1270,16 @@ was successful, \sphinxcode{\sphinxupquote{False}} otherwise. The \sphinxcode{\s
 \sphinxAtStartPar
 The \sphinxcode{\sphinxupquote{QuadTree}} class defined in \sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree}} can be queried in the following ways:
 \begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{Record}}, a spatial range with \sphinxcode{\sphinxupquote{QuadTree.nearby\_points}}. All points within the spatial range of the
 \sphinxcode{\sphinxupquote{Record}} will be returned in a list.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{Rectangle}} using \sphinxcode{\sphinxupquote{QuadTree.query}}. All points within the specified \sphinxcode{\sphinxupquote{Rectangle}} will be returned in a list.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{Ellipse}} using \sphinxcode{\sphinxupquote{QuadTree.query\_ellipse}}. All points within the specified \sphinxcode{\sphinxupquote{Ellipse}} will be returned in a list.
 
@@ -1344,20 +1344,20 @@ neighbours.
 A Simple QuadTree class for PyCOADS
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.Rectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Rectangle}}}}}) \textendash{} The bounding Rectangle of the QuadTree
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{capacity}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The capacity of each cell, if max\_depth is set then a cell at the
 maximum depth may contain more points than the capacity.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The current depth of the cell. Initialises to zero if unset.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} The maximum depth of the QuadTree. If set, this can override the
 capacity for cells at the maximum depth.
@@ -1443,17 +1443,17 @@ than searching through all records, since only QuadTree children whose
 boundaries are close to the query Record are evaluated.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}) \textendash{} The query point.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{dist}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} The distance for comparison. Note that Haversine distance is used
 as the distance metric as the query Record and QuadTree are
 assumed to lie on the surface of Earth.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{Records}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of Records already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
@@ -1619,17 +1619,17 @@ was successful, \sphinxcode{\sphinxupquote{False}} otherwise. The \sphinxcode{\s
 \sphinxAtStartPar
 The \sphinxcode{\sphinxupquote{OctTree}} class defined in \sphinxcode{\sphinxupquote{GeoSpatialTools.octtree}} can be queried in the following ways:
 \begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{SpaceTimeRecord}}, a spatial range, and a time range (specified by a \sphinxcode{\sphinxupquote{datetime.timedelta}}) with
 \sphinxcode{\sphinxupquote{OctTree.nearby\_points}}. All points within the spatial range and time range of the \sphinxcode{\sphinxupquote{SpaceTimeRecord}} will be
 returned in a list.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{SpaceTimeRectangle}} using \sphinxcode{\sphinxupquote{OctTree.query}}. All points within the specified \sphinxcode{\sphinxupquote{SpaceTimeRectangle}} will be returned in a list.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{SpaceTimeEllipse}} using \sphinxcode{\sphinxupquote{OctTree.query\_ellipse}}. All points within the specified \sphinxcode{\sphinxupquote{SpaceTimeEllipse}} will be returned in a list.
 
@@ -1731,20 +1731,20 @@ are part of the OctTree. This allows for usage of pentad, timestamp,
 Julian day, etc. as datetime values.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRectangle}}}}}) \textendash{} The bounding SpaceTimeRectangle of the QuadTree
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{capacity}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The capacity of each cell, if max\_depth is set then a cell at the
 maximum depth may contain more points than the capacity.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The current depth of the cell. Initialises to zero if unset.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} The maximum depth of the QuadTree. If set, this can override the
 capacity for cells at the maximum depth.
@@ -1834,24 +1834,24 @@ than searching through all records, since only OctTree children whose
 boundaries are close to the query SpaceTimeRecord are evaluated.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}) \textendash{} The query point.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{dist}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} The distance for comparison. Note that Haversine distance is used
 as the distance metric as the query SpaceTimeRecord and OctTree are
 assumed to lie on the surface of Earth.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{t\_dist}} (\sphinxstyleliteralemphasis{\sphinxupquote{datetime.timedelta}}) \textendash{} Max time gap between SpaceTimeRecords within the OctTree and the
 query SpaceTimeRecord. Can be numeric if the OctTree boundaries,
 SpaceTimeRecords, and query SpaceTimeRecord have numeric datetime
 values and ranges.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{List}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]} }}\sphinxstyleliteralemphasis{\sphinxupquote{| }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of SpaceTimeRecords already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
@@ -2084,16 +2084,16 @@ in sequence by splitting at the median of the dimension of the points
 assigned to the branch.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) \textendash{} A list of GeoSpatialTools.Record instances.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The current depth of the KDTree, you should set this to 0, it is used
 internally.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{max\_depth}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The maximum depth of the KDTree. The leaf nodes will have depth no
 larger than this value. Leaf nodes will not be created if there is
@@ -2203,23 +2203,23 @@ Construct a great circle path between a pair of positions.
 \sphinxurl{https://www.boeing-727.com/Data/fly\%20odds/distance.html}
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of start position.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of start position.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of end position.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of end position.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{R}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Radius of the sphere. Default is Earth radius in km (6371.0).
 
@@ -2240,11 +2240,11 @@ Construct a great circle path between a pair of positions.
 Compute distance from the GreatCircle to a point on the sphere.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of the position to test.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of the position to test.
 
@@ -2285,11 +2285,11 @@ intersection point, or the planes generated from the arc and centre of
 the sphere are identical.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Threshold for intersection
 
@@ -2329,11 +2329,11 @@ The intersection angle is computed using the normals of the planes
 formed by the two intersecting great circle objects.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{epsilon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Threshold for intersection
 
@@ -2368,19 +2368,19 @@ float | None
 Get lon, and lat from cartesian coordinates.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{x}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} x coordinate
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{y}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} y coordinate
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{z}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} z coordinate
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{to\_radians}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Return angles in radians. Otherwise return values in degrees.
 
@@ -2393,11 +2393,11 @@ Get lon, and lat from cartesian coordinates.
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
 \begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleemphasis{(float, float)}
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleemphasis{lon, lat}
 
@@ -2427,23 +2427,23 @@ behaviour assumes lon and lat, so converts to radians. Set
 \sphinxtitleref{to\_radians=False} if the coordinates are already in radians.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{R}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Radius of sphere.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{to\_radians}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Convert lon and lat to radians.
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{normalised}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Return normalised vector (ignore R value).
 
@@ -2485,19 +2485,19 @@ Compute the bearing of a track from (lon0, lat0) to (lon1, lat1).
 Duplicated from geo\sphinxhyphen{}py
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{,}}) \textendash{} Longitude of start point
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{,}}) \textendash{} Latitude of start point
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{,}}) \textendash{} Longitude of target point
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}\sphinxstyleliteralemphasis{\sphinxupquote{,}}) \textendash{} Latitude of target point
 
@@ -2536,19 +2536,19 @@ Compute the destination of a track started from ‘lon’, ‘lat’, with
 Duplicated from geo\sphinxhyphen{}py
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of initial position
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of initial position
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{bearing}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Direction of track
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{distance}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Distance to travel
 
@@ -2580,19 +2580,19 @@ tuple{[}float, float{]}
 Compute great circle distance on earth surface between two locations.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 1
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 1
 
@@ -2624,19 +2624,19 @@ float
 Compute Haversine distance between two points.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 1
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 1
 
@@ -2668,19 +2668,19 @@ float
 Compute the midpoint of a great circle track
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat0}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 0
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lon1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Longitude of position 1
 
-\item {} 
+\item {}
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{lat1}} (\sphinxstyleliteralemphasis{\sphinxupquote{float}}) \textendash{} Latitude of position 1
 

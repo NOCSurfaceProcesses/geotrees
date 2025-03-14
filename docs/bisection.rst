@@ -27,7 +27,7 @@ Example
 
    from GeoSpatialTools import find_nearest
    import numpy as np
-   
+
    search_values: list[float] = list(np.random.randn(50))
    search_values.sort()
 

@@ -43,7 +43,7 @@ Querying
 
 The ``OctTree`` class defined in ``GeoSpatialTools.octtree`` can be queried in the following ways:
 
-* with a ``SpaceTimeRecord``, a spatial range, and a time range (specified by a ``datetime.timedelta``) with 
+* with a ``SpaceTimeRecord``, a spatial range, and a time range (specified by a ``datetime.timedelta``) with
   ``OctTree.nearby_points``. All points within the spatial range and time range of the ``SpaceTimeRecord`` will be
   returned in a list.
 * with a ``SpaceTimeRectangle`` using ``OctTree.query``. All points within the specified ``SpaceTimeRectangle`` will be returned in a list.

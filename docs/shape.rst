@@ -50,4 +50,3 @@ shape Module
 
 .. automodule:: GeoSpatialTools.shape
    :members:
-

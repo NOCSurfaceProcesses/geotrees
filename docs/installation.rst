@@ -35,7 +35,7 @@ cloning the repository and creating a new uv environment.
    cd geospatialtools
 
    # Install with all dependencies and create an environment with python 3.12
-   uv sync --all-extras --dev --python 3.12 
+   uv sync --all-extras --dev --python 3.12
 
    # Load the environment
    source .venv/bin/activate

@@ -6,7 +6,7 @@ A K-D-Tree is a data structure that operates in a similar way to bisection or a 
 nearest neighbour. For :math:`k`-dimensional data (i.e. the data has :math:`k` features), a binary tree is constructed
 by bisecting the data along each of the :math:`k` dimensions in sequence. The first layer bisects the data along the
 first dimension, the second layer bisects each of the previous bisection results along the 2nd dimension (the data is
-now partitioned into 4), and so on. The pattern repeats after the :math:`k`-th layer, until a single point of data 
+now partitioned into 4), and so on. The pattern repeats after the :math:`k`-th layer, until a single point of data
 remains in each leaf node. A K-D-Tree that bisects data and results in each leaf node containing a single value is
 called referred to as a balanced K-T-Tree.
 

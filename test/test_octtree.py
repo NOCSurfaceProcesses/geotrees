@@ -3,12 +3,12 @@ import unittest
 from datetime import datetime, timedelta
 
 from GeoSpatialTools import haversine
-from GeoSpatialTools.octtree import (
-    OctTree,
-    SpaceTimeRecord as Record,
+from GeoSpatialTools.octtree import OctTree
+from GeoSpatialTools.shape import (
     SpaceTimeRectangle as Rectangle,
     SpaceTimeEllipse as Ellipse,
 )
+from GeoSpatialTools.record import SpaceTimeRecord as Record
 from GeoSpatialTools.utils import DateWarning
 
 

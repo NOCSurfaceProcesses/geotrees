@@ -1,6 +1,4 @@
 """
-KDTree
-------
 An implementation of KDTree using Haversine Distance for GeoSpatial analysis.
 Useful tool for quickly searching for nearest neighbours. The implementation is
 a K=2 or 2DTree as only 2 dimensions (longitude and latitude) are used.
@@ -9,7 +7,7 @@ Haversine distances are used for comparisons, so that the spherical geometry
 of the earth is accounted for.
 """
 
-from . import Record
+from .record import Record
 from numpy import inf
 from typing import List, Optional, Tuple
 
@@ -119,6 +117,7 @@ class KDTree:
 
     def query(self, point) -> Tuple[List[Record], float]:
         """Find the nearest Record within the KDTree to a query Record"""
+        # Perform two checks (-180, 180) and (0, 360) longitude
         if point.lon < 0:
             point2 = Record(point.lon + 360, point.lat, fix_lon=False)
         else:

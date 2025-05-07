@@ -91,7 +91,16 @@ uvx ruff format
 [codespell](https://github.com/codespell-project/codespell) is also used to check spelling/bad
 names.
 
-We use [pre-commit](https://pre-commit.com/) as part of out CI/CD processing.
+We use [pre-commit](https://pre-commit.com/) as part of out CI/CD processing. I recommend using
+pre-commit in your hooks, to avoid the pre-commit stage of the CI/CD failing:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+This will run the pre-commit stage of the CI/CD on each commit - the commit will fail if the CI/CD
+fails.
 
 ## Tests
 

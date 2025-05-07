@@ -172,7 +172,7 @@ SpaceTimeRectangle(
 Example
 
 ```python
-from GeoSpatialTools.octtree import OctTree, SpaceTimeRecord, SpaceTimeRectangle
+from GeoSpatialTools import OctTree, SpaceTimeRecord, SpaceTimeRectangle
 from datetime import datetime, timedelta
 from random import choice
 from pandas import date_range

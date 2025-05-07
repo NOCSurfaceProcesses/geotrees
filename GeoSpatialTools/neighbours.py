@@ -1,7 +1,9 @@
-"""
-Neighbours
-----------
-Functions for finding nearest neighbours using bisection.
+r"""
+Functions for finding nearest neighbours using bisection. Nearest neighbours can
+be found with :math:`O(\log(n))` time-complexity.
+
+Data for these functions must be sorted, otherwise incorrect values may be
+returned.
 """
 
 from numpy import argmin
@@ -41,13 +43,17 @@ def _find_nearest(vals: List[Numeric], test: Numeric) -> int:
 
 def find_nearest(
     vals: List[Numeric],
-    test: Union[List[Numeric], Numeric],
+    test: Union[Numeric, List[Numeric]],
     check_sorted: bool = True,
-) -> Union[List[int], int]:
+) -> Union[int, List[int]]:
     """
     Find the nearest value in a list of values for each test value.
 
     Uses bisection for speediness!
+
+    Returns a list containing the index of the nearest neighbour in vals for
+    each value in test. Or the index of the nearest neighbour if test is a
+    single value.
 
     Parameters
     ----------
@@ -55,16 +61,16 @@ def find_nearest(
         List of values - this is the pool of values for which we are looking
         for a nearest match. This list MUST be sorted. Sortedness is not
         checked, nor is the list sorted.
-    test : list[Numeric] | Numeric
-        List of query values
+    test : Numeric | list[Numeric]
+        Query value(s)
     check_sorted : bool
         Optionally check that the input vals is sorted. Raises an error if set
         to True (default), displays a warning if set to False.
 
     Returns
     -------
-    A list containing the index of the nearest neighbour in vals for each value
-    in test. Or the index of the nearest neighbour if test is a single value.
+    int | list[int]
+        Index, or list of indices, of nearest value, or values.
     """
     if check_sorted:
         s = _check_sorted(vals)

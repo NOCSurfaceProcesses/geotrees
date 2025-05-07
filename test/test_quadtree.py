@@ -133,21 +133,52 @@ class TestQuadTree(unittest.TestCase):
         boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)
         points: list[Record] = [
-            Record(10, 5),
-            Record(19, 1),
-            Record(0, 0),
-            Record(-2, -9.2),
-            Record(12.8, 2.1),
+            Record(10, 5, uid="1"),
+            Record(19, 1, uid="2"),
+            Record(0, 0, uid="3"),
+            Record(-2, -9.2, uid="4"),
+            Record(12.8, 2.1, uid="5"),
         ]
         test_rect = Rectangle(12, 13, 2, 3)
-        expected = [Record(12.8, 2.1)]
+        test_point = Record(12.5, 2.2, uid="6")
+        expected = [Record(12.8, 2.1, uid="5")]
 
         for point in points:
             qtree.insert(point)
 
-        res = qtree.query(test_rect)
+        res = qtree.nearby_points(test_point, 200)
 
         assert res == expected
+
+        res2 = qtree.query(test_rect)
+
+        assert res2 == expected
+
+    def test_exclude_query(self):
+        boundary = Rectangle(0, 20, 0, 8)
+        qtree = QuadTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 5, uid="1"),
+            Record(19, 1, uid="2"),
+            Record(0, 0, uid="3"),
+            Record(-2, -9.2, uid="4"),
+            Record(12.8, 2.1, uid="5"),
+        ]
+        test_point = Record(12.5, 2.2, uid="6")
+        expected = [Record(12.8, 2.1, uid="5")]
+
+        for point in points:
+            qtree.insert(point)
+        qtree.insert(test_point)
+
+        # TEST: is not included
+        res = qtree.nearby_points(test_point, 200, exclude_self=True)
+        assert test_point not in res
+        assert res == expected
+
+        # TEST: is included
+        res = qtree.nearby_points(test_point, 200, exclude_self=False)
+        assert test_point in res
 
     def test_wrap_query(self):
         N = 100

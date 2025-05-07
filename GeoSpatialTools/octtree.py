@@ -367,6 +367,7 @@ class OctTree:
         dist: float,
         t_dist: datetime.timedelta,
         points: Optional[List[SpaceTimeRecord]] = None,
+        exclude_self: bool = False,
     ) -> List[SpaceTimeRecord]:
         """
         Get all SpaceTimeRecords contained in the OctTree that are nearby
@@ -394,6 +395,9 @@ class OctTree:
             List of SpaceTimeRecords already found. Most use cases will be to
             not set this value, since it's main use is for passing onto the
             children OctTrees.
+        exclude_self : bool
+            Optionally exclude the query point from the results if the query
+            point is in the OctTree
 
         Returns
         -------
@@ -415,32 +419,34 @@ class OctTree:
                 and test_point.datetime <= point.datetime + t_dist
                 and test_point.datetime >= point.datetime - t_dist
             ):
+                if exclude_self and point == test_point:
+                    continue
                 points.append(test_point)
 
         if self.divided:
             points = self.northwestback.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.northeastback.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.southwestback.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.southeastback.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.northwestfwd.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.northeastfwd.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.southwestfwd.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
             points = self.southeastfwd.nearby_points(
-                point, dist, t_dist, points
+                point, dist, t_dist, points, exclude_self
             )
 
         return points

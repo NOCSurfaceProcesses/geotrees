@@ -1,5 +1,5 @@
 variables:
-  UV_VERSION: "0.5"
+  UV_VERSION: "0.7.3"
   PYTHON_VERSION: "3.12"
   BASE_LAYER: "bookworm-slim"
   UV_CACHE_DIR: ".uv-cache"

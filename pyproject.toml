@@ -72,6 +72,7 @@ select = [
   "N80", # invalid names
   "RUF", # Ruff rules
   "S",   # bandit
+  "TID", # Tidy imports
   "W",   # pycodestyle warnings
 ]
 

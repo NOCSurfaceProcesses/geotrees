@@ -8,9 +8,9 @@ neighbours.
 import datetime
 from typing import List, Optional
 
-from .distance_metrics import haversine
-from .record import SpaceTimeRecord
-from .shape import SpaceTimeEllipse, SpaceTimeRectangle
+from GeoSpatialTools.distance_metrics import haversine
+from GeoSpatialTools.record import SpaceTimeRecord
+from GeoSpatialTools.shape import SpaceTimeEllipse, SpaceTimeRectangle
 
 
 class OctTree:

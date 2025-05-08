@@ -7,9 +7,9 @@ neighbours.
 
 from typing import List, Optional
 
-from .distance_metrics import haversine
-from .record import Record
-from .shape import Ellipse, Rectangle
+from GeoSpatialTools.distance_metrics import haversine
+from GeoSpatialTools.record import Record
+from GeoSpatialTools.shape import Ellipse, Rectangle
 
 
 class QuadTree:

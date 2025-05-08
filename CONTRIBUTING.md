@@ -16,7 +16,7 @@ Please write tests for your code, add these to the `test` directory. I use `pyte
 
 Please file issues as they arise. Describe the problem, the steps to reproduce, and provide any output.
 
-# Contributing to `GeoSpatialTools`
+# Contributing to `GeoTrees`
 
 To contribute to this package you will need to be a member of NOC GitLab & have access permissions
 to this repository - if you're able to read this then you have access!
@@ -53,8 +53,8 @@ We recommend [uv](https://docs.astral.sh/uv/) for development purposes.
 Clone the repository and create your development branch
 
 ```bash
-git clone git@git.noc.ac.uk:noc_surface_processes/geospatialtools.git /path/to/geospatialtools
-cd /path/to/geospatialtools
+git clone git@git.noc.ac.uk:noc_surface_processes/geotrees.git /path/to/geotrees
+cd /path/to/geotrees
 git checkout -b new-branch-name  # if not a new branch exclude the '-b'
 ```
 
@@ -80,7 +80,7 @@ uv sync --extra all --dev
 ## Standards
 
 We recommend the use of [ruff](https://docs.astral.sh/ruff/) as a linter/formatter. The
-`pyproject.toml` file includes all the settings for `ruff` for `GeoSpatialTools`.
+`pyproject.toml` file includes all the settings for `ruff` for `GeoTrees`.
 
 ```bash
 uvx ruff check
@@ -105,7 +105,7 @@ fails.
 ## Tests
 
 If you create new functionality please write and perform unit-tests on your code. The current
-implementation of `GeoSpatialTools` uses the `pytest` library.
+implementation of `GeoTrees` uses the `pytest` library.
 
 New tests do not need to be comprehensive, but I likely won't merge if your changes fails testing,
 especially the pre-existing tests. You will need to include (and reference) any data that is

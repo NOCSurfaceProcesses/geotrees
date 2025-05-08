@@ -1,6 +1,6 @@
-===============
-GeoSpatialTools
-===============
+========
+GeoTrees
+========
 
 .. PyCOADS documentation master file, created by
    sphinx-quickstart on Fri Jul  5 11:49:36 2024.

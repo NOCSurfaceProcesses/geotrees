@@ -2,11 +2,11 @@
 Installation
 ============
 
-``GeoSpatialTools`` is not currently available on PyPI so must be installed either from source or directly from the
+``geotrees`` is not currently available on PyPI so must be installed either from source or directly from the
 GitLab repository. Versions of python between 3.9 and 3.13, inclusive, are supported, however the recommended version of
 python is 3.12.
 
-We recommend the installation of ``GeoSpatialTools`` using the uv_ package manager, however it can be installed using
+We recommend the installation of ``geotrees`` using the uv_ package manager, however it can be installed using
 pip_.
 
 The only required dependency of the project is NumPy_. Additional dependency polars_ is required to run the Jupyter_
@@ -25,7 +25,7 @@ environment. This will add the library as a dependency in your current project.
 Development mode
 ----------------
 
-If you wish to contribute to ``GeoSpatialTools`` you can install the library in development mode. This will require
+If you wish to contribute to ``geotrees`` you can install the library in development mode. This will require
 cloning the repository and creating a new uv environment.
 
 .. code-block:: bash

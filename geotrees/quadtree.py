@@ -6,9 +6,10 @@ neighbours.
 """
 
 from typing import List, Optional
-from .distance_metrics import haversine
-from .record import Record
-from .shape import Ellipse, Rectangle
+
+from geotrees.distance_metrics import haversine
+from geotrees.record import Record
+from geotrees.shape import Ellipse, Rectangle
 
 
 class QuadTree:
@@ -61,18 +62,18 @@ class QuadTree:
             out += f"{self.southeast}"
         return out
 
-    def len(self, _current_len: int = 0) -> int:
+    def len(self, current_len: int = 0) -> int:
         """Get the number of points in the QuadTree"""
-        _current_len += len(self.points)
+        current_len += len(self.points)
         if not self.divided:
-            return _current_len
+            return current_len
 
-        _current_len = self.northeast.len(_current_len)
-        _current_len = self.northwest.len(_current_len)
-        _current_len = self.southeast.len(_current_len)
-        _current_len = self.southwest.len(_current_len)
+        current_len = self.northeast.len(current_len)
+        current_len = self.northwest.len(current_len)
+        current_len = self.southeast.len(current_len)
+        current_len = self.southwest.len(current_len)
 
-        return _current_len
+        return current_len
 
     def divide(self):
         """Divide the QuadTree"""

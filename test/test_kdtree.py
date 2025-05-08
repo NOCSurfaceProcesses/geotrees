@@ -1,8 +1,9 @@
-import unittest
 import random
+import unittest
 
-from numpy import min, argmin
-from GeoSpatialTools import KDTree, Record
+from numpy import argmin, min
+
+from geotrees import KDTree, Record
 
 
 class TestKDTree(unittest.TestCase):
@@ -106,14 +107,14 @@ class TestKDTree(unittest.TestCase):
             Record(-90, 89.9, uid="2"),
             Record(0, 89.5, uid="3"),
         ]
-        N_others = 50
+        n_others = 50
         test_records.extend(
             [
                 Record(
                     random.choice(range(-180, 180)),
                     random.choice(range(80, 90)),
                 )
-                for _ in range(N_others)
+                for _ in range(n_others)
             ]
         )
 

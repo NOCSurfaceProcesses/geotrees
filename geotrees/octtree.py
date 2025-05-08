@@ -5,11 +5,12 @@ Haversine distances for comparisons between records for identification of
 neighbours.
 """
 
-from typing import List, Optional
 import datetime
-from .distance_metrics import haversine
-from .record import SpaceTimeRecord
-from .shape import SpaceTimeEllipse, SpaceTimeRectangle
+from typing import List, Optional
+
+from geotrees.distance_metrics import haversine
+from geotrees.record import SpaceTimeRecord
+from geotrees.shape import SpaceTimeEllipse, SpaceTimeRectangle
 
 
 class OctTree:
@@ -85,22 +86,22 @@ class OctTree:
             out += f"{self.southeastfwd}"
         return out
 
-    def len(self, _current_len: int = 0) -> int:
+    def len(self, current_len: int = 0) -> int:
         """Get the number of points in the OctTree"""
-        _current_len += len(self.points)
+        current_len += len(self.points)
         if not self.divided:
-            return _current_len
+            return current_len
 
-        _current_len = self.northeastback.len(_current_len)
-        _current_len = self.northwestback.len(_current_len)
-        _current_len = self.southeastback.len(_current_len)
-        _current_len = self.southwestback.len(_current_len)
-        _current_len = self.northeastfwd.len(_current_len)
-        _current_len = self.northwestfwd.len(_current_len)
-        _current_len = self.southeastfwd.len(_current_len)
-        _current_len = self.southwestfwd.len(_current_len)
+        current_len = self.northeastback.len(current_len)
+        current_len = self.northwestback.len(current_len)
+        current_len = self.southeastback.len(current_len)
+        current_len = self.southwestback.len(current_len)
+        current_len = self.northeastfwd.len(current_len)
+        current_len = self.northwestfwd.len(current_len)
+        current_len = self.southeastfwd.len(current_len)
+        current_len = self.southwestfwd.len(current_len)
 
-        return _current_len
+        return current_len
 
     def divide(self):
         """Divide the QuadTree"""

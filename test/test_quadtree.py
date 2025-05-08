@@ -1,10 +1,10 @@
 import random
 import unittest
 
-from GeoSpatialTools import haversine
-from GeoSpatialTools.quadtree import QuadTree
-from GeoSpatialTools.record import Record
-from GeoSpatialTools.shape import Ellipse, Rectangle
+from geotrees import haversine
+from geotrees.quadtree import QuadTree
+from geotrees.record import Record
+from geotrees.shape import Ellipse, Rectangle
 
 
 class TestRect(unittest.TestCase):
@@ -181,7 +181,7 @@ class TestQuadTree(unittest.TestCase):
         assert test_point in res
 
     def test_wrap_query(self):
-        N = 100
+        n = 100
         qt_boundary = Rectangle(-180, 180, -90, 90)
         assert qt_boundary.lon == 0
         assert qt_boundary.lon_range == 360
@@ -205,7 +205,7 @@ class TestQuadTree(unittest.TestCase):
                 random.choice(range(-150, 130)),
                 random.choice(range(-90, 91)),
             )
-            for _ in range(N)
+            for _ in range(n)
         ]
         points.extend(points_want)
         for p in points:

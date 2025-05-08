@@ -41,7 +41,7 @@ was successful, ``False`` otherwise. The ``OctTree`` is modified in place.
 Querying
 --------
 
-The ``OctTree`` class defined in ``GeoSpatialTools.octtree`` can be queried in the following ways:
+The ``OctTree`` class defined in ``geotrees.octtree`` can be queried in the following ways:
 
 * with a ``SpaceTimeRecord``, a spatial range, and a time range (specified by a ``datetime.timedelta``) with
   ``OctTree.nearby_points``. All points within the spatial range and time range of the ``SpaceTimeRecord`` will be
@@ -55,7 +55,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import OctTree, SpaceTimeRecord, SpaceTimeRectangle
+   from geotrees import OctTree, SpaceTimeRecord, SpaceTimeRectangle
    from datetime import datetime, timedelta
    from random import choice
    from polars import datetime_range
@@ -109,5 +109,5 @@ Example
 octtree Module
 ==============
 
-.. automodule:: GeoSpatialTools.octtree
+.. automodule:: geotrees.octtree
    :members:

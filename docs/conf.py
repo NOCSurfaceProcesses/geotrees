@@ -9,9 +9,10 @@
 import os
 import sys
 
+
 sys.path.insert(0, os.path.abspath("../"))
 
-project = "GeoSpatialTools"
+project = "GeoTrees"
 copyright = "2024, National Oceanography Centre"
 author = "NOC Surface Processes"
 release = "0.11.2"

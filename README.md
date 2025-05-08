@@ -26,7 +26,7 @@ def find_nearest(vals: list[Numeric], test: list[Numeric]) -> list[int]:
 Example:
 
 ```python
-from GeoSpatialTools import find_nearest
+from geotrees import find_nearest
 import numpy as np
 
 # Generate random neighbours and test points
@@ -72,7 +72,7 @@ KDTree(
 ```
 
 ```python
-from GeoSpatialTools import KDTree, Record
+from geotrees import KDTree, Record
 from random import choice
 
 lon_range = list(range(-180, 180))
@@ -117,7 +117,7 @@ The `Rectangle` class will raise an error if the northern or southern boundary g
 or south pole.
 
 ```python
-from GeoSpatialTools import QuadTree, Record, Rectangle
+from geotrees import QuadTree, Record, Rectangle
 from random import choice
 
 lon_range = list(range(-180, 180))
@@ -172,7 +172,7 @@ SpaceTimeRectangle(
 Example
 
 ```python
-from GeoSpatialTools import OctTree, SpaceTimeRecord, SpaceTimeRectangle
+from geotrees import OctTree, SpaceTimeRecord, SpaceTimeRectangle
 from datetime import datetime, timedelta
 from random import choice
 from pandas import date_range

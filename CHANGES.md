@@ -4,6 +4,11 @@
 
 Contributors to this version: Joseph Siddons (@josidd)
 
+### New features and enhancements
+
+* `nearby_points` method for `QuadTree` and `OctTree` classes have additional `exclude_self`
+  argument (!28)
+
 ### Breaking Changes
 
 * Removed `SpaceTimeRecords` class, favour `list[SpaceTimeRecord]` (!27).

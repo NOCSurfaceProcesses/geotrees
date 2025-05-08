@@ -279,6 +279,7 @@ class TestOctTree(unittest.TestCase):
         for point in points:
             otree.insert(point)
         test_point = Record(11, 6, d + timedelta(hours=4))
+        test_rect = Rectangle(10, 11.5, 6.5, 7.5, d, d + timedelta(hours=6))
         expected = [Record(11, 7, d + timedelta(hours=2), "northeastfwd")]
 
         res = otree.nearby_points(
@@ -286,6 +287,54 @@ class TestOctTree(unittest.TestCase):
         )
 
         assert res == expected
+
+        res2 = otree.query(test_rect)
+
+        assert res2 == expected
+
+    def test_exclude_query(self):
+        d = datetime(2023, 3, 24, 12, 0)
+        dt = timedelta(days=10)
+        start = d - dt
+        end = d + dt
+        boundary = Rectangle(0, 20, 0, 8, start, end)
+        otree = OctTree(boundary, capacity=3)
+        points: list[Record] = [
+            Record(10, 4, d, "main"),
+            Record(12, 1, d + timedelta(hours=3), "main2"),
+            Record(3, 7, d - timedelta(days=3), "main3"),
+            Record(13, 2, d + timedelta(hours=17), "southeastfwd"),
+            Record(3, 6, d - timedelta(days=1), "northwestback"),
+            Record(10, 4, d, "northwestback"),
+            Record(18, 2, d + timedelta(days=23), "not added"),
+            Record(11, 7, d + timedelta(hours=2), "northeastfwd"),
+        ]
+        for point in points:
+            otree.insert(point)
+        test_point = Record(11, 6, d + timedelta(hours=4), "test")
+        otree.insert(test_point)
+
+        expected = [Record(11, 7, d + timedelta(hours=2), "northeastfwd")]
+
+        # TEST: is not included
+        res = otree.nearby_points(
+            test_point,
+            dist=200,
+            t_dist=timedelta(hours=5),
+            exclude_self=True,
+        )
+
+        assert test_point not in res
+        assert res == expected
+
+        # TEST: is included
+        res = otree.nearby_points(
+            test_point,
+            dist=200,
+            t_dist=timedelta(hours=5),
+            exclude_self=False,
+        )
+        assert test_point in res
 
     def test_wrap_query(self):
         N = 100

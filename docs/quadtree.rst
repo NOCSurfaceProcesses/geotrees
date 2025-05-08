@@ -46,7 +46,8 @@ Querying
 The ``QuadTree`` class defined in ``GeoSpatialTools.quadtree`` can be queried in the following ways:
 
 * with a ``Record``, a spatial range with ``QuadTree.nearby_points``. All points within the spatial range of the
-  ``Record`` will be returned in a list.
+  ``Record`` will be returned in a list. The ``Record`` can be excluded from the results if the ``exclude_self``
+  argument is set.
 * with a ``Rectangle`` using ``QuadTree.query``. All points within the specified ``Rectangle`` will be returned in a list.
 * with a ``Ellipse`` using ``QuadTree.query_ellipse``. All points within the specified ``Ellipse`` will be returned in a list.
 

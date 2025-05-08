@@ -43,7 +43,7 @@ was successful, ``False`` otherwise. The ``QuadTree`` is modified in place.
 Querying
 --------
 
-The ``QuadTree`` class defined in ``GeoSpatialTools.quadtree`` can be queried in the following ways:
+The ``QuadTree`` class defined in ``geotrees.quadtree`` can be queried in the following ways:
 
 * with a ``Record``, a spatial range with ``QuadTree.nearby_points``. All points within the spatial range of the
   ``Record`` will be returned in a list. The ``Record`` can be excluded from the results if the ``exclude_self``
@@ -91,5 +91,5 @@ Example
 quadtree Module
 ===============
 
-.. automodule:: GeoSpatialTools.quadtree
+.. automodule:: geotrees.quadtree
    :members:

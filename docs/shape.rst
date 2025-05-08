@@ -2,7 +2,7 @@
 Shape Classes
 =============
 
-The ``GeoSpatialTools.shape`` module defines various classes that can be used to define the boundary for ``QuadTree``
+The ``geotrees.shape`` module defines various classes that can be used to define the boundary for ``QuadTree``
 and ``OctTree`` classes, or query regions for the same.
 
 ``Rectangle`` and ``SpaceTimeRectangle`` classes are used to define the boundaries for ``QuadTree`` and ``OctTree``
@@ -48,5 +48,5 @@ Example
 shape Module
 ============
 
-.. automodule:: GeoSpatialTools.shape
+.. automodule:: geotrees.shape
    :members:

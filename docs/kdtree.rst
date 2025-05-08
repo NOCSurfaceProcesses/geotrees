@@ -19,11 +19,11 @@ A K-D-Tree can typically find the nearest neighbour in :math:`O(\log(n))` time c
 :math:`O(n)` space-complexity.
 
 Most implementations of K-D-Tree assume that the coordinates use a cartesian geometry and therefore use a simple
-Euclidean distance to identify the nearest neighbour. The implementation in ``GeoSpatialTools.kdtree`` assumes a
+Euclidean distance to identify the nearest neighbour. The implementation in ``geotrees.kdtree`` assumes a
 spherical geometry on the surface of the Earth and uses the Haversine distance to identify neighbours. The
 implementation has been designed to account for longitude wrapping at -180, 180 degrees. The
-``GeoSpatialTools.kdtree.KDTree`` class is a 2-D-Tree, the dimensions are longitude and latitude. The object is
-initialised with data in the form of a list of ``GeoSpatialTools.quadtree.Record`` objects. A maximum depth value
+``geotrees.kdtree.KDTree`` class is a 2-D-Tree, the dimensions are longitude and latitude. The object is
+initialised with data in the form of a list of ``geotrees.quadtree.Record`` objects. A maximum depth value
 (``max_depth``) can be provided, if this is set then the partitioning will stop after ``max_depth`` partitionings,
 the leaf nodes may contain more than one ``Record``.
 
@@ -75,5 +75,5 @@ minimum distance to the query ``Record``, and the minimum distance.
 kdtree Module
 =============
 
-.. automodule:: GeoSpatialTools.kdtree
+.. automodule:: geotrees.kdtree
    :members:

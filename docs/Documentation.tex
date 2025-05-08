@@ -63,8 +63,8 @@
 \setcounter{secnumdepth}{3}
 
 
-\title{GeoSpatialTools}
-\date{May 07, 2025}
+\title{GeoTrees}
+\date{May 08, 2025}
 \release{0.11.2}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -91,10 +91,10 @@
 \chapter{Introduction}
 \label{\detokenize{introduction:introduction}}\label{\detokenize{introduction::doc}}
 
-\section{GeoSpatialTools}
-\label{\detokenize{introduction:geospatialtools}}
+\section{geotrees}
+\label{\detokenize{introduction:geotrees}}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{GeoSpatialTools}} is a \sphinxhref{https://www.python.org/download/releases/3.0}{python3} library developed at \sphinxhref{https://noc.ac.uk}{NOC} (National Oceanography Centre, Southampton, UK) for
+\sphinxcode{\sphinxupquote{geotrees}} is a \sphinxhref{https://www.python.org/download/releases/3.0}{python3} library developed at \sphinxhref{https://noc.ac.uk}{NOC} (National Oceanography Centre, Southampton, UK) for
 identifying neighbours in a geo\sphinxhyphen{}spatial context. This is designed to solve problems where one needs to identify
 data within a spatial range on the surface of the Earth. The library provides implementations of standard tools
 for neighbourhood searching, such as \sphinxhref{https://en.wikipedia.org/wiki/K-d\_tree}{k\sphinxhyphen{}d\sphinxhyphen{}tree} and \sphinxhref{https://en.wikipedia.org/wiki/Quadtree}{Quadtree} that have been adapted to account for spherical
@@ -105,7 +105,7 @@ The tool allows for spatial look\sphinxhyphen{}ups with \(O(\log(n))\) complexit
 neighbours look\sphinxhyphen{}up is provided for sorted data using \sphinxhref{https://en.wikipedia.org/wiki/Bisection\_method}{bisection} search.
 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{GeoSpatialTools}} also provides functionality for working with \sphinxhref{https://en.wikipedia.org/wiki/Great\_circle}{great\sphinxhyphen{}circle} objects, for example intersecting
+\sphinxcode{\sphinxupquote{geotrees}} also provides functionality for working with \sphinxhref{https://en.wikipedia.org/wiki/Great\_circle}{great\sphinxhyphen{}circle} objects, for example intersecting
 great\sphinxhyphen{}circles.
 
 
@@ -135,12 +135,12 @@ Richard C. Cornes \textless{}\sphinxhref{mailto:rcornes@noc.ac.uk}{rcornes@noc.a
 \chapter{Installation}
 \label{\detokenize{installation:installation}}\label{\detokenize{installation::doc}}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{GeoSpatialTools}} is not currently available on PyPI so must be installed either from source or directly from the
+\sphinxcode{\sphinxupquote{geotrees}} is not currently available on PyPI so must be installed either from source or directly from the
 GitLab repository. Versions of python between 3.9 and 3.13, inclusive, are supported, however the recommended version of
 python is 3.12.
 
 \sphinxAtStartPar
-We recommend the installation of \sphinxcode{\sphinxupquote{GeoSpatialTools}} using the \sphinxhref{https://docs.astral.sh/uv}{uv} package manager, however it can be installed using
+We recommend the installation of \sphinxcode{\sphinxupquote{geotrees}} using the \sphinxhref{https://docs.astral.sh/uv}{uv} package manager, however it can be installed using
 \sphinxhref{https://pypi.org}{pip}.
 
 \sphinxAtStartPar
@@ -162,7 +162,7 @@ uv\PYG{+w}{ }add\PYG{+w}{ }git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geosp
 \subsection{Development mode}
 \label{\detokenize{installation:development-mode}}
 \sphinxAtStartPar
-If you wish to contribute to \sphinxcode{\sphinxupquote{GeoSpatialTools}} you can install the library in development mode. This will require
+If you wish to contribute to \sphinxcode{\sphinxupquote{geotrees}} you can install the library in development mode. This will require
 cloning the repository and creating a new uv environment.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
@@ -220,7 +220,7 @@ Bisection can be used to find the nearest neighbour in a sorted one\sphinxhyphen
 \(O(\log(n))\) time complexity.
 
 \sphinxAtStartPar
-The implementation in \sphinxtitleref{GeoSpatialTools} makes use of the \sphinxtitleref{bisect} library, which is part of the Python standard library.
+The implementation in \sphinxtitleref{geotrees} makes use of the \sphinxtitleref{bisect} library, which is part of the Python standard library.
 The input types are numeric types, which can include \sphinxcode{\sphinxupquote{int}}, \sphinxcode{\sphinxupquote{float}}, or \sphinxcode{\sphinxupquote{datetime.datetime}} values.
 
 \sphinxAtStartPar
@@ -246,7 +246,7 @@ The input values must be sorted
 \section{Example}
 \label{\detokenize{bisection:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{find\PYGZus{}nearest}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{find\PYGZus{}nearest}
 \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
 
 \PYG{n}{search\PYGZus{}values}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mi}{50}\PYG{p}{)}\PYG{p}{)}
@@ -262,7 +262,7 @@ The input values must be sorted
 
 
 \section{neighbours Module}
-\label{\detokenize{bisection:module-GeoSpatialTools.neighbours}}\label{\detokenize{bisection:neighbours-module}}\index{module@\spxentry{module}!GeoSpatialTools.neighbours@\spxentry{GeoSpatialTools.neighbours}}\index{GeoSpatialTools.neighbours@\spxentry{GeoSpatialTools.neighbours}!module@\spxentry{module}}
+\label{\detokenize{bisection:module-geotrees.neighbours}}\label{\detokenize{bisection:neighbours-module}}\index{module@\spxentry{module}!geotrees.neighbours@\spxentry{geotrees.neighbours}}\index{geotrees.neighbours@\spxentry{geotrees.neighbours}!module@\spxentry{module}}
 \sphinxAtStartPar
 Functions for finding nearest neighbours using bisection. Nearest neighbours can
 be found with \(O(\log(n))\) time\sphinxhyphen{}complexity.
@@ -273,10 +273,10 @@ returned.
 \index{SortedError@\spxentry{SortedError}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{bisection:GeoSpatialTools.neighbours.SortedError}}
+\phantomsection\label{\detokenize{bisection:geotrees.neighbours.SortedError}}
 \pysigstartsignatures
 \pysigline
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedError}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedError}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Error class for Sortedness
@@ -286,23 +286,23 @@ Error class for Sortedness
 \index{SortedWarning@\spxentry{SortedWarning}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{bisection:GeoSpatialTools.neighbours.SortedWarning}}
+\phantomsection\label{\detokenize{bisection:geotrees.neighbours.SortedWarning}}
 \pysigstartsignatures
 \pysigline
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedWarning}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.neighbours.}}\sphinxbfcode{\sphinxupquote{SortedWarning}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Warning class for Sortedness
 
 \end{fulllineitems}
 
-\index{find\_nearest() (in module GeoSpatialTools.neighbours)@\spxentry{find\_nearest()}\spxextra{in module GeoSpatialTools.neighbours}}
+\index{find\_nearest() (in module geotrees.neighbours)@\spxentry{find\_nearest()}\spxextra{in module geotrees.neighbours}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{bisection:GeoSpatialTools.neighbours.find_nearest}}
+\phantomsection\label{\detokenize{bisection:geotrees.neighbours.find_nearest}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.neighbours.}}\sphinxbfcode{\sphinxupquote{find\_nearest}}}
+{\sphinxcode{\sphinxupquote{geotrees.neighbours.}}\sphinxbfcode{\sphinxupquote{find\_nearest}}}
 {\sphinxparam{\DUrole{n}{vals}}\sphinxparamcomma \sphinxparam{\DUrole{n}{test}}\sphinxparamcomma \sphinxparam{\DUrole{n}{check\_sorted}\DUrole{o}{=}\DUrole{default_value}{True}}}
 {}
 \pysigstopsignatures
@@ -354,7 +354,7 @@ int | list{[}int{]}
 \chapter{Record Classes}
 \label{\detokenize{record:record-classes}}\label{\detokenize{record::doc}}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Record}} classes in \sphinxcode{\sphinxupquote{GeoSpatialTools}} form the back\sphinxhyphen{}bone of the data structures within the library. They represent a
+\sphinxcode{\sphinxupquote{Record}} classes in \sphinxcode{\sphinxupquote{geotrees}} form the back\sphinxhyphen{}bone of the data structures within the library. They represent a
 consistent input data\sphinxhyphen{}type across all classes in the library.
 
 \sphinxAtStartPar
@@ -362,13 +362,13 @@ There are two classes of \sphinxcode{\sphinxupquote{Record}}:
 \begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{GeoSpatialTools.record.Record}} for two\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude) and \sphinxcode{\sphinxupquote{lat}}
+\sphinxcode{\sphinxupquote{geotrees.record.Record}} for two\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude) and \sphinxcode{\sphinxupquote{lat}}
 (latitude). Optionally, one can pass \sphinxcode{\sphinxupquote{datetime}} and \sphinxcode{\sphinxupquote{uid}}, as well as additional data attributes with keyword
 arguments.
 
 \item {}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{GeoSpatialTools.record.SpaceTimeRecord}} for three\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude),
+\sphinxcode{\sphinxupquote{geotrees.record.SpaceTimeRecord}} for three\sphinxhyphen{}dimensional data structures defined by \sphinxcode{\sphinxupquote{lon}} (longitude),
 \sphinxcode{\sphinxupquote{lat}} (latitude), and \sphinxcode{\sphinxupquote{datetime}}. Optionally, one can pass \sphinxcode{\sphinxupquote{uid}}, as well as additional data attributes with
 keyword arguments.
 
@@ -380,14 +380,14 @@ Only the positional, datetime, and uid attributes are used for equality tests. \
 
 \begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{Record}} and \sphinxcode{\sphinxupquote{SpaceTimeRecord}} are exposed at the \sphinxcode{\sphinxupquote{GeoSpatialTools}} level.
+\sphinxcode{\sphinxupquote{Record}} and \sphinxcode{\sphinxupquote{SpaceTimeRecord}} are exposed at the \sphinxcode{\sphinxupquote{geotrees}} level.
 \end{sphinxadmonition}
 
 
 \section{Example}
 \label{\detokenize{record:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Record}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Record}
 
 \PYG{n}{record}\PYG{p}{:} \PYG{n}{Record} \PYG{o}{=} \PYG{n}{Record}\PYG{p}{(}\PYG{n}{lon}\PYG{o}{=}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{151.2}\PYG{p}{,} \PYG{n}{lat}\PYG{o}{=}\PYG{l+m+mf}{42.7}\PYG{p}{,} \PYG{n}{uid}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{foo}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 \PYG{n}{dist}\PYG{p}{:} \PYG{n+nb}{float} \PYG{o}{=} \PYG{n}{record}\PYG{o}{.}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{Record}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{71.1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{23.2}\PYG{p}{,} \PYG{n}{uid}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{bar}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{)}
@@ -395,7 +395,7 @@ Only the positional, datetime, and uid attributes are used for equality tests. \
 
 
 \section{record Module}
-\label{\detokenize{record:module-GeoSpatialTools.record}}\label{\detokenize{record:record-module}}\index{module@\spxentry{module}!GeoSpatialTools.record@\spxentry{GeoSpatialTools.record}}\index{GeoSpatialTools.record@\spxentry{GeoSpatialTools.record}!module@\spxentry{module}}
+\label{\detokenize{record:module-geotrees.record}}\label{\detokenize{record:record-module}}\index{module@\spxentry{module}!geotrees.record@\spxentry{geotrees.record}}\index{geotrees.record@\spxentry{geotrees.record}!module@\spxentry{module}}
 \sphinxAtStartPar
 Record objects used for containing data passed to QuadTree, OctTree and KDTree
 classes. Require positions defined by “lon” and “lat”, SpaceTimeRecord objects
@@ -409,13 +409,13 @@ Distances between records is calculated using Haversine distance.
 \sphinxAtStartPar
 Classes prefixed by “SpaceTime” include a temporal dimension and should be used
 with OctTree classes.
-\index{Record (class in GeoSpatialTools.record)@\spxentry{Record}\spxextra{class in GeoSpatialTools.record}}
+\index{Record (class in geotrees.record)@\spxentry{Record}\spxextra{class in geotrees.record}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{record:GeoSpatialTools.record.Record}}
+\phantomsection\label{\detokenize{record:geotrees.record.Record}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.record.}}\sphinxbfcode{\sphinxupquote{Record}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.record.}}\sphinxbfcode{\sphinxupquote{Record}}}
 {\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}
 {}
 \pysigstopsignatures
@@ -459,10 +459,10 @@ classes.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{distance() (GeoSpatialTools.record.Record method)@\spxentry{distance()}\spxextra{GeoSpatialTools.record.Record method}}
+\index{distance() (geotrees.record.Record method)@\spxentry{distance()}\spxextra{geotrees.record.Record method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{record:GeoSpatialTools.record.Record.distance}}
+\phantomsection\label{\detokenize{record:geotrees.record.Record.distance}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{distance}}}
@@ -483,13 +483,13 @@ Compute the Haversine distance to another Record
 
 \end{fulllineitems}
 
-\index{SpaceTimeRecord (class in GeoSpatialTools.record)@\spxentry{SpaceTimeRecord}\spxextra{class in GeoSpatialTools.record}}
+\index{SpaceTimeRecord (class in geotrees.record)@\spxentry{SpaceTimeRecord}\spxextra{class in geotrees.record}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}}
+\phantomsection\label{\detokenize{record:geotrees.record.SpaceTimeRecord}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.record.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecord}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.record.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRecord}}}
 {\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{datetime}}\sphinxparamcomma \sphinxparam{\DUrole{n}{uid}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{fix\_lon}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{o}{**}\DUrole{n}{data}}}
 {}
 \pysigstopsignatures
@@ -541,10 +541,10 @@ or classes.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{distance() (GeoSpatialTools.record.SpaceTimeRecord method)@\spxentry{distance()}\spxextra{GeoSpatialTools.record.SpaceTimeRecord method}}
+\index{distance() (geotrees.record.SpaceTimeRecord method)@\spxentry{distance()}\spxextra{geotrees.record.SpaceTimeRecord method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord.distance}}
+\phantomsection\label{\detokenize{record:geotrees.record.SpaceTimeRecord.distance}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{distance}}}
@@ -573,7 +573,7 @@ Only computes spatial distance.
 \chapter{Shape Classes}
 \label{\detokenize{shape:shape-classes}}\label{\detokenize{shape::doc}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{GeoSpatialTools.shape}} module defines various classes that can be used to define the boundary for \sphinxcode{\sphinxupquote{QuadTree}}
+The \sphinxcode{\sphinxupquote{geotrees.shape}} module defines various classes that can be used to define the boundary for \sphinxcode{\sphinxupquote{QuadTree}}
 and \sphinxcode{\sphinxupquote{OctTree}} classes, or query regions for the same.
 
 \sphinxAtStartPar
@@ -598,7 +598,7 @@ and \sphinxcode{\sphinxupquote{QuadTree.query\_ellipse}} respectively.
 \section{Example}
 \label{\detokenize{shape:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{n+nn}{.}\PYG{n+nn}{shape}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Rectangle}\PYG{p}{,} \PYG{n}{SpaceTimeEllipse}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{n+nn}{.}\PYG{n+nn}{shape}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Rectangle}\PYG{p}{,} \PYG{n}{SpaceTimeEllipse}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{datetime}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{datetime}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{math}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{pi}
 
@@ -622,7 +622,7 @@ and \sphinxcode{\sphinxupquote{QuadTree.query\_ellipse}} respectively.
 
 
 \section{shape Module}
-\label{\detokenize{shape:module-GeoSpatialTools.shape}}\label{\detokenize{shape:shape-module}}\index{module@\spxentry{module}!GeoSpatialTools.shape@\spxentry{GeoSpatialTools.shape}}\index{GeoSpatialTools.shape@\spxentry{GeoSpatialTools.shape}!module@\spxentry{module}}
+\label{\detokenize{shape:module-geotrees.shape}}\label{\detokenize{shape:shape-module}}\index{module@\spxentry{module}!geotrees.shape@\spxentry{geotrees.shape}}\index{geotrees.shape@\spxentry{geotrees.shape}!module@\spxentry{module}}
 \sphinxAtStartPar
 Shape objects for defining QuadTree or OctTree classes, or for defining a query
 region for QuadTree and OctTree classes.
@@ -638,13 +638,13 @@ at \sphinxhyphen{}180, 180 degrees.
 \sphinxAtStartPar
 Classes prefixed by “SpaceTime” include a temporal dimension and should be used
 with OctTree classes.
-\index{Ellipse (class in GeoSpatialTools.shape)@\spxentry{Ellipse}\spxextra{class in GeoSpatialTools.shape}}
+\index{Ellipse (class in geotrees.shape)@\spxentry{Ellipse}\spxextra{class in geotrees.shape}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Ellipse}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Ellipse}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.shape.}}\sphinxbfcode{\sphinxupquote{Ellipse}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.shape.}}\sphinxbfcode{\sphinxupquote{Ellipse}}}
 {\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}}
 {}
 \pysigstopsignatures
@@ -675,10 +675,10 @@ A simple Ellipse Class for an ellipse on the surface of a sphere.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{contains() (GeoSpatialTools.shape.Ellipse method)@\spxentry{contains()}\spxextra{GeoSpatialTools.shape.Ellipse method}}
+\index{contains() (geotrees.shape.Ellipse method)@\spxentry{contains()}\spxextra{geotrees.shape.Ellipse method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Ellipse.contains}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Ellipse.contains}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{contains}}}
@@ -696,10 +696,10 @@ Test if a Record is contained within the Ellipse
 
 \end{fulllineitems}
 
-\index{nearby\_rect() (GeoSpatialTools.shape.Ellipse method)@\spxentry{nearby\_rect()}\spxextra{GeoSpatialTools.shape.Ellipse method}}
+\index{nearby\_rect() (geotrees.shape.Ellipse method)@\spxentry{nearby\_rect()}\spxextra{geotrees.shape.Ellipse method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Ellipse.nearby_rect}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Ellipse.nearby_rect}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_rect}}}
@@ -720,13 +720,13 @@ Test if a Rectangle is near to the Ellipse
 
 \end{fulllineitems}
 
-\index{Rectangle (class in GeoSpatialTools.shape)@\spxentry{Rectangle}\spxextra{class in GeoSpatialTools.shape}}
+\index{Rectangle (class in geotrees.shape)@\spxentry{Rectangle}\spxextra{class in geotrees.shape}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.shape.}}\sphinxbfcode{\sphinxupquote{Rectangle}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.shape.}}\sphinxbfcode{\sphinxupquote{Rectangle}}}
 {\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}}
 {}
 \pysigstopsignatures
@@ -753,10 +753,10 @@ A simple Rectangle class for GeoSpatial analysis. Defined by a bounding box.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{contains() (GeoSpatialTools.shape.Rectangle method)@\spxentry{contains()}\spxextra{GeoSpatialTools.shape.Rectangle method}}
+\index{contains() (geotrees.shape.Rectangle method)@\spxentry{contains()}\spxextra{geotrees.shape.Rectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.contains}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.contains}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{contains}}}
@@ -774,10 +774,10 @@ Test if a Record is contained within the Rectangle
 
 \end{fulllineitems}
 
-\index{edge\_dist (GeoSpatialTools.shape.Rectangle property)@\spxentry{edge\_dist}\spxextra{GeoSpatialTools.shape.Rectangle property}}
+\index{edge\_dist (geotrees.shape.Rectangle property)@\spxentry{edge\_dist}\spxextra{geotrees.shape.Rectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.edge_dist}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.edge_dist}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -787,10 +787,10 @@ Approximate maximum distance from the centre to an edge
 
 \end{fulllineitems}
 
-\index{intersects() (GeoSpatialTools.shape.Rectangle method)@\spxentry{intersects()}\spxextra{GeoSpatialTools.shape.Rectangle method}}
+\index{intersects() (geotrees.shape.Rectangle method)@\spxentry{intersects()}\spxextra{geotrees.shape.Rectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.intersects}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.intersects}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{intersects}}}
@@ -808,10 +808,10 @@ Test if another Rectangle object intersects this Rectangle
 
 \end{fulllineitems}
 
-\index{lat (GeoSpatialTools.shape.Rectangle property)@\spxentry{lat}\spxextra{GeoSpatialTools.shape.Rectangle property}}
+\index{lat (geotrees.shape.Rectangle property)@\spxentry{lat}\spxextra{geotrees.shape.Rectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.lat}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.lat}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -821,10 +821,10 @@ Centre latitude of the Rectangle
 
 \end{fulllineitems}
 
-\index{lat\_range (GeoSpatialTools.shape.Rectangle property)@\spxentry{lat\_range}\spxextra{GeoSpatialTools.shape.Rectangle property}}
+\index{lat\_range (geotrees.shape.Rectangle property)@\spxentry{lat\_range}\spxextra{geotrees.shape.Rectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.lat_range}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.lat_range}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -834,10 +834,10 @@ Latitude range of the Rectangle
 
 \end{fulllineitems}
 
-\index{lon (GeoSpatialTools.shape.Rectangle property)@\spxentry{lon}\spxextra{GeoSpatialTools.shape.Rectangle property}}
+\index{lon (geotrees.shape.Rectangle property)@\spxentry{lon}\spxextra{geotrees.shape.Rectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.lon}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.lon}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -847,10 +847,10 @@ Centre longitude of the Rectangle
 
 \end{fulllineitems}
 
-\index{lon\_range (GeoSpatialTools.shape.Rectangle property)@\spxentry{lon\_range}\spxextra{GeoSpatialTools.shape.Rectangle property}}
+\index{lon\_range (geotrees.shape.Rectangle property)@\spxentry{lon\_range}\spxextra{geotrees.shape.Rectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.lon_range}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.lon_range}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -860,10 +860,10 @@ Longitude range of the Rectangle
 
 \end{fulllineitems}
 
-\index{nearby() (GeoSpatialTools.shape.Rectangle method)@\spxentry{nearby()}\spxextra{GeoSpatialTools.shape.Rectangle method}}
+\index{nearby() (geotrees.shape.Rectangle method)@\spxentry{nearby()}\spxextra{geotrees.shape.Rectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.Rectangle.nearby}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.Rectangle.nearby}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby}}}
@@ -884,13 +884,13 @@ Check if Record is nearby the Rectangle
 
 \end{fulllineitems}
 
-\index{SpaceTimeEllipse (class in GeoSpatialTools.shape)@\spxentry{SpaceTimeEllipse}\spxextra{class in GeoSpatialTools.shape}}
+\index{SpaceTimeEllipse (class in geotrees.shape)@\spxentry{SpaceTimeEllipse}\spxextra{class in geotrees.shape}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeEllipse}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeEllipse}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.shape.}}\sphinxbfcode{\sphinxupquote{SpaceTimeEllipse}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.shape.}}\sphinxbfcode{\sphinxupquote{SpaceTimeEllipse}}}
 {\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{a}}\sphinxparamcomma \sphinxparam{\DUrole{n}{b}}\sphinxparamcomma \sphinxparam{\DUrole{n}{theta}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}
 {}
 \pysigstopsignatures
@@ -934,10 +934,10 @@ dimension representing the height of the cylinder.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{contains() (GeoSpatialTools.shape.SpaceTimeEllipse method)@\spxentry{contains()}\spxextra{GeoSpatialTools.shape.SpaceTimeEllipse method}}
+\index{contains() (geotrees.shape.SpaceTimeEllipse method)@\spxentry{contains()}\spxextra{geotrees.shape.SpaceTimeEllipse method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeEllipse.contains}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeEllipse.contains}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{contains}}}
@@ -955,10 +955,10 @@ Test if a SpaceTimeRecord is contained within the SpaceTimeEllipse
 
 \end{fulllineitems}
 
-\index{nearby\_rect() (GeoSpatialTools.shape.SpaceTimeEllipse method)@\spxentry{nearby\_rect()}\spxextra{GeoSpatialTools.shape.SpaceTimeEllipse method}}
+\index{nearby\_rect() (geotrees.shape.SpaceTimeEllipse method)@\spxentry{nearby\_rect()}\spxextra{geotrees.shape.SpaceTimeEllipse method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeEllipse.nearby_rect}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeEllipse.nearby_rect}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_rect}}}
@@ -979,13 +979,13 @@ Test if a SpaceTimeRectangle is near to the SpaceTimeEllipse
 
 \end{fulllineitems}
 
-\index{SpaceTimeRectangle (class in GeoSpatialTools.shape)@\spxentry{SpaceTimeRectangle}\spxextra{class in GeoSpatialTools.shape}}
+\index{SpaceTimeRectangle (class in geotrees.shape)@\spxentry{SpaceTimeRectangle}\spxextra{class in geotrees.shape}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.shape.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRectangle}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.shape.}}\sphinxbfcode{\sphinxupquote{SpaceTimeRectangle}}}
 {\sphinxparam{\DUrole{n}{west}}\sphinxparamcomma \sphinxparam{\DUrole{n}{east}}\sphinxparamcomma \sphinxparam{\DUrole{n}{south}}\sphinxparamcomma \sphinxparam{\DUrole{n}{north}}\sphinxparamcomma \sphinxparam{\DUrole{n}{start}}\sphinxparamcomma \sphinxparam{\DUrole{n}{end}}}
 {}
 \pysigstopsignatures
@@ -1021,10 +1021,10 @@ bounding box in space and time.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{centre\_datetime (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{centre\_datetime}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{centre\_datetime (geotrees.shape.SpaceTimeRectangle property)@\spxentry{centre\_datetime}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.centre_datetime}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.centre_datetime}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{centre\_datetime}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }datetime}}}
@@ -1034,10 +1034,10 @@ The midpoint time of the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{contains() (GeoSpatialTools.shape.SpaceTimeRectangle method)@\spxentry{contains()}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle method}}
+\index{contains() (geotrees.shape.SpaceTimeRectangle method)@\spxentry{contains()}\spxextra{geotrees.shape.SpaceTimeRectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.contains}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.contains}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{contains}}}
@@ -1055,10 +1055,10 @@ Test if a SpaceTimeRecord is contained within the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{edge\_dist (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{edge\_dist}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{edge\_dist (geotrees.shape.SpaceTimeRectangle property)@\spxentry{edge\_dist}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.edge_dist}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.edge_dist}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{edge\_dist}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -1068,10 +1068,10 @@ Approximate maximum distance from the centre to an edge
 
 \end{fulllineitems}
 
-\index{intersects() (GeoSpatialTools.shape.SpaceTimeRectangle method)@\spxentry{intersects()}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle method}}
+\index{intersects() (geotrees.shape.SpaceTimeRectangle method)@\spxentry{intersects()}\spxextra{geotrees.shape.SpaceTimeRectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.intersects}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.intersects}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{intersects}}}
@@ -1090,10 +1090,10 @@ SpaceTimeRectangle.
 
 \end{fulllineitems}
 
-\index{lat (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{lat}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{lat (geotrees.shape.SpaceTimeRectangle property)@\spxentry{lat}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.lat}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.lat}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -1103,10 +1103,10 @@ Centre latitude of the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{lat\_range (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{lat\_range}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{lat\_range (geotrees.shape.SpaceTimeRectangle property)@\spxentry{lat\_range}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.lat_range}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.lat_range}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lat\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -1116,10 +1116,10 @@ Latitude range of the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{lon (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{lon}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{lon (geotrees.shape.SpaceTimeRectangle property)@\spxentry{lon}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.lon}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.lon}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -1129,10 +1129,10 @@ Centre longitude of the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{lon\_range (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{lon\_range}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{lon\_range (geotrees.shape.SpaceTimeRectangle property)@\spxentry{lon\_range}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.lon_range}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.lon_range}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{lon\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }float}}}
@@ -1142,10 +1142,10 @@ Longitude range of the SpaceTimeRectangle
 
 \end{fulllineitems}
 
-\index{nearby() (GeoSpatialTools.shape.SpaceTimeRectangle method)@\spxentry{nearby()}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle method}}
+\index{nearby() (geotrees.shape.SpaceTimeRectangle method)@\spxentry{nearby()}\spxextra{geotrees.shape.SpaceTimeRectangle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.nearby}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.nearby}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby}}}
@@ -1174,7 +1174,7 @@ nearby SpaceTimeRecords.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}})
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}})
 
 \item {}
 \sphinxAtStartPar
@@ -1198,10 +1198,10 @@ True if the point is \textless{}= dist + max(dist(centre, corners))
 
 \end{fulllineitems}
 
-\index{time\_range (GeoSpatialTools.shape.SpaceTimeRectangle property)@\spxentry{time\_range}\spxextra{GeoSpatialTools.shape.SpaceTimeRectangle property}}
+\index{time\_range (geotrees.shape.SpaceTimeRectangle property)@\spxentry{time\_range}\spxextra{geotrees.shape.SpaceTimeRectangle property}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle.time_range}}
+\phantomsection\label{\detokenize{shape:geotrees.shape.SpaceTimeRectangle.time_range}}
 \pysigstartsignatures
 \pysigline
 {\sphinxbfcode{\sphinxupquote{\DUrole{k}{property}\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{time\_range}}\sphinxbfcode{\sphinxupquote{\DUrole{p}{:}\DUrole{w}{ }timedelta}}}
@@ -1268,7 +1268,7 @@ was successful, \sphinxcode{\sphinxupquote{False}} otherwise. The \sphinxcode{\s
 \subsection{Querying}
 \label{\detokenize{quadtree:querying}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{QuadTree}} class defined in \sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree}} can be queried in the following ways:
+The \sphinxcode{\sphinxupquote{QuadTree}} class defined in \sphinxcode{\sphinxupquote{geotrees.quadtree}} can be queried in the following ways:
 \begin{itemize}
 \item {}
 \sphinxAtStartPar
@@ -1290,7 +1290,7 @@ with a \sphinxcode{\sphinxupquote{Ellipse}} using \sphinxcode{\sphinxupquote{Qua
 \section{Example}
 \label{\detokenize{quadtree:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{QuadTree}\PYG{p}{,} \PYG{n}{Record}\PYG{p}{,} \PYG{n}{Rectangle}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{QuadTree}\PYG{p}{,} \PYG{n}{Record}\PYG{p}{,} \PYG{n}{Rectangle}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{random}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{choice}
 
 \PYG{n}{lon\PYGZus{}range} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{180}\PYG{p}{,} \PYG{l+m+mi}{180}\PYG{p}{)}\PYG{p}{)}
@@ -1325,19 +1325,19 @@ with a \sphinxcode{\sphinxupquote{Ellipse}} using \sphinxcode{\sphinxupquote{Qua
 
 
 \section{quadtree Module}
-\label{\detokenize{quadtree:module-GeoSpatialTools.quadtree}}\label{\detokenize{quadtree:quadtree-module}}\index{module@\spxentry{module}!GeoSpatialTools.quadtree@\spxentry{GeoSpatialTools.quadtree}}\index{GeoSpatialTools.quadtree@\spxentry{GeoSpatialTools.quadtree}!module@\spxentry{module}}
+\label{\detokenize{quadtree:module-geotrees.quadtree}}\label{\detokenize{quadtree:quadtree-module}}\index{module@\spxentry{module}!geotrees.quadtree@\spxentry{geotrees.quadtree}}\index{geotrees.quadtree@\spxentry{geotrees.quadtree}!module@\spxentry{module}}
 \sphinxAtStartPar
 Constructors for QuadTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
-\index{QuadTree (class in GeoSpatialTools.quadtree)@\spxentry{QuadTree}\spxextra{class in GeoSpatialTools.quadtree}}
+\index{QuadTree (class in geotrees.quadtree)@\spxentry{QuadTree}\spxextra{class in geotrees.quadtree}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.}}\sphinxbfcode{\sphinxupquote{QuadTree}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.quadtree.}}\sphinxbfcode{\sphinxupquote{QuadTree}}}
 {\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}
 {}
 \pysigstopsignatures
@@ -1347,7 +1347,7 @@ A Simple QuadTree class for PyCOADS
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.Rectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Rectangle}}}}}) \textendash{} The bounding Rectangle of the QuadTree
+\sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:geotrees.shape.Rectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Rectangle}}}}}) \textendash{} The bounding Rectangle of the QuadTree
 
 \item {}
 \sphinxAtStartPar
@@ -1366,10 +1366,10 @@ capacity for cells at the maximum depth.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{divide() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{divide()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{divide() (geotrees.quadtree.QuadTree method)@\spxentry{divide()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.divide}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.divide}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{divide}}}
@@ -1381,10 +1381,10 @@ Divide the QuadTree
 
 \end{fulllineitems}
 
-\index{insert() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{insert()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{insert() (geotrees.quadtree.QuadTree method)@\spxentry{insert()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.insert}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.insert}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{insert}}}
@@ -1402,14 +1402,14 @@ Insert a point into the QuadTree
 
 \end{fulllineitems}
 
-\index{len() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{len()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{len() (geotrees.quadtree.QuadTree method)@\spxentry{len()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.len}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.len}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{len}}}
-{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
+{\sphinxparam{\DUrole{n}{current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -1423,10 +1423,10 @@ Get the number of points in the QuadTree
 
 \end{fulllineitems}
 
-\index{nearby\_points() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{nearby\_points()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{nearby\_points() (geotrees.quadtree.QuadTree method)@\spxentry{nearby\_points()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.nearby_points}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.nearby_points}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_points}}}
@@ -1446,7 +1446,7 @@ boundaries are close to the query Record are evaluated.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}) \textendash{} The query point.
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}) \textendash{} The query point.
 
 \item {}
 \sphinxAtStartPar
@@ -1476,16 +1476,16 @@ Record.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-list{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{Record}}}{]}
+list{[}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{Record}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{query() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{query()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{query() (geotrees.quadtree.QuadTree method)@\spxentry{query()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.query}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.query}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{query}}}
@@ -1498,7 +1498,7 @@ Rectangle
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{rect}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.Rectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Rectangle}}}}})
+\sphinxstyleliteralstrong{\sphinxupquote{rect}} ({\hyperref[\detokenize{shape:geotrees.shape.Rectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Rectangle}}}}})
 
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
@@ -1507,16 +1507,16 @@ within the bounds of rect.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-list{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{Record}}}{]}
+list{[}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{Record}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{query\_ellipse() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{query\_ellipse()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{query\_ellipse() (geotrees.quadtree.QuadTree method)@\spxentry{query\_ellipse()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.query_ellipse}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.query_ellipse}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{query\_ellipse}}}
@@ -1529,7 +1529,7 @@ Ellipse
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{ellipse}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.Ellipse}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Ellipse}}}}})
+\sphinxstyleliteralstrong{\sphinxupquote{ellipse}} ({\hyperref[\detokenize{shape:geotrees.shape.Ellipse}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Ellipse}}}}})
 
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
@@ -1538,16 +1538,16 @@ within the bounds of ellipse.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-list{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{Record}}}{]}
+list{[}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{Record}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{remove() (GeoSpatialTools.quadtree.QuadTree method)@\spxentry{remove()}\spxextra{GeoSpatialTools.quadtree.QuadTree method}}
+\index{remove() (geotrees.quadtree.QuadTree method)@\spxentry{remove()}\spxextra{geotrees.quadtree.QuadTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{quadtree:GeoSpatialTools.quadtree.QuadTree.remove}}
+\phantomsection\label{\detokenize{quadtree:geotrees.quadtree.QuadTree.remove}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{remove}}}
@@ -1623,7 +1623,7 @@ was successful, \sphinxcode{\sphinxupquote{False}} otherwise. The \sphinxcode{\s
 \subsection{Querying}
 \label{\detokenize{octtree:querying}}
 \sphinxAtStartPar
-The \sphinxcode{\sphinxupquote{OctTree}} class defined in \sphinxcode{\sphinxupquote{GeoSpatialTools.octtree}} can be queried in the following ways:
+The \sphinxcode{\sphinxupquote{OctTree}} class defined in \sphinxcode{\sphinxupquote{geotrees.octtree}} can be queried in the following ways:
 \begin{itemize}
 \item {}
 \sphinxAtStartPar
@@ -1646,7 +1646,7 @@ with a \sphinxcode{\sphinxupquote{SpaceTimeEllipse}} using \sphinxcode{\sphinxup
 \section{Example}
 \label{\detokenize{octtree:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{OctTree}\PYG{p}{,} \PYG{n}{SpaceTimeRecord}\PYG{p}{,} \PYG{n}{SpaceTimeRectangle}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{OctTree}\PYG{p}{,} \PYG{n}{SpaceTimeRecord}\PYG{p}{,} \PYG{n}{SpaceTimeRectangle}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{datetime}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{datetime}\PYG{p}{,} \PYG{n}{timedelta}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{random}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{choice}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{polars}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{datetime\PYGZus{}range}
@@ -1700,19 +1700,19 @@ with a \sphinxcode{\sphinxupquote{SpaceTimeEllipse}} using \sphinxcode{\sphinxup
 
 
 \section{octtree Module}
-\label{\detokenize{octtree:module-GeoSpatialTools.octtree}}\label{\detokenize{octtree:octtree-module}}\index{module@\spxentry{module}!GeoSpatialTools.octtree@\spxentry{GeoSpatialTools.octtree}}\index{GeoSpatialTools.octtree@\spxentry{GeoSpatialTools.octtree}!module@\spxentry{module}}
+\label{\detokenize{octtree:module-geotrees.octtree}}\label{\detokenize{octtree:octtree-module}}\index{module@\spxentry{module}!geotrees.octtree@\spxentry{geotrees.octtree}}\index{geotrees.octtree@\spxentry{geotrees.octtree}!module@\spxentry{module}}
 \sphinxAtStartPar
 Constructors for OctTree classes that can decrease the number of comparisons
 for detecting nearby records for example. This is an implementation that uses
 Haversine distances for comparisons between records for identification of
 neighbours.
-\index{OctTree (class in GeoSpatialTools.octtree)@\spxentry{OctTree}\spxextra{class in GeoSpatialTools.octtree}}
+\index{OctTree (class in geotrees.octtree)@\spxentry{OctTree}\spxextra{class in geotrees.octtree}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.octtree.}}\sphinxbfcode{\sphinxupquote{OctTree}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.octtree.}}\sphinxbfcode{\sphinxupquote{OctTree}}}
 {\sphinxparam{\DUrole{n}{boundary}}\sphinxparamcomma \sphinxparam{\DUrole{n}{capacity}\DUrole{o}{=}\DUrole{default_value}{5}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{None}}}
 {}
 \pysigstopsignatures
@@ -1740,7 +1740,7 @@ Julian day, etc. as datetime values.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRectangle}}}}}) \textendash{} The bounding SpaceTimeRectangle of the QuadTree
+\sphinxstyleliteralstrong{\sphinxupquote{boundary}} ({\hyperref[\detokenize{shape:geotrees.shape.SpaceTimeRectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRectangle}}}}}) \textendash{} The bounding SpaceTimeRectangle of the QuadTree
 
 \item {}
 \sphinxAtStartPar
@@ -1759,10 +1759,10 @@ capacity for cells at the maximum depth.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{divide() (GeoSpatialTools.octtree.OctTree method)@\spxentry{divide()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{divide() (geotrees.octtree.OctTree method)@\spxentry{divide()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.divide}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.divide}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{divide}}}
@@ -1774,10 +1774,10 @@ Divide the QuadTree
 
 \end{fulllineitems}
 
-\index{insert() (GeoSpatialTools.octtree.OctTree method)@\spxentry{insert()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{insert() (geotrees.octtree.OctTree method)@\spxentry{insert()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.insert}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.insert}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{insert}}}
@@ -1799,14 +1799,14 @@ is consistent with the OctTree.
 
 \end{fulllineitems}
 
-\index{len() (GeoSpatialTools.octtree.OctTree method)@\spxentry{len()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{len() (geotrees.octtree.OctTree method)@\spxentry{len()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.len}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.len}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{len}}}
-{\sphinxparam{\DUrole{n}{\_current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
+{\sphinxparam{\DUrole{n}{current\_len}\DUrole{o}{=}\DUrole{default_value}{0}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -1820,10 +1820,10 @@ Get the number of points in the OctTree
 
 \end{fulllineitems}
 
-\index{nearby\_points() (GeoSpatialTools.octtree.OctTree method)@\spxentry{nearby\_points()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{nearby\_points() (geotrees.octtree.OctTree method)@\spxentry{nearby\_points()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.nearby_points}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.nearby_points}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_points}}}
@@ -1843,7 +1843,7 @@ boundaries are close to the query SpaceTimeRecord are evaluated.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}) \textendash{} The query point.
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}) \textendash{} The query point.
 
 \item {}
 \sphinxAtStartPar
@@ -1860,7 +1860,7 @@ values and ranges.
 
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{List}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]} }}\sphinxstyleliteralemphasis{\sphinxupquote{| }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of SpaceTimeRecords already found. Most use cases will be to
+\sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{List}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]} }}\sphinxstyleliteralemphasis{\sphinxupquote{| }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of SpaceTimeRecords already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
 children OctTrees.
 
@@ -1880,16 +1880,16 @@ SpaceTimeRecord.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-list{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
+list{[}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{query() (GeoSpatialTools.octtree.OctTree method)@\spxentry{query()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{query() (geotrees.octtree.OctTree method)@\spxentry{query()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.query}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.query}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{query}}}
@@ -1902,7 +1902,7 @@ SpaceTimeRectangle
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{rect}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.SpaceTimeRectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRectangle}}}}})
+\sphinxstyleliteralstrong{\sphinxupquote{rect}} ({\hyperref[\detokenize{shape:geotrees.shape.SpaceTimeRectangle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRectangle}}}}})
 
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
@@ -1911,16 +1911,16 @@ within the bounds of rect.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-List{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
+List{[}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{query\_ellipse() (GeoSpatialTools.octtree.OctTree method)@\spxentry{query\_ellipse()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{query\_ellipse() (geotrees.octtree.OctTree method)@\spxentry{query\_ellipse()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.query_ellipse}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.query_ellipse}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{query\_ellipse}}}
@@ -1933,7 +1933,7 @@ SpaceTimeEllipse
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{ellipse}} ({\hyperref[\detokenize{shape:GeoSpatialTools.shape.SpaceTimeEllipse}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeEllipse}}}}})
+\sphinxstyleliteralstrong{\sphinxupquote{ellipse}} ({\hyperref[\detokenize{shape:geotrees.shape.SpaceTimeEllipse}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeEllipse}}}}})
 
 \sphinxlineitem{Returns}
 \sphinxAtStartPar
@@ -1942,16 +1942,16 @@ within the bounds of ellipse.
 
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-List{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
+List{[}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{SpaceTimeRecord}}}{]}
 
 \end{description}\end{quote}
 
 \end{fulllineitems}
 
-\index{remove() (GeoSpatialTools.octtree.OctTree method)@\spxentry{remove()}\spxextra{GeoSpatialTools.octtree.OctTree method}}
+\index{remove() (geotrees.octtree.OctTree method)@\spxentry{remove()}\spxextra{geotrees.octtree.OctTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{octtree:GeoSpatialTools.octtree.OctTree.remove}}
+\phantomsection\label{\detokenize{octtree:geotrees.octtree.OctTree.remove}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{remove}}}
@@ -2002,11 +2002,11 @@ A K\sphinxhyphen{}D\sphinxhyphen{}Tree can typically find the nearest neighbour 
 
 \sphinxAtStartPar
 Most implementations of K\sphinxhyphen{}D\sphinxhyphen{}Tree assume that the coordinates use a cartesian geometry and therefore use a simple
-Euclidean distance to identify the nearest neighbour. The implementation in \sphinxcode{\sphinxupquote{GeoSpatialTools.kdtree}} assumes a
+Euclidean distance to identify the nearest neighbour. The implementation in \sphinxcode{\sphinxupquote{geotrees.kdtree}} assumes a
 spherical geometry on the surface of the Earth and uses the Haversine distance to identify neighbours. The
 implementation has been designed to account for longitude wrapping at \sphinxhyphen{}180, 180 degrees. The
-\sphinxcode{\sphinxupquote{GeoSpatialTools.kdtree.KDTree}} class is a 2\sphinxhyphen{}D\sphinxhyphen{}Tree, the dimensions are longitude and latitude. The object is
-initialised with data in the form of a list of \sphinxcode{\sphinxupquote{GeoSpatialTools.quadtree.Record}} objects. A maximum depth value
+\sphinxcode{\sphinxupquote{geotrees.kdtree.KDTree}} class is a 2\sphinxhyphen{}D\sphinxhyphen{}Tree, the dimensions are longitude and latitude. The object is
+initialised with data in the form of a list of \sphinxcode{\sphinxupquote{geotrees.quadtree.Record}} objects. A maximum depth value
 (\sphinxcode{\sphinxupquote{max\_depth}}) can be provided, if this is set then the partitioning will stop after \sphinxcode{\sphinxupquote{max\_depth}} partitionings,
 the leaf nodes may contain more than one \sphinxcode{\sphinxupquote{Record}}.
 
@@ -2014,7 +2014,7 @@ the leaf nodes may contain more than one \sphinxcode{\sphinxupquote{Record}}.
 \section{Example}
 \label{\detokenize{kdtree:example}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{GeoSpatialTools}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{KDTree}\PYG{p}{,} \PYG{n}{Record}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{geotrees}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{KDTree}\PYG{p}{,} \PYG{n}{Record}
 \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{random}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{choice}
 
 \PYG{n}{lon\PYGZus{}range} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{180}\PYG{p}{,} \PYG{l+m+mi}{180}\PYG{p}{)}\PYG{p}{)}
@@ -2063,7 +2063,7 @@ minimum distance to the query \sphinxcode{\sphinxupquote{Record}}, and the minim
 
 
 \section{kdtree Module}
-\label{\detokenize{kdtree:module-GeoSpatialTools.kdtree}}\label{\detokenize{kdtree:kdtree-module}}\index{module@\spxentry{module}!GeoSpatialTools.kdtree@\spxentry{GeoSpatialTools.kdtree}}\index{GeoSpatialTools.kdtree@\spxentry{GeoSpatialTools.kdtree}!module@\spxentry{module}}
+\label{\detokenize{kdtree:module-geotrees.kdtree}}\label{\detokenize{kdtree:kdtree-module}}\index{module@\spxentry{module}!geotrees.kdtree@\spxentry{geotrees.kdtree}}\index{geotrees.kdtree@\spxentry{geotrees.kdtree}!module@\spxentry{module}}
 \sphinxAtStartPar
 An implementation of KDTree using Haversine Distance for GeoSpatial analysis.
 Useful tool for quickly searching for nearest neighbours. The implementation is
@@ -2072,13 +2072,13 @@ a K=2 or 2DTree as only 2 dimensions (longitude and latitude) are used.
 \sphinxAtStartPar
 Haversine distances are used for comparisons, so that the spherical geometry
 of the earth is accounted for.
-\index{KDTree (class in GeoSpatialTools.kdtree)@\spxentry{KDTree}\spxextra{class in GeoSpatialTools.kdtree}}
+\index{KDTree (class in geotrees.kdtree)@\spxentry{KDTree}\spxextra{class in geotrees.kdtree}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{kdtree:GeoSpatialTools.kdtree.KDTree}}
+\phantomsection\label{\detokenize{kdtree:geotrees.kdtree.KDTree}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.kdtree.}}\sphinxbfcode{\sphinxupquote{KDTree}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.kdtree.}}\sphinxbfcode{\sphinxupquote{KDTree}}}
 {\sphinxparam{\DUrole{n}{points}}\sphinxparamcomma \sphinxparam{\DUrole{n}{depth}\DUrole{o}{=}\DUrole{default_value}{0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{max\_depth}\DUrole{o}{=}\DUrole{default_value}{20}}}
 {}
 \pysigstopsignatures
@@ -2098,7 +2098,7 @@ assigned to the branch.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) \textendash{} A list of GeoSpatialTools.Record instances.
+\sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{list}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]}}}) \textendash{} A list of GeoSpatialTools.Record instances.
 
 \item {}
 \sphinxAtStartPar
@@ -2114,10 +2114,10 @@ only 1 point in the branch.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{delete() (GeoSpatialTools.kdtree.KDTree method)@\spxentry{delete()}\spxextra{GeoSpatialTools.kdtree.KDTree method}}
+\index{delete() (geotrees.kdtree.KDTree method)@\spxentry{delete()}\spxextra{geotrees.kdtree.KDTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{kdtree:GeoSpatialTools.kdtree.KDTree.delete}}
+\phantomsection\label{\detokenize{kdtree:geotrees.kdtree.KDTree.delete}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{delete}}}
@@ -2135,10 +2135,10 @@ Delete a Record from the KDTree. May unbalance the KDTree
 
 \end{fulllineitems}
 
-\index{insert() (GeoSpatialTools.kdtree.KDTree method)@\spxentry{insert()}\spxextra{GeoSpatialTools.kdtree.KDTree method}}
+\index{insert() (geotrees.kdtree.KDTree method)@\spxentry{insert()}\spxextra{geotrees.kdtree.KDTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{kdtree:GeoSpatialTools.kdtree.KDTree.insert}}
+\phantomsection\label{\detokenize{kdtree:geotrees.kdtree.KDTree.insert}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{insert}}}
@@ -2159,10 +2159,10 @@ The point will not be inserted if it is already in the KDTree.
 
 \end{fulllineitems}
 
-\index{query() (GeoSpatialTools.kdtree.KDTree method)@\spxentry{query()}\spxextra{GeoSpatialTools.kdtree.KDTree method}}
+\index{query() (geotrees.kdtree.KDTree method)@\spxentry{query()}\spxextra{geotrees.kdtree.KDTree method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{kdtree:GeoSpatialTools.kdtree.KDTree.query}}
+\phantomsection\label{\detokenize{kdtree:geotrees.kdtree.KDTree.query}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{query}}}
@@ -2174,7 +2174,7 @@ Find the nearest Record within the KDTree to a query Record
 \begin{quote}\begin{description}
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{Tuple}}{[}\sphinxcode{\sphinxupquote{List}}{[}{\hyperref[\detokenize{record:GeoSpatialTools.record.Record}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{Record}}}}}{]}, \sphinxcode{\sphinxupquote{float}}{]}}
+\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{Tuple}}{[}\sphinxcode{\sphinxupquote{List}}{[}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{Record}}}}}{]}, \sphinxcode{\sphinxupquote{float}}{]}}
 
 \end{description}\end{quote}
 
@@ -2188,21 +2188,21 @@ Find the nearest Record within the KDTree to a query Record
 
 
 \chapter{Additional Modules}
-\label{\detokenize{users_guide:module-GeoSpatialTools.great_circle}}\label{\detokenize{users_guide:additional-modules}}\label{\detokenize{users_guide::doc}}\index{module@\spxentry{module}!GeoSpatialTools.great\_circle@\spxentry{GeoSpatialTools.great\_circle}}\index{GeoSpatialTools.great\_circle@\spxentry{GeoSpatialTools.great\_circle}!module@\spxentry{module}}
+\label{\detokenize{users_guide:module-geotrees.great_circle}}\label{\detokenize{users_guide:additional-modules}}\label{\detokenize{users_guide::doc}}\index{module@\spxentry{module}!geotrees.great\_circle@\spxentry{geotrees.great\_circle}}\index{geotrees.great\_circle@\spxentry{geotrees.great\_circle}!module@\spxentry{module}}
 
 \section{GreatCircle}
 \label{\detokenize{users_guide:greatcircle}}
 \sphinxAtStartPar
 Constructors and methods for interacting with GreatCircle objects, including
 comparisons between GreatCircle objects.
-\index{GreatCircle (class in GeoSpatialTools.great\_circle)@\spxentry{GreatCircle}\spxextra{class in GeoSpatialTools.great\_circle}}
+\index{GreatCircle (class in geotrees.great\_circle)@\spxentry{GreatCircle}\spxextra{class in geotrees.great\_circle}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.GreatCircle}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{GreatCircle}}}
-{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{class}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.great\_circle.}}\sphinxbfcode{\sphinxupquote{GreatCircle}}}
+{\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{radius}\DUrole{o}{=}\DUrole{default_value}{6371}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -2238,10 +2238,10 @@ Construct a great circle path between a pair of positions.
 \end{itemize}
 
 \end{description}\end{quote}
-\index{dist\_from\_point() (GeoSpatialTools.great\_circle.GreatCircle method)@\spxentry{dist\_from\_point()}\spxextra{GeoSpatialTools.great\_circle.GreatCircle method}}
+\index{dist\_from\_point() (geotrees.great\_circle.GreatCircle method)@\spxentry{dist\_from\_point()}\spxextra{geotrees.great\_circle.GreatCircle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.dist_from_point}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.GreatCircle.dist_from_point}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{dist\_from\_point}}}
@@ -2274,10 +2274,10 @@ float
 
 \end{fulllineitems}
 
-\index{intersection() (GeoSpatialTools.great\_circle.GreatCircle method)@\spxentry{intersection()}\spxextra{GeoSpatialTools.great\_circle.GreatCircle method}}
+\index{intersection() (geotrees.great\_circle.GreatCircle method)@\spxentry{intersection()}\spxextra{geotrees.great\_circle.GreatCircle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.intersection}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.GreatCircle.intersection}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{intersection}}}
@@ -2299,7 +2299,7 @@ the sphere are identical.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
+\sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:geotrees.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
 
 \item {}
 \sphinxAtStartPar
@@ -2319,10 +2319,10 @@ Position of intersection
 
 \end{fulllineitems}
 
-\index{intersection\_angle() (GeoSpatialTools.great\_circle.GreatCircle method)@\spxentry{intersection\_angle()}\spxextra{GeoSpatialTools.great\_circle.GreatCircle method}}
+\index{intersection\_angle() (geotrees.great\_circle.GreatCircle method)@\spxentry{intersection\_angle()}\spxextra{geotrees.great\_circle.GreatCircle method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle.intersection_angle}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.GreatCircle.intersection_angle}}
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{intersection\_angle}}}
@@ -2343,7 +2343,7 @@ formed by the two intersecting great circle objects.
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
 \sphinxAtStartPar
-\sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:GeoSpatialTools.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
+\sphinxstyleliteralstrong{\sphinxupquote{other}} ({\hyperref[\detokenize{users_guide:geotrees.great_circle.GreatCircle}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{GreatCircle}}}}}) \textendash{} Intersecting GreatCircle object
 
 \item {}
 \sphinxAtStartPar
@@ -2366,13 +2366,13 @@ float | None
 
 \end{fulllineitems}
 
-\index{cartesian\_to\_lonlat() (in module GeoSpatialTools.great\_circle)@\spxentry{cartesian\_to\_lonlat()}\spxextra{in module GeoSpatialTools.great\_circle}}
+\index{cartesian\_to\_lonlat() (in module geotrees.great\_circle)@\spxentry{cartesian\_to\_lonlat()}\spxextra{in module geotrees.great\_circle}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.cartesian_to_lonlat}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.cartesian_to_lonlat}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{cartesian\_to\_lonlat}}}
+{\sphinxcode{\sphinxupquote{geotrees.great\_circle.}}\sphinxbfcode{\sphinxupquote{cartesian\_to\_lonlat}}}
 {\sphinxparam{\DUrole{n}{x}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y}}\sphinxparamcomma \sphinxparam{\DUrole{n}{z}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{False}}}
 {}
 \pysigstopsignatures
@@ -2420,14 +2420,14 @@ Get lon, and lat from cartesian coordinates.
 
 \end{fulllineitems}
 
-\index{polar\_to\_cartesian() (in module GeoSpatialTools.great\_circle)@\spxentry{polar\_to\_cartesian()}\spxextra{in module GeoSpatialTools.great\_circle}}
+\index{polar\_to\_cartesian() (in module geotrees.great\_circle)@\spxentry{polar\_to\_cartesian()}\spxextra{in module geotrees.great\_circle}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.great_circle.polar_to_cartesian}}
+\phantomsection\label{\detokenize{users_guide:geotrees.great_circle.polar_to_cartesian}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.great\_circle.}}\sphinxbfcode{\sphinxupquote{polar\_to\_cartesian}}}
-{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{R}\DUrole{o}{=}\DUrole{default_value}{6371}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{normalised}\DUrole{o}{=}\DUrole{default_value}{True}}}
+{\sphinxcode{\sphinxupquote{geotrees.great\_circle.}}\sphinxbfcode{\sphinxupquote{polar\_to\_cartesian}}}
+{\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{radius}\DUrole{o}{=}\DUrole{default_value}{6371}}\sphinxparamcomma \sphinxparam{\DUrole{n}{to\_radians}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{normalised}\DUrole{o}{=}\DUrole{default_value}{True}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -2473,20 +2473,20 @@ x, y, z cartesian coordinates.
 
 \end{fulllineitems}
 
-\index{module@\spxentry{module}!GeoSpatialTools.distance\_metrics@\spxentry{GeoSpatialTools.distance\_metrics}}\index{GeoSpatialTools.distance\_metrics@\spxentry{GeoSpatialTools.distance\_metrics}!module@\spxentry{module}}
+\index{module@\spxentry{module}!geotrees.distance\_metrics@\spxentry{geotrees.distance\_metrics}}\index{geotrees.distance\_metrics@\spxentry{geotrees.distance\_metrics}!module@\spxentry{module}}
 
 \section{Distance Metrics}
-\label{\detokenize{users_guide:distance-metrics}}\label{\detokenize{users_guide:module-GeoSpatialTools.distance_metrics}}
+\label{\detokenize{users_guide:distance-metrics}}\label{\detokenize{users_guide:module-geotrees.distance_metrics}}
 \sphinxAtStartPar
 Functions for computing navigational information. Can be used to add
 navigational information to DataFrames.
-\index{bearing() (in module GeoSpatialTools.distance\_metrics)@\spxentry{bearing()}\spxextra{in module GeoSpatialTools.distance\_metrics}}
+\index{bearing() (in module geotrees.distance\_metrics)@\spxentry{bearing()}\spxextra{in module geotrees.distance\_metrics}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.bearing}}
+\phantomsection\label{\detokenize{users_guide:geotrees.distance_metrics.bearing}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{bearing}}}
+{\sphinxcode{\sphinxupquote{geotrees.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{bearing}}}
 {\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
 {}
 \pysigstopsignatures
@@ -2527,13 +2527,13 @@ float
 
 \end{fulllineitems}
 
-\index{destination() (in module GeoSpatialTools.distance\_metrics)@\spxentry{destination()}\spxextra{in module GeoSpatialTools.distance\_metrics}}
+\index{destination() (in module geotrees.distance\_metrics)@\spxentry{destination()}\spxextra{in module geotrees.distance\_metrics}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.destination}}
+\phantomsection\label{\detokenize{users_guide:geotrees.distance_metrics.destination}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{destination}}}
+{\sphinxcode{\sphinxupquote{geotrees.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{destination}}}
 {\sphinxparam{\DUrole{n}{lon}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat}}\sphinxparamcomma \sphinxparam{\DUrole{n}{bearing}}\sphinxparamcomma \sphinxparam{\DUrole{n}{distance}}}
 {}
 \pysigstopsignatures
@@ -2578,13 +2578,13 @@ tuple{[}float, float{]}
 
 \end{fulllineitems}
 
-\index{gcd\_slc() (in module GeoSpatialTools.distance\_metrics)@\spxentry{gcd\_slc()}\spxextra{in module GeoSpatialTools.distance\_metrics}}
+\index{gcd\_slc() (in module geotrees.distance\_metrics)@\spxentry{gcd\_slc()}\spxextra{in module geotrees.distance\_metrics}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.gcd_slc}}
+\phantomsection\label{\detokenize{users_guide:geotrees.distance_metrics.gcd_slc}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{gcd\_slc}}}
+{\sphinxcode{\sphinxupquote{geotrees.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{gcd\_slc}}}
 {\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
 {}
 \pysigstopsignatures
@@ -2622,13 +2622,13 @@ float
 
 \end{fulllineitems}
 
-\index{haversine() (in module GeoSpatialTools.distance\_metrics)@\spxentry{haversine()}\spxextra{in module GeoSpatialTools.distance\_metrics}}
+\index{haversine() (in module geotrees.distance\_metrics)@\spxentry{haversine()}\spxextra{in module geotrees.distance\_metrics}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.haversine}}
+\phantomsection\label{\detokenize{users_guide:geotrees.distance_metrics.haversine}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{haversine}}}
+{\sphinxcode{\sphinxupquote{geotrees.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{haversine}}}
 {\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
 {}
 \pysigstopsignatures
@@ -2666,13 +2666,13 @@ float
 
 \end{fulllineitems}
 
-\index{midpoint() (in module GeoSpatialTools.distance\_metrics)@\spxentry{midpoint()}\spxextra{in module GeoSpatialTools.distance\_metrics}}
+\index{midpoint() (in module geotrees.distance\_metrics)@\spxentry{midpoint()}\spxextra{in module geotrees.distance\_metrics}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.distance_metrics.midpoint}}
+\phantomsection\label{\detokenize{users_guide:geotrees.distance_metrics.midpoint}}
 \pysigstartsignatures
 \pysiglinewithargsret
-{\sphinxcode{\sphinxupquote{GeoSpatialTools.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{midpoint}}}
+{\sphinxcode{\sphinxupquote{geotrees.distance\_metrics.}}\sphinxbfcode{\sphinxupquote{midpoint}}}
 {\sphinxparam{\DUrole{n}{lon0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat0}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lon1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lat1}}}
 {}
 \pysigstopsignatures
@@ -2710,19 +2710,19 @@ lon, lat
 
 \end{fulllineitems}
 
-\index{module@\spxentry{module}!GeoSpatialTools.utils@\spxentry{GeoSpatialTools.utils}}\index{GeoSpatialTools.utils@\spxentry{GeoSpatialTools.utils}!module@\spxentry{module}}
+\index{module@\spxentry{module}!geotrees.utils@\spxentry{geotrees.utils}}\index{geotrees.utils@\spxentry{geotrees.utils}!module@\spxentry{module}}
 
 \section{Utils}
-\label{\detokenize{users_guide:utils}}\label{\detokenize{users_guide:module-GeoSpatialTools.utils}}
+\label{\detokenize{users_guide:utils}}\label{\detokenize{users_guide:module-geotrees.utils}}
 \sphinxAtStartPar
 Utility functions. Including Error classes and Warnings.
 \index{DateWarning@\spxentry{DateWarning}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.utils.DateWarning}}
+\phantomsection\label{\detokenize{users_guide:geotrees.utils.DateWarning}}
 \pysigstartsignatures
 \pysigline
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.utils.}}\sphinxbfcode{\sphinxupquote{DateWarning}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.utils.}}\sphinxbfcode{\sphinxupquote{DateWarning}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Warning for Datetime Value
@@ -2732,10 +2732,10 @@ Warning for Datetime Value
 \index{LatitudeError@\spxentry{LatitudeError}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{users_guide:GeoSpatialTools.utils.LatitudeError}}
+\phantomsection\label{\detokenize{users_guide:geotrees.utils.LatitudeError}}
 \pysigstartsignatures
 \pysigline
-{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{GeoSpatialTools.utils.}}\sphinxbfcode{\sphinxupquote{LatitudeError}}}
+{\sphinxbfcode{\sphinxupquote{\DUrole{k}{exception}\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{geotrees.utils.}}\sphinxbfcode{\sphinxupquote{LatitudeError}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 Error for invalid Latitude Value
@@ -2748,15 +2748,15 @@ Error for invalid Latitude Value
 \begin{sphinxtheindex}
 \let\bigletter\sphinxstyleindexlettergroup
 \bigletter{g}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.distance\_metrics}\sphinxstyleindexpageref{users_guide:\detokenize{module-GeoSpatialTools.distance_metrics}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.great\_circle}\sphinxstyleindexpageref{users_guide:\detokenize{module-GeoSpatialTools.great_circle}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.kdtree}\sphinxstyleindexpageref{kdtree:\detokenize{module-GeoSpatialTools.kdtree}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.neighbours}\sphinxstyleindexpageref{bisection:\detokenize{module-GeoSpatialTools.neighbours}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.octtree}\sphinxstyleindexpageref{octtree:\detokenize{module-GeoSpatialTools.octtree}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.quadtree}\sphinxstyleindexpageref{quadtree:\detokenize{module-GeoSpatialTools.quadtree}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.record}\sphinxstyleindexpageref{record:\detokenize{module-GeoSpatialTools.record}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.shape}\sphinxstyleindexpageref{shape:\detokenize{module-GeoSpatialTools.shape}}
-\item\relax\sphinxstyleindexentry{GeoSpatialTools.utils}\sphinxstyleindexpageref{users_guide:\detokenize{module-GeoSpatialTools.utils}}
+\item\relax\sphinxstyleindexentry{geotrees.distance\_metrics}\sphinxstyleindexpageref{users_guide:\detokenize{module-geotrees.distance_metrics}}
+\item\relax\sphinxstyleindexentry{geotrees.great\_circle}\sphinxstyleindexpageref{users_guide:\detokenize{module-geotrees.great_circle}}
+\item\relax\sphinxstyleindexentry{geotrees.kdtree}\sphinxstyleindexpageref{kdtree:\detokenize{module-geotrees.kdtree}}
+\item\relax\sphinxstyleindexentry{geotrees.neighbours}\sphinxstyleindexpageref{bisection:\detokenize{module-geotrees.neighbours}}
+\item\relax\sphinxstyleindexentry{geotrees.octtree}\sphinxstyleindexpageref{octtree:\detokenize{module-geotrees.octtree}}
+\item\relax\sphinxstyleindexentry{geotrees.quadtree}\sphinxstyleindexpageref{quadtree:\detokenize{module-geotrees.quadtree}}
+\item\relax\sphinxstyleindexentry{geotrees.record}\sphinxstyleindexpageref{record:\detokenize{module-geotrees.record}}
+\item\relax\sphinxstyleindexentry{geotrees.shape}\sphinxstyleindexpageref{shape:\detokenize{module-geotrees.shape}}
+\item\relax\sphinxstyleindexentry{geotrees.utils}\sphinxstyleindexpageref{users_guide:\detokenize{module-geotrees.utils}}
 \end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}

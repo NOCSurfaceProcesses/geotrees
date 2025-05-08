@@ -5,7 +5,7 @@ Bisection Search
 Bisection can be used to find the nearest neighbour in a sorted one-dimensional list of search values in
 :math:`O(\log(n))` time complexity.
 
-The implementation in `GeoSpatialTools` makes use of the `bisect` library, which is part of the Python standard library.
+The implementation in `geotrees` makes use of the `bisect` library, which is part of the Python standard library.
 The input types are numeric types, which can include ``int``, ``float``, or ``datetime.datetime`` values.
 
 The bisection approach repeatedly splits the list of search values in two at the mid-index. The query value is compared
@@ -41,5 +41,5 @@ Example
 neighbours Module
 =================
 
-.. automodule:: GeoSpatialTools.neighbours
+.. automodule:: geotrees.neighbours
    :members:

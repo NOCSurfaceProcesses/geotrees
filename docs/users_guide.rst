@@ -2,11 +2,11 @@
 Additional Modules
 ==================
 
-.. automodule:: GeoSpatialTools.great_circle
+.. automodule:: geotrees.great_circle
    :members:
 
-.. automodule:: GeoSpatialTools.distance_metrics
+.. automodule:: geotrees.distance_metrics
    :members:
 
-.. automodule:: GeoSpatialTools.utils
+.. automodule:: geotrees.utils
    :members:

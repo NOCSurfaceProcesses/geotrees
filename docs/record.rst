@@ -2,22 +2,22 @@
 Record Classes
 ==============
 
-``Record`` classes in ``GeoSpatialTools`` form the back-bone of the data structures within the library. They represent a
+``Record`` classes in ``geotrees`` form the back-bone of the data structures within the library. They represent a
 consistent input data-type across all classes in the library.
 
 There are two classes of ``Record``:
 
-* ``GeoSpatialTools.record.Record`` for two-dimensional data structures defined by ``lon`` (longitude) and ``lat``
+* ``geotrees.record.Record`` for two-dimensional data structures defined by ``lon`` (longitude) and ``lat``
   (latitude). Optionally, one can pass ``datetime`` and ``uid``, as well as additional data attributes with keyword
   arguments.
-* ``GeoSpatialTools.record.SpaceTimeRecord`` for three-dimensional data structures defined by ``lon`` (longitude),
+* ``geotrees.record.SpaceTimeRecord`` for three-dimensional data structures defined by ``lon`` (longitude),
   ``lat`` (latitude), and ``datetime``. Optionally, one can pass ``uid``, as well as additional data attributes with
   keyword arguments.
 
 Only the positional, datetime, and uid attributes are used for equality tests. ``Record`` objects are used for
 ``QuadTree`` and ``KDTree`` objects, whereas ``SpaceTimeRecord`` objects must be used for ``OctTree``.
 
-.. note:: ``Record`` and ``SpaceTimeRecord`` are exposed at the ``GeoSpatialTools`` level.
+.. note:: ``Record`` and ``SpaceTimeRecord`` are exposed at the ``geotrees`` level.
 
 Example
 =======
@@ -32,5 +32,5 @@ Example
 record Module
 =============
 
-.. automodule:: GeoSpatialTools.record
+.. automodule:: geotrees.record
    :members:

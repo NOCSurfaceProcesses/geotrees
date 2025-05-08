@@ -8,7 +8,8 @@ comparisons between GreatCircle objects.
 from typing import Optional, Tuple
 
 import numpy as np
-from GeoSpatialTools.distance_metrics import bearing, gcd_slc
+
+from geotrees.distance_metrics import bearing, gcd_slc
 
 
 def cartesian_to_lonlat(

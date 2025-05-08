@@ -56,7 +56,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import QuadTree, Record, Rectangle
+   from geotrees import QuadTree, Record, Rectangle
    from random import choice
 
    lon_range = list(range(-180, 180))

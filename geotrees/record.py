@@ -14,8 +14,8 @@ with OctTree classes.
 from datetime import datetime
 from typing import Optional
 
-from GeoSpatialTools.distance_metrics import haversine
-from GeoSpatialTools.utils import LatitudeError
+from geotrees.distance_metrics import haversine
+from geotrees.utils import LatitudeError
 
 
 class Record:

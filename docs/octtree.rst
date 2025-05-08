@@ -55,7 +55,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import OctTree, SpaceTimeRecord, SpaceTimeRectangle
+   from geotrees import OctTree, SpaceTimeRecord, SpaceTimeRectangle
    from datetime import datetime, timedelta
    from random import choice
    from polars import datetime_range

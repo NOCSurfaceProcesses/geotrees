@@ -25,7 +25,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import find_nearest
+   from geotrees import find_nearest
    import numpy as np
 
    search_values: list[float] = list(np.random.randn(50))

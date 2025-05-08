@@ -24,7 +24,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools.shape import Rectangle, SpaceTimeEllipse
+   from geotrees.shape import Rectangle, SpaceTimeEllipse
    from datetime import datetime
    from math import pi
 

@@ -9,8 +9,9 @@ of the earth is accounted for.
 
 from typing import List, Optional, Tuple
 
-from GeoSpatialTools.record import Record
 from numpy import inf
+
+from geotrees.record import Record
 
 
 class KDTree:

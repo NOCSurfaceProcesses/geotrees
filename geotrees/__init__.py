@@ -1,12 +1,12 @@
 """Tools for fast neighbour look-up on the Earth's surface"""
 
-from GeoSpatialTools.distance_metrics import haversine
-from GeoSpatialTools.great_circle import GreatCircle
-from GeoSpatialTools.kdtree import KDTree
-from GeoSpatialTools.neighbours import find_nearest
-from GeoSpatialTools.quadtree import QuadTree
-from GeoSpatialTools.record import Record, SpaceTimeRecord
-from GeoSpatialTools.shape import (
+from geotrees.distance_metrics import haversine
+from geotrees.great_circle import GreatCircle
+from geotrees.kdtree import KDTree
+from geotrees.neighbours import find_nearest
+from geotrees.quadtree import QuadTree
+from geotrees.record import Record, SpaceTimeRecord
+from geotrees.shape import (
     Ellipse,
     Rectangle,
     SpaceTimeEllipse,

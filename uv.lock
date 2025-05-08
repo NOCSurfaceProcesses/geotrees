@@ -298,7 +298,7 @@ wheels = [
 ]
 
 [[package]]
-name = "geospatialtools"
+name = "geotrees"
 version = "0.11.2"
 source = { editable = "." }
 dependencies = [

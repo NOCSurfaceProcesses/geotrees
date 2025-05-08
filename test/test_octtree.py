@@ -2,14 +2,16 @@ import random
 import unittest
 from datetime import datetime, timedelta
 
-from GeoSpatialTools import haversine
-from GeoSpatialTools.octtree import OctTree
-from GeoSpatialTools.shape import (
-    SpaceTimeRectangle as Rectangle,
+from geotrees import haversine
+from geotrees.octtree import OctTree
+from geotrees.record import SpaceTimeRecord as Record
+from geotrees.shape import (
     SpaceTimeEllipse as Ellipse,
 )
-from GeoSpatialTools.record import SpaceTimeRecord as Record
-from GeoSpatialTools.utils import DateWarning
+from geotrees.shape import (
+    SpaceTimeRectangle as Rectangle,
+)
+from geotrees.utils import DateWarning
 
 
 class TestRect(unittest.TestCase):
@@ -337,7 +339,7 @@ class TestOctTree(unittest.TestCase):
         assert test_point in res
 
     def test_wrap_query(self):
-        N = 100
+        n = 100
         d = datetime(2023, 3, 24, 12, 0)
         dt = timedelta(days=10)
         start = d - dt
@@ -356,7 +358,7 @@ class TestOctTree(unittest.TestCase):
                 random.choice(range(-90, 91)),
                 d + timedelta(hours=random.choice(range(-120, 120))),
             )
-            for _ in range(N)
+            for _ in range(n)
         ]
         points.extend(points_want)
         for p in points:

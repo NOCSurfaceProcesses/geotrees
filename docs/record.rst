@@ -24,7 +24,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import Record
+   from geotrees import Record
 
    record: Record = Record(lon=-151.2, lat=42.7, uid="foo")
    dist: float = record.distance(Record(-71.1, -23.2, uid="bar"))

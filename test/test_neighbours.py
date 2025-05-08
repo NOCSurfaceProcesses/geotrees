@@ -1,9 +1,11 @@
 import unittest
-from numpy import argmin
-from random import choice, sample
 from datetime import datetime, timedelta
-from GeoSpatialTools import find_nearest
-from GeoSpatialTools.neighbours import SortedError, SortedWarning
+from random import choice, sample
+
+from numpy import argmin
+
+from geotrees import find_nearest
+from geotrees.neighbours import SortedError, SortedWarning
 
 
 class TestFindNearest(unittest.TestCase):

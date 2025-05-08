@@ -8,10 +8,10 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["GeoSpatialTools"]
+packages = ["geotrees"]
 
 [project]
-name = "GeoSpatialTools"
+name = "geotrees"
 version = "0.11.2"
 dependencies = ["numpy"]
 requires-python = ">=3.9"
@@ -45,7 +45,7 @@ all = [
 ]
 
 [tool.ruff]
-src = ["geospatialtools"]
+src = ["geotrees"]
 line-length = 80
 indent-width = 4
 target-version = "py311"
@@ -56,10 +56,11 @@ extend-select = [
   "RUF022", # unsorted-dunder-all
 ]
 ignore = [
-  "D205", # blank-line-after-summary
-  "D400", # ends-in-period
-  "D401", # non-imperative-mood
-  "D105", # missing docstring in magic method
+  "D205",   # blank-line-after-summary
+  "D400",   # ends-in-period
+  "D401",   # non-imperative-mood
+  "D105",   # missing docstring in magic method
+  "RUF012", # Mutable class attributes should be annotated with typing.ClassVar
 ]
 preview = true
 select = [
@@ -69,7 +70,7 @@ select = [
   "F",   # pyflakes
   "I",   # isort
   "ICN", # flake8-import-conventions
-  "N80", # invalid names
+  "N8",  # invalid names
   "RUF", # Ruff rules
   "S",   # bandit
   "TID", # Tidy imports
@@ -99,7 +100,7 @@ scipy = "sp"
 xarray = "xr"
 
 [tool.ruff.lint.isort]
-known-first-party = ["geospatialtools"]
+known-first-party = ["geotrees"]
 case-sensitive = true
 detect-same-package = false
 lines-after-imports = 2

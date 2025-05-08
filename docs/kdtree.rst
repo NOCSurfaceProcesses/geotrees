@@ -32,7 +32,7 @@ Example
 
 .. code-block:: python
 
-   from GeoSpatialTools import KDTree, Record
+   from geotrees import KDTree, Record
    from random import choice
 
    lon_range = list(range(-180, 180))

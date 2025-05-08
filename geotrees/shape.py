@@ -17,9 +17,9 @@ from datetime import datetime, timedelta
 from math import degrees, sqrt
 from warnings import warn
 
-from GeoSpatialTools.distance_metrics import destination, haversine
-from GeoSpatialTools.record import Record, SpaceTimeRecord
-from GeoSpatialTools.utils import DateWarning, LatitudeError
+from geotrees.distance_metrics import destination, haversine
+from geotrees.record import Record, SpaceTimeRecord
+from geotrees.utils import DateWarning, LatitudeError
 
 
 @dataclass

@@ -7,9 +7,11 @@ Haversine distances are used for comparisons, so that the spherical geometry
 of the earth is accounted for.
 """
 
-from .record import Record
-from numpy import inf
 from typing import List, Optional, Tuple
+
+from numpy import inf
+
+from .record import Record
 
 
 class KDTree:

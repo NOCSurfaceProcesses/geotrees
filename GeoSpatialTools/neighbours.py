@@ -6,11 +6,12 @@ Data for these functions must be sorted, otherwise incorrect values may be
 returned.
 """
 
-from numpy import argmin
 from bisect import bisect
-from typing import List, TypeVar, Union
 from datetime import date, datetime
+from typing import List, TypeVar, Union
 from warnings import warn
+
+from numpy import argmin
 
 
 Numeric = TypeVar("Numeric", int, float, datetime, date)

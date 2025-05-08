@@ -5,8 +5,9 @@ Constructors and methods for interacting with GreatCircle objects, including
 comparisons between GreatCircle objects.
 """
 
-import numpy as np
 from typing import Optional, Tuple
+
+import numpy as np
 
 from .distance_metrics import bearing, gcd_slc
 
@@ -36,10 +37,10 @@ def cartesian_to_lonlat(
     (float, float)
     lon, lat
     """
-    R = np.sqrt(x**2 + y**2 + z**2)
-    x /= R
-    y /= R
-    z /= R
+    radius = np.sqrt(x**2 + y**2 + z**2)
+    x /= radius
+    y /= radius
+    z /= radius
     lat = np.arcsin(z)
     tmp = np.cos(lat)
     sign = np.arcsin(y / tmp)
@@ -52,7 +53,7 @@ def cartesian_to_lonlat(
 def polar_to_cartesian(
     lon: float,
     lat: float,
-    R: float = 6371,
+    radius: float = 6371,
     to_radians: bool = True,
     normalised: bool = True,
 ) -> Tuple[float, float, float]:
@@ -86,7 +87,7 @@ def polar_to_cartesian(
     x = np.cos(theta) * np.cos(phi)
     y = np.sin(theta) * np.cos(phi)
     z = np.sin(phi)
-    return (x, y, z) if normalised else (R * x, R * y, R * z)
+    return (x, y, z) if normalised else (radius * x, radius * y, radius * z)
 
 
 class GreatCircle:
@@ -117,13 +118,13 @@ class GreatCircle:
         lat0: float,
         lon1: float,
         lat1: float,
-        R: float = 6371,
+        radius: float = 6371,
     ) -> None:
         self.lon0 = lon0
         self.lat0 = lat0
         self.lon1 = lon1
         self.lat1 = lat1
-        self.R = R
+        self.radius = radius
         self.cross_prod = _cross_lonlat(
             self.lon0, self.lat0, self.lon1, self.lat1
         )
@@ -154,7 +155,7 @@ class GreatCircle:
         cart = polar_to_cartesian(lon, lat, normalised=True)
         num = np.dot(cart, self.cross_prod)
         # WARN: This can be negative - hence using abs
-        return np.abs(np.arcsin(num / self.cross_prod_dist) * self.R)
+        return np.abs(np.arcsin(num / self.cross_prod_dist) * self.radius)
 
     def _identical_plane(
         self,
@@ -222,18 +223,18 @@ class GreatCircle:
         """
         if not isinstance(other, GreatCircle):
             raise TypeError("Input 'other' is not a GreatCircle")
-        if self.R != other.R:
+        if self.radius != other.radius:
             raise ValueError("GreatCircle radius values do not match")
         if self._identical_plane(other, epsilon=epsilon):
             return None
         plane_intersection = np.cross(self.cross_prod, other.cross_prod)
-        epsilon *= self.R
-        S1 = plane_intersection / np.linalg.norm(plane_intersection)
-        lon, lat = cartesian_to_lonlat(*S1)
+        epsilon *= self.radius
+        s1 = plane_intersection / np.linalg.norm(plane_intersection)
+        lon, lat = cartesian_to_lonlat(*s1)
         if self.dist_from_point(lon, lat) < epsilon:
             return lon, lat
-        S2 = -S1
-        lon, lat = cartesian_to_lonlat(*S2)
+        s2 = -s1
+        lon, lat = cartesian_to_lonlat(*s2)
         if self.dist_from_point(lon, lat) < epsilon:
             return lon, lat
         return None

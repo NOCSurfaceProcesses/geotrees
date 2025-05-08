@@ -5,7 +5,7 @@ Functions for computing navigational information. Can be used to add
 navigational information to DataFrames.
 """
 
-from math import acos, asin, atan2, cos, sin, degrees, radians, sqrt
+from math import acos, asin, atan2, cos, degrees, radians, sin, sqrt
 from typing import Tuple
 
 

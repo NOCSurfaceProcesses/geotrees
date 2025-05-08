@@ -45,7 +45,8 @@ The ``OctTree`` class defined in ``GeoSpatialTools.octtree`` can be queried in t
 
 * with a ``SpaceTimeRecord``, a spatial range, and a time range (specified by a ``datetime.timedelta``) with
   ``OctTree.nearby_points``. All points within the spatial range and time range of the ``SpaceTimeRecord`` will be
-  returned in a list.
+  returned in a list. The ``Record`` can be excluded from the results if the ``exclude_self``
+  argument is set.
 * with a ``SpaceTimeRectangle`` using ``OctTree.query``. All points within the specified ``SpaceTimeRectangle`` will be returned in a list.
 * with a ``SpaceTimeEllipse`` using ``OctTree.query_ellipse``. All points within the specified ``SpaceTimeEllipse`` will be returned in a list.
 

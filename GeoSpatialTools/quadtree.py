@@ -250,6 +250,7 @@ class QuadTree:
         point: Record,
         dist: float,
         points: Optional[List[Record]] = None,
+        exclude_self: bool = False,
     ) -> List[Record]:
         """
         Get all Records contained in the QuadTree that are nearby
@@ -272,6 +273,9 @@ class QuadTree:
             List of Records already found. Most use cases will be to
             not set this value, since it's main use is for passing onto the
             children QuadTrees.
+        exclude_self : bool
+            Optionally exclude the query point from the results if the query
+            point is in the OctTree
 
         Returns
         -------
@@ -291,12 +295,22 @@ class QuadTree:
                 haversine(point.lon, point.lat, test_point.lon, test_point.lat)
                 <= dist
             ):
+                if exclude_self and point == test_point:
+                    continue
                 points.append(test_point)
 
         if self.divided:
-            points = self.northwest.nearby_points(point, dist, points)
-            points = self.northeast.nearby_points(point, dist, points)
-            points = self.southwest.nearby_points(point, dist, points)
-            points = self.southeast.nearby_points(point, dist, points)
+            points = self.northwest.nearby_points(
+                point, dist, points, exclude_self
+            )
+            points = self.northeast.nearby_points(
+                point, dist, points, exclude_self
+            )
+            points = self.southwest.nearby_points(
+                point, dist, points, exclude_self
+            )
+            points = self.southeast.nearby_points(
+                point, dist, points, exclude_self
+            )
 
         return points

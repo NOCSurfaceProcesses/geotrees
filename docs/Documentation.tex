@@ -64,7 +64,7 @@
 
 
 \title{GeoSpatialTools}
-\date{Mar 14, 2025}
+\date{May 07, 2025}
 \release{0.11.2}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1273,7 +1273,8 @@ The \sphinxcode{\sphinxupquote{QuadTree}} class defined in \sphinxcode{\sphinxup
 \item {}
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{Record}}, a spatial range with \sphinxcode{\sphinxupquote{QuadTree.nearby\_points}}. All points within the spatial range of the
-\sphinxcode{\sphinxupquote{Record}} will be returned in a list.
+\sphinxcode{\sphinxupquote{Record}} will be returned in a list. The \sphinxcode{\sphinxupquote{Record}} can be excluded from the results if the \sphinxcode{\sphinxupquote{exclude\_self}}
+argument is set.
 
 \item {}
 \sphinxAtStartPar
@@ -1429,7 +1430,7 @@ Get the number of points in the QuadTree
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_points}}}
-{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{exclude\_self}\DUrole{o}{=}\DUrole{default_value}{False}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -1458,6 +1459,11 @@ assumed to lie on the surface of Earth.
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{Records}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of Records already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
 children QuadTrees.
+
+\item {}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{exclude\_self}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Optionally exclude the query point from the results if the query
+point is in the OctTree
 
 \end{itemize}
 
@@ -1623,7 +1629,8 @@ The \sphinxcode{\sphinxupquote{OctTree}} class defined in \sphinxcode{\sphinxupq
 \sphinxAtStartPar
 with a \sphinxcode{\sphinxupquote{SpaceTimeRecord}}, a spatial range, and a time range (specified by a \sphinxcode{\sphinxupquote{datetime.timedelta}}) with
 \sphinxcode{\sphinxupquote{OctTree.nearby\_points}}. All points within the spatial range and time range of the \sphinxcode{\sphinxupquote{SpaceTimeRecord}} will be
-returned in a list.
+returned in a list. The \sphinxcode{\sphinxupquote{Record}} can be excluded from the results if the \sphinxcode{\sphinxupquote{exclude\_self}}
+argument is set.
 
 \item {}
 \sphinxAtStartPar
@@ -1820,7 +1827,7 @@ Get the number of points in the OctTree
 \pysigstartsignatures
 \pysiglinewithargsret
 {\sphinxbfcode{\sphinxupquote{nearby\_points}}}
-{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}}
+{\sphinxparam{\DUrole{n}{point}}\sphinxparamcomma \sphinxparam{\DUrole{n}{dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{t\_dist}}\sphinxparamcomma \sphinxparam{\DUrole{n}{points}\DUrole{o}{=}\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{exclude\_self}\DUrole{o}{=}\DUrole{default_value}{False}}}
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
@@ -1856,6 +1863,11 @@ values and ranges.
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{List}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:GeoSpatialTools.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]} }}\sphinxstyleliteralemphasis{\sphinxupquote{| }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of SpaceTimeRecords already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
 children OctTrees.
+
+\item {}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{exclude\_self}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Optionally exclude the query point from the results if the query
+point is in the OctTree
 
 \end{itemize}
 

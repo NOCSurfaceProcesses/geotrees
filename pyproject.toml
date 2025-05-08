@@ -96,6 +96,3 @@ xarray = "xr"
 
 [project.urls]
 Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"
-
-[dependency-groups]
-dev = ["bpython>=0.25"]

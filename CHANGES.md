@@ -4,6 +4,10 @@
 
 Contributors to this version: Joseph Siddons (@josidd)
 
+### Announcements
+
+- Module has been renamed from `GeoSpatialTools` to `geotrees` (!29)
+
 ### New features and enhancements
 
 * `nearby_points` method for `QuadTree` and `OctTree` classes have additional `exclude_self`
@@ -11,6 +15,7 @@ Contributors to this version: Joseph Siddons (@josidd)
 
 ### Breaking Changes
 
+* Module renamed to `geotrees` (!29)
 * Removed `SpaceTimeRecords` class, favour `list[SpaceTimeRecord]` (!27).
 * `Record` and `SpaceTimeRecord` classes moved to `GeoSpatialTools.record` module (!27).
 * `Rectangle`, `Ellipse`, `SpaceTimeRectangle`, `SpaceTimeEllipse` classes moved to `GeoSpatialTools.shape` module (!27).

@@ -1,4 +1,4 @@
-# GeoSpatialTools
+# GeoTrees
 
 Python module containing useful functions and classes for Spatial Analysis.
 
@@ -9,7 +9,7 @@ Tested on Python versions 3.9 to 3.13.
 As a dependency with `pip`
 
 ```bash
-pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
+pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
 ```
 
 ## Neighbours

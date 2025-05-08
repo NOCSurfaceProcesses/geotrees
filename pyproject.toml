@@ -23,7 +23,15 @@ maintainers = [{ name = "Joseph Siddons", email = "josidd@noc.ac.uk" }]
 description = "Tools for processing geo spatial data."
 readme = "README.md"
 license = { file = "LICENSE" }
-keywords = ["spatial", "geospatial", "quadtree", "octtree", "nearest neighbour"]
+keywords = [
+  "geospatial",
+  "kdree",
+  "nearest neighbour",
+  "octtree",
+  "quadtree",
+  "spatial",
+  "trees",
+]
 classifiers = [
   "Development Status :: 1 - PreAlpha",
   "Intended Audience :: Science/Research",
@@ -107,4 +115,4 @@ lines-after-imports = 2
 no-lines-before = ["future", "standard-library"]
 
 [project.urls]
-Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geospatialtools"
+Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geotrees"

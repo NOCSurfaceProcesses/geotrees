@@ -20,7 +20,7 @@ environment. This will add the library as a dependency in your current project.
 
 .. code-block:: bash
 
-   uv add git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
+   uv add git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
 
 Development mode
 ----------------
@@ -31,8 +31,8 @@ cloning the repository and creating a new uv environment.
 .. code-block:: bash
 
    # Get the code
-   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
-   cd geospatialtools
+   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   cd geotrees
 
    # Install with all dependencies and create an environment with python 3.12
    uv sync --all-extras --dev --python 3.12
@@ -52,7 +52,7 @@ The library can be installed via pip with the following command:
 
 .. code-block:: bash
 
-   pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
+   pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
 
 From Source
 -----------
@@ -62,8 +62,8 @@ mode.
 
 .. code-block:: bash
 
-   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geospatialtools.git
-   cd geospatialtools
+   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   cd geotrees
    python -m venv venv
    source venv/bin/activate
    pip install -e .

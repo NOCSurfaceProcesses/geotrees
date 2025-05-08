@@ -29,7 +29,7 @@ class KDTree:
     Parameters
     ----------
     points : list[Record]
-        A list of GeoSpatialTools.Record instances.
+        A list of geotrees.Record instances.
     depth : int
         The current depth of the KDTree, you should set this to 0, it is used
         internally.

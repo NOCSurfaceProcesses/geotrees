@@ -22,6 +22,8 @@ Contributors to this version: Joseph Siddons (@josidd)
 
 ### Internal changes
 
+* Added notebook for `find_nearest` function (!31).
+* Removed duplicate code from notebooks (!31).
 * Added complete documentation (!27).
 * Added CI/CD scripts for GitLab (!25).
 * Added changelog (!26).

@@ -71,7 +71,7 @@ class OctTree:
             for p in self.points:
                 out += f"{indent}  * {p}\n"
         if self.divided:
-            out += f"{indent}- with children:\n"
+            out += f"{indent}- with branches:\n"
             out += f"{self.northwestback}"
             out += f"{self.northeastback}"
             out += f"{self.southwestback}"

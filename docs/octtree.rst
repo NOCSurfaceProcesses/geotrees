@@ -8,7 +8,7 @@ Here, the third dimension is considered to be a time dimension. Any look-ups usi
 provided, so that any records falling within the spatial range are returned only if they also fall within the time range
 defined by the timedelta.
 
-Whilst the Quadtree divides into 4 children after the capacity is reached, the Octtree divides into 8 children. The
+Whilst the Quadtree divides into 4 branches after the capacity is reached, the Octtree divides into 8 branches. The
 divisions are at the longitude midpoint, the latitude midpoint, and the datetime midpoint of the boundary.
 
 The implementation of Octtree within this library, the ``OctTree`` class, utilises the Haversine distance as a metric
@@ -18,7 +18,7 @@ Earth. Boundary checks with query regions also account for the wrapping of longi
 The ``OctTree`` object is defined by a bounding box in space and time, i.e. boundaries at the western, eastern,
 southern, and northern edges as well as the start and end datetimes of the data that will be inserted into the ``OctTree``.
 Additionally, a capacity and maximum depth can be provided. If the capacity is exceeded whilst inserting records the
-``OctTree`` will divide and new records will be inserted into the appropriate child ``OctTree``. The maximum depth is the
+``OctTree`` will divide and new records will be inserted into the appropriate branch ``OctTree``. The maximum depth is the
 maximum height of the ``OctTree``, if capacity is also specified then this will be overridden if the ``OctTree`` is at this
 depth, and the ``OctTree`` will not divide.
 

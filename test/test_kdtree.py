@@ -18,14 +18,14 @@ class TestKDTree(unittest.TestCase):
         kt = KDTree(self.records)
         test_record = Record(175, 44)
         assert kt.insert(test_record)
-        assert test_record in kt.child_right.child_right.points
+        assert test_record in kt.branch_right.branch_right.points
 
     def test_delete(self):
         kt = KDTree(self.records)
         delete_rec = self.records[2]
-        assert delete_rec in kt.child_right.child_right.points
+        assert delete_rec in kt.branch_right.branch_right.points
         assert kt.delete(delete_rec)
-        assert delete_rec not in kt.child_right.child_right.points
+        assert delete_rec not in kt.branch_right.branch_right.points
 
     def test_delete_dup(self):
         test_records = [
@@ -60,10 +60,10 @@ class TestKDTree(unittest.TestCase):
             Record(45, -23, uid="4"),
         ]
         kt = KDTree(test_records, max_depth=3)
-        assert len(kt.child_left.child_left.points) == 1
-        assert len(kt.child_left.child_right.points) == 1
-        assert len(kt.child_right.child_left.points) == 1
-        assert len(kt.child_right.child_right.points) == 1
+        assert len(kt.branch_left.branch_left.points) == 1
+        assert len(kt.branch_left.branch_right.points) == 1
+        assert len(kt.branch_right.branch_left.points) == 1
+        assert len(kt.branch_right.branch_right.points) == 1
 
     def test_insert_dup(self):
         test_records = [

@@ -60,7 +60,7 @@ class QuadTree:
             out += f"{indent}- max_depth: {self.max_depth}\n"
         out += f"{indent}- contents: {self.points}\n"
         if self.divided:
-            out += f"{indent}- with children:\n"
+            out += f"{indent}- with branches:\n"
             out += f"{self.northwest}"
             out += f"{self.northeast}"
             out += f"{self.southwest}"

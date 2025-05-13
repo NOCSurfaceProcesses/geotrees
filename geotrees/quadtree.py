@@ -14,7 +14,12 @@ from geotrees.shape import Ellipse, Rectangle
 
 class QuadTree:
     """
-    A Simple QuadTree class for PyCOADS
+    Acts as a Geo-spatial QuadTree on the surface of Earth, allowing
+    for querying nearby points faster than searching a full DataFrame. As
+    Records are added to the QuadTree, the QuadTree divides into 4 branches as
+    the capacity is reached, points contained within the QuadTree are not
+    distributed to the branch QuadTrees. Additional Records are then added to
+    the branch where they fall within the branch QuadTree's boundary.
 
     Parameters
     ----------
@@ -124,7 +129,19 @@ class QuadTree:
         self.divided = True
 
     def insert(self, point: Record) -> bool:
-        """Insert a point into the QuadTree"""
+        """
+        Insert a point into the QuadTree.
+
+        Parameters
+        ----------
+        point : Record
+            The point to insert
+
+        Returns
+        -------
+        bool
+            True if the point was inserted into the QuadTree
+        """
         if not self.boundary.contains(point):
             return False
         elif self.max_depth and self.depth == self.max_depth:
@@ -150,7 +167,15 @@ class QuadTree:
         """
         Remove a Record from the QuadTree if it is in the QuadTree.
 
-        Returns True if the Record is removed.
+        Parameters
+        ----------
+        point : Record
+            The point to remove
+
+        Returns
+        -------
+        bool
+            True if the point is removed
         """
         if not self.boundary.contains(point):
             return False
@@ -258,7 +283,7 @@ class QuadTree:
 
         Query the QuadTree to find all Records within the QuadTree that
         are nearby to the query Record. This search should be faster
-        than searching through all records, since only QuadTree children whose
+        than searching through all records, since only QuadTree branch whose
         boundaries are close to the query Record are evaluated.
 
         Parameters
@@ -272,7 +297,7 @@ class QuadTree:
         points : Records | None
             List of Records already found. Most use cases will be to
             not set this value, since it's main use is for passing onto the
-            children QuadTrees.
+            branch QuadTrees.
         exclude_self : bool
             Optionally exclude the query point from the results if the query
             point is in the OctTree

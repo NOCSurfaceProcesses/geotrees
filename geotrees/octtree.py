@@ -15,16 +15,12 @@ from geotrees.shape import SpaceTimeEllipse, SpaceTimeRectangle
 
 class OctTree:
     """
-    A Simple OctTree class for PyCOADS.
-
     Acts as a space-time OctTree on the surface of Earth, allowing for querying
     nearby points faster than searching a full DataFrame. As SpaceTimeRecords
-    are added to the OctTree, the OctTree divides into 8 children as the
-    capacity is reached. Additional SpaceTimeRecords are then added to the
-    children where they fall within the child OctTree's boundary.
-
-    SpaceTimeRecords already part of the OctTree before divided are not
-    distributed to the children OctTrees.
+    are added to the OctTree, the OctTree divides into 8 branches as the
+    capacity is reached, points within the OctTree are not distributed to the
+    branch OctTrees. Additional SpaceTimeRecords are then added to the branch
+    where they fall within the branch OctTree's boundary.
 
     Whilst the OctTree has a temporal component, and was designed to utilise
     datetime / timedelta objects, numeric values and ranges can be used. This
@@ -213,10 +209,17 @@ class OctTree:
 
     def insert(self, point: SpaceTimeRecord) -> bool:  # noqa: C901
         """
-        Insert a SpaceTimeRecord into the QuadTree.
+        Insert a point into the OctTree.
 
-        Note that the SpaceTimeRecord can have numeric datetime values if that
-        is consistent with the OctTree.
+        Parameters
+        ----------
+        point : SpaceTimSpaceTimeeRecord
+            The point to insert
+
+        Returns
+        -------
+        bool
+            True if the point was inserted into the OctTree
         """
         if not self.boundary.contains(point):
             return False
@@ -251,7 +254,15 @@ class OctTree:
         """
         Remove a SpaceTimeRecord from the OctTree if it is in the OctTree.
 
-        Returns True if the SpaceTimeRecord is removed.
+        Parameters
+        ----------
+        point : SpaceTimeRecord
+            The point to remove
+
+        Returns
+        -------
+        bool
+            True if the point is removed
         """
         if not self.boundary.contains(point):
             return False
@@ -376,7 +387,7 @@ class OctTree:
 
         Query the OctTree to find all SpaceTimeRecords within the OctTree that
         are nearby to the query SpaceTimeRecord. This search should be faster
-        than searching through all records, since only OctTree children whose
+        than searching through all records, since only OctTree branch whose
         boundaries are close to the query SpaceTimeRecord are evaluated.
 
         Parameters
@@ -395,7 +406,7 @@ class OctTree:
         points : List[SpaceTimeRecord] | None
             List of SpaceTimeRecords already found. Most use cases will be to
             not set this value, since it's main use is for passing onto the
-            children OctTrees.
+            branch OctTrees.
         exclude_self : bool
             Optionally exclude the query point from the results if the query
             point is in the OctTree

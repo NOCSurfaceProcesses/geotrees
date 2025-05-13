@@ -60,9 +60,9 @@ class KDTree:
         self.split = True
 
         # Left is points left of midpoint
-        self.child_left = KDTree(points[:split_index], depth + 1)
+        self.branch_left = KDTree(points[:split_index], depth + 1)
         # Right is points right of midpoint
-        self.child_right = KDTree(points[split_index:], depth + 1)
+        self.branch_right = KDTree(points[split_index:], depth + 1)
 
         return None
 
@@ -79,14 +79,14 @@ class KDTree:
             return True
 
         if getattr(point, self.variable) < self.partition_value:
-            return self.child_left.insert(point)
+            return self.branch_left.insert(point)
         elif getattr(point, self.variable) > self.partition_value:
-            return self.child_right.insert(point)
+            return self.branch_right.insert(point)
         else:
             r, _ = self.query(point)
             if point in r:
                 return False
-            self.child_left._insert(point)
+            self.branch_left._insert(point)
             return True
 
     def _insert(self, point: Record) -> None:
@@ -95,9 +95,9 @@ class KDTree:
             self.points.append(point)
             return
         if getattr(point, self.variable) <= self.partition_value:
-            self.child_left._insert(point)
+            self.branch_left._insert(point)
         else:
-            self.child_right._insert(point)
+            self.branch_right._insert(point)
         return
 
     def delete(self, point: Record) -> bool:
@@ -110,10 +110,10 @@ class KDTree:
                 return False
 
         if getattr(point, self.variable) <= self.partition_value:
-            if self.child_left.delete(point):
+            if self.branch_left.delete(point):
                 return True
         if getattr(point, self.variable) >= self.partition_value:
-            if self.child_right.delete(point):
+            if self.branch_right.delete(point):
                 return True
         return False
 
@@ -151,25 +151,25 @@ class KDTree:
             return current_best, best_distance
 
         if getattr(point, self.variable) <= self.partition_value:
-            current_best, best_distance = self.child_left._query(
+            current_best, best_distance = self.branch_left._query(
                 point, current_best, best_distance
             )
             if (
                 point.distance(self._get_partition_record(point))
                 <= best_distance
             ):
-                current_best, best_distance = self.child_right._query(
+                current_best, best_distance = self.branch_right._query(
                     point, current_best, best_distance
                 )
         else:
-            current_best, best_distance = self.child_right._query(
+            current_best, best_distance = self.branch_right._query(
                 point, current_best, best_distance
             )
             if (
                 point.distance(self._get_partition_record(point))
                 <= best_distance
             ):
-                current_best, best_distance = self.child_left._query(
+                current_best, best_distance = self.branch_left._query(
                     point, current_best, best_distance
                 )
 

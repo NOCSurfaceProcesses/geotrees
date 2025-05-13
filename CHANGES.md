@@ -15,6 +15,7 @@ Contributors to this version: Joseph Siddons (@josidd)
 
 ### Breaking Changes
 
+* `KDTree` `child_left` and `child_right` nodes are now `branch_left` and `branch_right` respectively (!32).
 * Module renamed to `geotrees` (!29)
 * Removed `SpaceTimeRecords` class, favour `list[SpaceTimeRecord]` (!27).
 * `Record` and `SpaceTimeRecord` classes moved to `GeoSpatialTools.record` module (!27).

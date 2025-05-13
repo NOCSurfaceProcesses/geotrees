@@ -144,7 +144,7 @@ class TestOctTree(unittest.TestCase):
         start = d - dt / 2
         end = d + dt / 2
 
-        # TEST: Could construct start and ends for OctTree children using
+        # TEST: Could construct start and ends for OctTree branches using
         #       the start and end of the boundary, but I want to verify that
         #       the values are what I expect
         d1 = datetime(2023, 3, 24, 6, 0)

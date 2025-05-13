@@ -64,7 +64,7 @@
 
 
 \title{GeoTrees}
-\date{May 08, 2025}
+\date{May 13, 2025}
 \release{0.11.2}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -1221,12 +1221,12 @@ The time extent of the Rectangle
 \chapter{Quadtree}
 \label{\detokenize{quadtree:quadtree}}\label{\detokenize{quadtree::doc}}
 \sphinxAtStartPar
-A Quadtree is a data\sphinxhyphen{}structure where each internal node has exactly four children, and are used to recursively partition
-a two\sphinxhyphen{}dimensional spatial domain. Each child note is itself a Quadtree, whose spatial domain represents one of the
+A Quadtree is a data\sphinxhyphen{}structure where each internal node has exactly four branches, and are used to recursively partition
+a two\sphinxhyphen{}dimensional spatial domain. Each branch note is itself a Quadtree, whose spatial domain represents one of the
 quadrants (north\sphinxhyphen{}west, north\sphinxhyphen{}east, south\sphinxhyphen{}west, south\sphinxhyphen{}east) of its parent’s domain. The partitioning of data in this way
 is dependent on the spatial density of data inserted into the Quadtree. The Quadtree is typically initialised with a
 capacity value, once the capacity is reached (by inserting data points), the Quadtree divides and subsequent data points
-are added to the appropriate child\sphinxhyphen{}node.
+are added to the appropriate branch\sphinxhyphen{}node.
 
 \sphinxAtStartPar
 Quadtree structures allow for fast identification of data within some query region. The structure of the tree ensures
@@ -1244,7 +1244,7 @@ account for the wrapping of longitude at \sphinxhyphen{}180, 180 degrees.
 The \sphinxcode{\sphinxupquote{QuadTree}} object is defined by a bounding box, i.e. boundaries at the western, eastern, southern, and northern edges of
 the data that will be inserted into the \sphinxcode{\sphinxupquote{QuadTree}}. Additionally, a capacity and maximum depth can be provided. If the
 capacity is exceeded whilst inserting records the \sphinxcode{\sphinxupquote{QuadTree}} will divide and new records will be inserted into the appropriate
-child \sphinxcode{\sphinxupquote{QuadTree}}. The maximum depth is the maximum height of the \sphinxcode{\sphinxupquote{QuadTree}}, if capacity is also specified then this will be
+branch \sphinxcode{\sphinxupquote{QuadTree}}. The maximum depth is the maximum height of the \sphinxcode{\sphinxupquote{QuadTree}}, if capacity is also specified then this will be
 overridden if the \sphinxcode{\sphinxupquote{QuadTree}} is at this depth, and the \sphinxcode{\sphinxupquote{QuadTree}} will not divide.
 
 
@@ -1342,7 +1342,12 @@ neighbours.
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-A Simple QuadTree class for PyCOADS
+Acts as a Geo\sphinxhyphen{}spatial QuadTree on the surface of Earth, allowing
+for querying nearby points faster than searching a full DataFrame. As
+Records are added to the QuadTree, the QuadTree divides into 4 branches as
+the capacity is reached, points contained within the QuadTree are not
+distributed to the branch QuadTrees. Additional Records are then added to
+the branch where they fall within the branch QuadTree’s boundary.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
@@ -1392,11 +1397,19 @@ Divide the QuadTree
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-Insert a point into the QuadTree
+Insert a point into the QuadTree.
 \begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}) \textendash{} The point to insert
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+True if the point was inserted into the QuadTree
+
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{bool}}}
+bool
 
 \end{description}\end{quote}
 
@@ -1440,7 +1453,7 @@ another query Record.
 \sphinxAtStartPar
 Query the QuadTree to find all Records within the QuadTree that
 are nearby to the query Record. This search should be faster
-than searching through all records, since only QuadTree children whose
+than searching through all records, since only QuadTree branch whose
 boundaries are close to the query Record are evaluated.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
@@ -1458,7 +1471,7 @@ assumed to lie on the surface of Earth.
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{Records}}\sphinxstyleliteralemphasis{\sphinxupquote{ | }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of Records already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
-children QuadTrees.
+branch QuadTrees.
 
 \item {}
 \sphinxAtStartPar
@@ -1556,13 +1569,18 @@ list{[}{\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{Re
 \pysigstopsignatures
 \sphinxAtStartPar
 Remove a Record from the QuadTree if it is in the QuadTree.
-
-\sphinxAtStartPar
-Returns True if the Record is removed.
 \begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.Record}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{Record}}}}}) \textendash{} The point to remove
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+True if the point is removed
+
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{bool}}}
+bool
 
 \end{description}\end{quote}
 
@@ -1585,7 +1603,7 @@ provided, so that any records falling within the spatial range are returned only
 defined by the timedelta.
 
 \sphinxAtStartPar
-Whilst the Quadtree divides into 4 children after the capacity is reached, the Octtree divides into 8 children. The
+Whilst the Quadtree divides into 4 branches after the capacity is reached, the Octtree divides into 8 branches. The
 divisions are at the longitude midpoint, the latitude midpoint, and the datetime midpoint of the boundary.
 
 \sphinxAtStartPar
@@ -1597,7 +1615,7 @@ Earth. Boundary checks with query regions also account for the wrapping of longi
 The \sphinxcode{\sphinxupquote{OctTree}} object is defined by a bounding box in space and time, i.e. boundaries at the western, eastern,
 southern, and northern edges as well as the start and end datetimes of the data that will be inserted into the \sphinxcode{\sphinxupquote{OctTree}}.
 Additionally, a capacity and maximum depth can be provided. If the capacity is exceeded whilst inserting records the
-\sphinxcode{\sphinxupquote{OctTree}} will divide and new records will be inserted into the appropriate child \sphinxcode{\sphinxupquote{OctTree}}. The maximum depth is the
+\sphinxcode{\sphinxupquote{OctTree}} will divide and new records will be inserted into the appropriate branch \sphinxcode{\sphinxupquote{OctTree}}. The maximum depth is the
 maximum height of the \sphinxcode{\sphinxupquote{OctTree}}, if capacity is also specified then this will be overridden if the \sphinxcode{\sphinxupquote{OctTree}} is at this
 depth, and the \sphinxcode{\sphinxupquote{OctTree}} will not divide.
 
@@ -1717,18 +1735,12 @@ neighbours.
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-A Simple OctTree class for PyCOADS.
-
-\sphinxAtStartPar
 Acts as a space\sphinxhyphen{}time OctTree on the surface of Earth, allowing for querying
 nearby points faster than searching a full DataFrame. As SpaceTimeRecords
-are added to the OctTree, the OctTree divides into 8 children as the
-capacity is reached. Additional SpaceTimeRecords are then added to the
-children where they fall within the child OctTree’s boundary.
-
-\sphinxAtStartPar
-SpaceTimeRecords already part of the OctTree before divided are not
-distributed to the children OctTrees.
+are added to the OctTree, the OctTree divides into 8 branches as the
+capacity is reached, points within the OctTree are not distributed to the
+branch OctTrees. Additional SpaceTimeRecords are then added to the branch
+where they fall within the branch OctTree’s boundary.
 
 \sphinxAtStartPar
 Whilst the OctTree has a temporal component, and was designed to utilise
@@ -1785,15 +1797,19 @@ Divide the QuadTree
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-Insert a SpaceTimeRecord into the QuadTree.
-
-\sphinxAtStartPar
-Note that the SpaceTimeRecord can have numeric datetime values if that
-is consistent with the OctTree.
+Insert a point into the OctTree.
 \begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{point}} (\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimSpaceTimeeRecord}}) \textendash{} The point to insert
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+True if the point was inserted into the OctTree
+
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{bool}}}
+bool
 
 \end{description}\end{quote}
 
@@ -1837,7 +1853,7 @@ another query SpaceTimeRecord.
 \sphinxAtStartPar
 Query the OctTree to find all SpaceTimeRecords within the OctTree that
 are nearby to the query SpaceTimeRecord. This search should be faster
-than searching through all records, since only OctTree children whose
+than searching through all records, since only OctTree branch whose
 boundaries are close to the query SpaceTimeRecord are evaluated.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
@@ -1862,7 +1878,7 @@ values and ranges.
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{points}} (\sphinxstyleliteralemphasis{\sphinxupquote{List}}\sphinxstyleliteralemphasis{\sphinxupquote{{[}}}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}\sphinxstyleliteralemphasis{\sphinxupquote{{]} }}\sphinxstyleliteralemphasis{\sphinxupquote{| }}\sphinxstyleliteralemphasis{\sphinxupquote{None}}) \textendash{} List of SpaceTimeRecords already found. Most use cases will be to
 not set this value, since it’s main use is for passing onto the
-children OctTrees.
+branch OctTrees.
 
 \item {}
 \sphinxAtStartPar
@@ -1960,13 +1976,18 @@ List{[}{\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcr
 \pysigstopsignatures
 \sphinxAtStartPar
 Remove a SpaceTimeRecord from the OctTree if it is in the OctTree.
-
-\sphinxAtStartPar
-Returns True if the SpaceTimeRecord is removed.
 \begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{point}} ({\hyperref[\detokenize{record:geotrees.record.SpaceTimeRecord}]{\sphinxcrossref{\sphinxstyleliteralemphasis{\sphinxupquote{SpaceTimeRecord}}}}}) \textendash{} The point to remove
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+True if the point is removed
+
 \sphinxlineitem{Return type}
 \sphinxAtStartPar
-\DUrole{sphinx_autodoc_typehints-type}{\sphinxcode{\sphinxupquote{bool}}}
+bool
 
 \end{description}\end{quote}
 

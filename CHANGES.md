@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.12.0 (unreleased)
+## 1.0.0 (unreleased)
 
 Contributors to this version: Joseph Siddons (@josidd)
 

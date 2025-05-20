@@ -27,3 +27,6 @@ __all__ = [
     "find_nearest",
     "haversine",
 ]
+
+
+__version__ = "1.0.0-rc.1"

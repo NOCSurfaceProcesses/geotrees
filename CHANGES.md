@@ -10,6 +10,8 @@ Contributors to this version: Joseph Siddons (@josidd)
 
 ### New features and enhancements
 
+* `OctTree` and `QuadTree` is querying is improved by redistributing points to leaf nodes as the
+  Tree is built (!33)
 * `nearby_points` method for `QuadTree` and `OctTree` classes have additional `exclude_self`
   argument (!28)
 

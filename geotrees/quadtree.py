@@ -7,7 +7,6 @@ neighbours.
 
 from typing import List, Optional
 
-from geotrees.distance_metrics import haversine
 from geotrees.record import Record
 from geotrees.shape import Ellipse, Rectangle
 
@@ -69,9 +68,9 @@ class QuadTree:
 
     def len(self, current_len: int = 0) -> int:
         """Get the number of points in the QuadTree"""
-        current_len += len(self.points)
+        # Points are only in leaf nodes
         if not self.divided:
-            return current_len
+            return current_len + len(self.points)
 
         current_len = self.northeast.len(current_len)
         current_len = self.northwest.len(current_len)
@@ -80,7 +79,7 @@ class QuadTree:
 
         return current_len
 
-    def divide(self):
+    def divide(self) -> None:
         """Divide the QuadTree"""
         self.northwest = QuadTree(
             Rectangle(
@@ -127,6 +126,43 @@ class QuadTree:
             max_depth=self.max_depth,
         )
         self.divided = True
+        self.redistribute_to_branches()
+
+    def insert_into_branch(self, point: Record) -> bool:
+        """
+        Insert a point into a branch QuadTree.
+
+        Parameters
+        ----------
+        point : Record
+            The point to insert
+
+        Returns
+        -------
+        bool
+            True if the point was inserted into a branch QuadTree
+        """
+        if not self.divided:
+            self.divide()
+
+        if self.northwest.insert(point):
+            return True
+        elif self.northeast.insert(point):
+            return True
+        elif self.southwest.insert(point):
+            return True
+        elif self.southeast.insert(point):
+            return True
+        return False
+
+    def redistribute_to_branches(self) -> None:
+        """Redistribute all points to branches"""
+        if not self.divided:
+            self.divide()
+        while self.points:
+            point = self.points.pop()
+            self.insert_into_branch(point)
+        return None
 
     def insert(self, point: Record) -> bool:
         """
@@ -144,24 +180,18 @@ class QuadTree:
         """
         if not self.boundary.contains(point):
             return False
-        elif self.max_depth and self.depth == self.max_depth:
-            self.points.append(point)
-            return True
-        elif len(self.points) < self.capacity:
-            self.points.append(point)
-            return True
-        else:
-            if not self.divided:
-                self.divide()
-            if self.northwest.insert(point):
+
+        if not self.divided:
+            if (len(self.points) < self.capacity) or (
+                self.max_depth and self.depth == self.max_depth
+            ):
+                self.points.append(point)
                 return True
-            elif self.northeast.insert(point):
-                return True
-            elif self.southwest.insert(point):
-                return True
-            elif self.southeast.insert(point):
-                return True
-            return False
+
+        if not self.divided:
+            self.divide()
+
+        return self.insert_into_branch(point)
 
     def remove(self, point: Record) -> bool:
         """
@@ -180,11 +210,11 @@ class QuadTree:
         if not self.boundary.contains(point):
             return False
 
-        if point in self.points:
-            self.points.remove(point)
-            return True
-
+        # Points are only in leaf nodes
         if not self.divided:
+            if point in self.points:
+                self.points.remove(point)
+                return True
             return False
 
         if self.northwest.remove(point):
@@ -222,15 +252,17 @@ class QuadTree:
         if not self.boundary.intersects(rect):
             return points
 
-        for point in self.points:
-            if rect.contains(point):
-                points.append(point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for point in self.points:
+                if rect.contains(point):
+                    points.append(point)
+            return points
 
-        if self.divided:
-            points = self.northwest.query(rect, points)
-            points = self.northeast.query(rect, points)
-            points = self.southwest.query(rect, points)
-            points = self.southeast.query(rect, points)
+        points = self.northwest.query(rect, points)
+        points = self.northeast.query(rect, points)
+        points = self.southwest.query(rect, points)
+        points = self.southeast.query(rect, points)
 
         return points
 
@@ -258,15 +290,17 @@ class QuadTree:
         if not ellipse.nearby_rect(self.boundary):
             return points
 
-        for point in self.points:
-            if ellipse.contains(point):
-                points.append(point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for point in self.points:
+                if ellipse.contains(point):
+                    points.append(point)
+            return points
 
-        if self.divided:
-            points = self.northwest.query_ellipse(ellipse, points)
-            points = self.northeast.query_ellipse(ellipse, points)
-            points = self.southwest.query_ellipse(ellipse, points)
-            points = self.southeast.query_ellipse(ellipse, points)
+        points = self.northwest.query_ellipse(ellipse, points)
+        points = self.northeast.query_ellipse(ellipse, points)
+        points = self.southwest.query_ellipse(ellipse, points)
+        points = self.southeast.query_ellipse(ellipse, points)
 
         return points
 
@@ -315,27 +349,18 @@ class QuadTree:
         if not self.boundary.nearby(point, dist):
             return points
 
-        for test_point in self.points:
-            if (
-                haversine(point.lon, point.lat, test_point.lon, test_point.lat)
-                <= dist
-            ):
-                if exclude_self and point == test_point:
-                    continue
-                points.append(test_point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for test_point in self.points:
+                if test_point.distance(point) <= dist:
+                    if exclude_self and point == test_point:
+                        continue
+                    points.append(test_point)
+            return points
 
-        if self.divided:
-            points = self.northwest.nearby_points(
-                point, dist, points, exclude_self
-            )
-            points = self.northeast.nearby_points(
-                point, dist, points, exclude_self
-            )
-            points = self.southwest.nearby_points(
-                point, dist, points, exclude_self
-            )
-            points = self.southeast.nearby_points(
-                point, dist, points, exclude_self
-            )
+        points = self.northwest.nearby_points(point, dist, points, exclude_self)
+        points = self.northeast.nearby_points(point, dist, points, exclude_self)
+        points = self.southwest.nearby_points(point, dist, points, exclude_self)
+        points = self.southeast.nearby_points(point, dist, points, exclude_self)
 
         return points

@@ -8,7 +8,6 @@ neighbours.
 import datetime
 from typing import List, Optional
 
-from geotrees.distance_metrics import haversine
 from geotrees.record import SpaceTimeRecord
 from geotrees.shape import SpaceTimeEllipse, SpaceTimeRectangle
 
@@ -206,8 +205,53 @@ class OctTree:
             max_depth=self.max_depth,
         )
         self.divided = True
+        self.redistribute_to_branches()
 
-    def insert(self, point: SpaceTimeRecord) -> bool:  # noqa: C901
+    def insert_into_branch(self, point: SpaceTimeRecord) -> bool:
+        """
+        Insert a point into a branch OctTree.
+
+        Parameters
+        ----------
+        point : SpaceTimeRecord
+            The point to insert
+
+        Returns
+        -------
+        bool
+            True if the point was inserted into a branch OctTree
+        """
+        if not self.divided:
+            self.divide()
+
+        if self.northwestback.insert(point):
+            return True
+        elif self.northeastback.insert(point):
+            return True
+        elif self.southwestback.insert(point):
+            return True
+        elif self.southeastback.insert(point):
+            return True
+        elif self.northwestfwd.insert(point):
+            return True
+        elif self.northeastfwd.insert(point):
+            return True
+        elif self.southwestfwd.insert(point):
+            return True
+        elif self.southeastfwd.insert(point):
+            return True
+        return False
+
+    def redistribute_to_branches(self) -> None:
+        """Redistribute all points to branches"""
+        if not self.divided:
+            self.divide()
+        while self.points:
+            point = self.points.pop()
+            self.insert_into_branch(point)
+        return None
+
+    def insert(self, point: SpaceTimeRecord) -> bool:
         """
         Insert a point into the OctTree.
 
@@ -223,32 +267,18 @@ class OctTree:
         """
         if not self.boundary.contains(point):
             return False
-        elif self.max_depth and self.depth == self.max_depth:
-            self.points.append(point)
-            return True
-        elif len(self.points) < self.capacity:
-            self.points.append(point)
-            return True
-        else:
-            if not self.divided:
-                self.divide()
-            if self.northwestback.insert(point):
+
+        if not self.divided:
+            if (len(self.points) < self.capacity) or (
+                self.max_depth and self.depth == self.max_depth
+            ):
+                self.points.append(point)
                 return True
-            elif self.northeastback.insert(point):
-                return True
-            elif self.southwestback.insert(point):
-                return True
-            elif self.southeastback.insert(point):
-                return True
-            elif self.northwestfwd.insert(point):
-                return True
-            elif self.northeastfwd.insert(point):
-                return True
-            elif self.southwestfwd.insert(point):
-                return True
-            elif self.southeastfwd.insert(point):
-                return True
-            return False
+
+        if not self.divided:
+            self.divide()
+
+        return self.insert_into_branch(point)
 
     def remove(self, point: SpaceTimeRecord) -> bool:  # noqa: C901
         """
@@ -267,11 +297,11 @@ class OctTree:
         if not self.boundary.contains(point):
             return False
 
-        if point in self.points:
-            self.points.remove(point)
-            return True
-
+        # Points are only in leaf nodes
         if not self.divided:
+            if point in self.points:
+                self.points.remove(point)
+                return True
             return False
 
         if self.northwestback.remove(point):
@@ -317,19 +347,21 @@ class OctTree:
         if not self.boundary.intersects(rect):
             return points
 
-        for point in self.points:
-            if rect.contains(point):
-                points.append(point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for point in self.points:
+                if rect.contains(point):
+                    points.append(point)
+            return points
 
-        if self.divided:
-            points = self.northwestfwd.query(rect, points)
-            points = self.northeastfwd.query(rect, points)
-            points = self.southwestfwd.query(rect, points)
-            points = self.southeastfwd.query(rect, points)
-            points = self.northwestback.query(rect, points)
-            points = self.northeastback.query(rect, points)
-            points = self.southwestback.query(rect, points)
-            points = self.southeastback.query(rect, points)
+        points = self.northwestfwd.query(rect, points)
+        points = self.northeastfwd.query(rect, points)
+        points = self.southwestfwd.query(rect, points)
+        points = self.southeastfwd.query(rect, points)
+        points = self.northwestback.query(rect, points)
+        points = self.northeastback.query(rect, points)
+        points = self.southwestback.query(rect, points)
+        points = self.southeastback.query(rect, points)
 
         return points
 
@@ -357,19 +389,21 @@ class OctTree:
         if not ellipse.nearby_rect(self.boundary):
             return points
 
-        for point in self.points:
-            if ellipse.contains(point):
-                points.append(point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for point in self.points:
+                if ellipse.contains(point):
+                    points.append(point)
+            return points
 
-        if self.divided:
-            points = self.northwestfwd.query_ellipse(ellipse, points)
-            points = self.northeastfwd.query_ellipse(ellipse, points)
-            points = self.southwestfwd.query_ellipse(ellipse, points)
-            points = self.southeastfwd.query_ellipse(ellipse, points)
-            points = self.northwestback.query_ellipse(ellipse, points)
-            points = self.northeastback.query_ellipse(ellipse, points)
-            points = self.southwestback.query_ellipse(ellipse, points)
-            points = self.southeastback.query_ellipse(ellipse, points)
+        points = self.northwestfwd.query_ellipse(ellipse, points)
+        points = self.northeastfwd.query_ellipse(ellipse, points)
+        points = self.southwestfwd.query_ellipse(ellipse, points)
+        points = self.southeastfwd.query_ellipse(ellipse, points)
+        points = self.northwestback.query_ellipse(ellipse, points)
+        points = self.northeastback.query_ellipse(ellipse, points)
+        points = self.southwestback.query_ellipse(ellipse, points)
+        points = self.southeastback.query_ellipse(ellipse, points)
 
         return points
 
@@ -424,41 +458,42 @@ class OctTree:
         if not self.boundary.nearby(point, dist, t_dist):
             return points
 
-        for test_point in self.points:
-            if (
-                haversine(point.lon, point.lat, test_point.lon, test_point.lat)
-                <= dist
-                and test_point.datetime <= point.datetime + t_dist
-                and test_point.datetime >= point.datetime - t_dist
-            ):
-                if exclude_self and point == test_point:
-                    continue
-                points.append(test_point)
+        # Points are only in leaf nodes
+        if not self.divided:
+            for test_point in self.points:
+                if (
+                    test_point.distance(point) <= dist
+                    and test_point.datetime <= point.datetime + t_dist
+                    and test_point.datetime >= point.datetime - t_dist
+                ):
+                    if exclude_self and point == test_point:
+                        continue
+                    points.append(test_point)
+            return points
 
-        if self.divided:
-            points = self.northwestback.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.northeastback.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.southwestback.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.southeastback.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.northwestfwd.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.northeastfwd.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.southwestfwd.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
-            points = self.southeastfwd.nearby_points(
-                point, dist, t_dist, points, exclude_self
-            )
+        points = self.northwestback.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.northeastback.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.southwestback.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.southeastback.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.northwestfwd.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.northeastfwd.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.southwestfwd.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
+        points = self.southeastfwd.nearby_points(
+            point, dist, t_dist, points, exclude_self
+        )
 
         return points

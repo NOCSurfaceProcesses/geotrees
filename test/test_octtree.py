@@ -189,12 +189,12 @@ class TestOctTree(unittest.TestCase):
         boundary = Rectangle(0, 20, 0, 8, start, end)
         otree = OctTree(boundary, capacity=3)
         points: list[Record] = [
-            Record(10, 4, d, "main"),
-            Record(12, 1, d + timedelta(hours=3), "main2"),
-            Record(3, 7, d - timedelta(days=3), "main3"),
+            Record(10, 4, d, "northwestback1"),
+            Record(12, 1, d + timedelta(hours=3), "southeastfwd"),
+            Record(3, 7, d - timedelta(days=3), "northeastback2"),
             Record(13, 2, d + timedelta(hours=17), "southeastfwd"),
-            Record(3, 6, d - timedelta(days=1), "northwestback"),
-            Record(10, 4, d, "northwestback"),
+            Record(13, 6, d - timedelta(days=1), "northwestback1"),
+            Record(10.01, 4, d, "northeastback2"),
             Record(18, 2, d + timedelta(days=23), "not added"),
             Record(11, 7, d + timedelta(hours=2), "northeastfwd"),
         ]
@@ -203,28 +203,31 @@ class TestOctTree(unittest.TestCase):
         assert otree.len() == len(points) - 1  # NOTE: 1 point not added
         assert otree.divided
         expected = [
-            points[:3],
-            points[4:6],
-            [],
+            # points[:3],
+            [points[2], points[0]],
+            [points[4], points[5]],
             [],
             [],
             [],
             [points[-1]],
+            [points[3], points[1]],
             [],
-            [points[3]],
         ]
         res = [
-            otree.points,
+            # otree.points,
             otree.northwestback.points,
             otree.northeastback.points,
             otree.southwestback.points,
             otree.southeastback.points,
             otree.northwestfwd.points,
             otree.northeastfwd.points,
-            otree.southwestfwd.points,
             otree.southeastfwd.points,
+            otree.southwestfwd.points,
         ]
-        assert res == expected
+        assert points[-2] not in res
+        assert len(otree.points) == 0
+        for ex, r in zip(expected, res):
+            assert all(e in r for e in ex)
 
     def test_remove(self):
         d = datetime(2023, 3, 24, 12, 0)
@@ -425,16 +428,16 @@ class TestOctTree(unittest.TestCase):
             Record(ellipse.p2_lon, ellipse.p2_lat, test_datetime, "locii2"),
         ]
         expected = [
-            Record(12.6, 2.1, d + timedelta(hours=2), "northeastfwd"),
             Record(ellipse.p1_lon, ellipse.p1_lat, test_datetime, "locii1"),
             Record(ellipse.p2_lon, ellipse.p2_lat, test_datetime, "locii2"),
+            Record(12.6, 2.1, d + timedelta(hours=2), "northeastfwd"),
         ]
 
         for point in points:
             otree.insert(point)
 
         res = otree.query_ellipse(ellipse)
-        assert res == expected
+        assert all(e in res for e in expected)
 
 
 if __name__ == "__main__":

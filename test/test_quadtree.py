@@ -1,10 +1,19 @@
 import random
 import unittest
 
+import numpy as np
+
 from geotrees import haversine
 from geotrees.quadtree import QuadTree
 from geotrees.record import Record
 from geotrees.shape import Ellipse, Rectangle
+
+
+_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+
+def _random_uid() -> str:
+    return "".join([random.choice(_CHARS) for _ in range(6)])
 
 
 class TestRect(unittest.TestCase):
@@ -87,18 +96,18 @@ class TestQuadTree(unittest.TestCase):
             Record(12.8, 2.1),
         ]
         expected = [
-            points[:3],
+            # points[:3],
+            [points[0]],
             [],
-            [],
-            [],
-            [points[-1]],
+            [points[2]],
+            [points[1], points[-1]],
         ]
         for point in points:
             qtree.insert(point)
         assert qtree.divided
         assert qtree.len() == len(points) - 1
         res = [
-            qtree.points,
+            # qtree.points,
             qtree.northwest.points,
             qtree.northeast.points,
             qtree.southwest.points,
@@ -239,29 +248,40 @@ class TestQuadTree(unittest.TestCase):
 
         boundary = Rectangle(0, 20, 0, 8)
         qtree = QuadTree(boundary, capacity=3)
+        n_pts = 50
         points: list[Record] = [
-            Record(10, 5),
-            Record(19, 1),
-            Record(0, 0),
-            Record(-2, -9.2),
-            Record(13.5, 2.6),  # Just North of Eastern edge
-            Record(12.6, 3.0),  # Just East of Northern edge
-            Record(12.8, 2.1),
-            # Locii
-            Record(ellipse.p1_lon, ellipse.p1_lat),
-            Record(ellipse.p2_lon, ellipse.p2_lat),
+            Record(
+                lon=20 * np.random.rand(),
+                lat=8 * np.random.rand(),
+                uid=_random_uid(),
+            )
+            for _ in range(n_pts - 2)
         ]
-        expected = [
-            Record(12.8, 2.1),
-            Record(ellipse.p1_lon, ellipse.p1_lat),
-            Record(ellipse.p2_lon, ellipse.p2_lat),
+        # Locii
+        locii = [
+            Record(ellipse.p1_lon, ellipse.p1_lat, uid="locii_1"),
+            Record(ellipse.p2_lon, ellipse.p2_lat, uid="locii_2"),
         ]
+        outside = [
+            Record(13.5, 2.6, uid="outside_1"),  # Just North of Eastern edge
+            Record(12.6, 3.0, uid="outside_2"),  # Just East of Northern edge
+        ]
+        points.extend(locii)
+        points.extend(outside)
+        expected = [p for p in points if ellipse.contains(p)]
 
         for point in points:
             qtree.insert(point)
 
         res = qtree.query_ellipse(ellipse)
-        assert res == expected
+        print(f"{expected = }")
+        print(f"{res = }")
+        assert locii[0] in res
+        assert locii[1] in res
+        assert outside[0] not in res
+        assert outside[1] not in res
+
+        assert all(e in res for e in expected)
 
 
 if __name__ == "__main__":

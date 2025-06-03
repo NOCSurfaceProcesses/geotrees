@@ -27,4 +27,4 @@ jobs:
         run: uv build
 
       - name: Publish
-        run: uv publish -t
+        run: uv publish

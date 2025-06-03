@@ -9,8 +9,11 @@ Tested on Python versions 3.9 to 3.13.
 As a dependency with `pip`
 
 ```bash
-pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+pip install geotrees
 ```
+
+The only dependency of the library is `numpy`. Optional dependencies required to run the example
+notebooks are `ipykernel` and `polars`.
 
 ## Neighbours
 

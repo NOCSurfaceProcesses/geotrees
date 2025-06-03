@@ -65,7 +65,7 @@
 
 \title{GeoTrees}
 \date{Jun 03, 2025}
-\release{1.0.0\sphinxhyphen{}rc.1}
+\release{1.0.0}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
@@ -135,9 +135,8 @@ Richard C. Cornes \textless{}\sphinxhref{mailto:rcornes@noc.ac.uk}{rcornes@noc.a
 \chapter{Installation}
 \label{\detokenize{installation:installation}}\label{\detokenize{installation::doc}}
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{geotrees}} is not currently available on PyPI so must be installed either from source or directly from the
-GitLab repository. Versions of python between 3.9 and 3.13, inclusive, are supported, however the recommended version of
-python is 3.12.
+\sphinxcode{\sphinxupquote{geotrees}} is available on PyPI. Versions of python between 3.9 and 3.13, inclusive, are supported,
+however the recommended version of python is 3.12.
 
 \sphinxAtStartPar
 We recommend the installation of \sphinxcode{\sphinxupquote{geotrees}} using the \sphinxhref{https://docs.astral.sh/uv}{uv} package manager, however it can be installed using
@@ -151,11 +150,11 @@ notebooks.
 \section{Via UV}
 \label{\detokenize{installation:via-uv}}
 \sphinxAtStartPar
-You can install the library directly from the GitLab repository, adding the library to your current uv virtual
+You can install the library directly from pip, adding the library to your current uv virtual
 environment. This will add the library as a dependency in your current project.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-uv\PYG{+w}{ }add\PYG{+w}{ }git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+uv\PYG{+w}{ }add\PYG{+w}{ }geotrees
 \end{sphinxVerbatim}
 
 
@@ -167,7 +166,7 @@ cloning the repository and creating a new uv environment.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{} Get the code}
-git\PYG{+w}{ }clone\PYG{+w}{ }git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+git\PYG{+w}{ }clone\PYG{+w}{ }git@github.com/NOCSurfaceProcesses/geotrees
 \PYG{n+nb}{cd}\PYG{+w}{ }geotrees
 
 \PYG{c+c1}{\PYGZsh{} Install with all dependencies and create an environment with python 3.12}
@@ -192,7 +191,7 @@ The recommended python version is python 3.12. By default, uv creates a virtual 
 The library can be installed via pip with the following command:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-pip\PYG{+w}{ }install\PYG{+w}{ }git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+pip\PYG{+w}{ }install\PYG{+w}{ }geotrees
 \end{sphinxVerbatim}
 
 
@@ -203,7 +202,7 @@ Alternatively, you can clone the repository and install using pip (or conda if p
 mode.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-git\PYG{+w}{ }clone\PYG{+w}{ }git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+git\PYG{+w}{ }clone\PYG{+w}{ }git@github.com/NOCSurfaceProcesses/geotrees
 \PYG{n+nb}{cd}\PYG{+w}{ }geotrees
 python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }venv\PYG{+w}{ }venv
 \PYG{n+nb}{source}\PYG{+w}{ }venv/bin/activate

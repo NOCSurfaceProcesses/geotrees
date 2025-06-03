@@ -69,7 +69,7 @@ jobs:
 
       - name: Run tests
         timeout-minutes: 10
-        run: uv run pytest tests
+        run: uv run pytest test
           --cov=geotrees
           --cov-report=xml
           --junitxml=test-results/${{ runner.os }}-${{ matrix.python-version }}.xml

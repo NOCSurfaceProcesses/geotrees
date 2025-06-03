@@ -64,7 +64,7 @@
 
 
 \title{GeoTrees}
-\date{May 20, 2025}
+\date{Jun 03, 2025}
 \release{1.0.0\sphinxhyphen{}rc.1}
 \author{NOC Surface Processes}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -420,15 +420,22 @@ with OctTree classes.
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-Record class
+A simple instance of a record, it requires position data. It can optionally
+include datetime, a UID, and extra data passed as keyword arguments.
 
 \sphinxAtStartPar
-This is a simple instance of an record, it requires position data.
-It can optionally include datetime, a UID, and extra data passed as
-keyword arguments.
+Equality is first checked on uid values, if both Records have a uid value
+then the Records are equal if the uids are equal. Otherwise records are
+compared by checking only on the required fields \& uid if it is specified.
 
 \sphinxAtStartPar
-Equality is checked only on the required fields + UID if it is specified.
+By default, longitudes are converted to \sphinxhyphen{}180, 180 for consistency. This
+behaviour can be toggled by setting \sphinxtitleref{fix\_lon} to False.
+
+\sphinxAtStartPar
+Passing additional fields is possible as keyword arguments. For example SST
+values can be added to the Record. This could be useful for buddy checking
+for example where one would compare SST against neighbour values.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}
@@ -494,11 +501,8 @@ Compute the Haversine distance to another Record
 {}
 \pysigstopsignatures
 \sphinxAtStartPar
-ICOADS Record class.
-
-\sphinxAtStartPar
-This is a simple instance of an ICOARDS record, it requires position and
-temporal data. It can optionally include a UID and extra data.
+A simple instance of a record object, it requires position and temporal
+data. It can optionally include a UID and extra data.
 
 \sphinxAtStartPar
 The temporal component was designed to use \sphinxtitleref{datetime} values, however all
@@ -508,7 +512,18 @@ SpaceTimeRectangle must also have timedelta values replaced with numeric
 ranges in this case.
 
 \sphinxAtStartPar
-Equality is checked only on the required fields + UID if it is specified.
+Equality is first checked on uid values, if both Records have a uid value
+then the Records are equal if the uids are equal. Otherwise records are
+compared by checking only on the required fields \& uid if it is specified.
+
+\sphinxAtStartPar
+By default, longitudes are converted to \sphinxhyphen{}180, 180 for consistency. This
+behaviour can be toggled by setting \sphinxtitleref{fix\_lon} to False.
+
+\sphinxAtStartPar
+Passing additional fields is possible as keyword arguments. For example SST
+values can be added to the Record. This could be useful for buddy checking
+for example where one would compare SST against neighbour values.
 \begin{quote}\begin{description}
 \sphinxlineitem{Parameters}\begin{itemize}
 \item {}

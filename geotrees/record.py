@@ -20,13 +20,19 @@ from geotrees.utils import LatitudeError
 
 class Record:
     """
-    Record class
+    A simple instance of a record, it requires position data. It can optionally
+    include datetime, a UID, and extra data passed as keyword arguments.
 
-    This is a simple instance of an record, it requires position data.
-    It can optionally include datetime, a UID, and extra data passed as
-    keyword arguments.
+    Equality is first checked on uid values, if both Records have a uid value
+    then the Records are equal if the uids are equal. Otherwise records are
+    compared by checking only on the required fields & uid if it is specified.
 
-    Equality is checked only on the required fields + UID if it is specified.
+    By default, longitudes are converted to -180, 180 for consistency. This
+    behaviour can be toggled by setting `fix_lon` to False.
+
+    Passing additional fields is possible as keyword arguments. For example SST
+    values can be added to the Record. This could be useful for buddy checking
+    for example where one would compare SST against neighbour values.
 
     Parameters
     ----------
@@ -96,10 +102,8 @@ class Record:
 
 class SpaceTimeRecord:
     """
-    ICOADS Record class.
-
-    This is a simple instance of an ICOARDS record, it requires position and
-    temporal data. It can optionally include a UID and extra data.
+    A simple instance of a record object, it requires position and temporal
+    data. It can optionally include a UID and extra data.
 
     The temporal component was designed to use `datetime` values, however all
     methods will work with numeric datetime information - for example a pentad,
@@ -107,7 +111,16 @@ class SpaceTimeRecord:
     SpaceTimeRectangle must also have timedelta values replaced with numeric
     ranges in this case.
 
-    Equality is checked only on the required fields + UID if it is specified.
+    Equality is first checked on uid values, if both Records have a uid value
+    then the Records are equal if the uids are equal. Otherwise records are
+    compared by checking only on the required fields & uid if it is specified.
+
+    By default, longitudes are converted to -180, 180 for consistency. This
+    behaviour can be toggled by setting `fix_lon` to False.
+
+    Passing additional fields is possible as keyword arguments. For example SST
+    values can be added to the Record. This could be useful for buddy checking
+    for example where one would compare SST against neighbour values.
 
     Parameters
     ----------

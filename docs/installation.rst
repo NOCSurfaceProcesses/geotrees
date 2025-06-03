@@ -2,9 +2,8 @@
 Installation
 ============
 
-``geotrees`` is not currently available on PyPI so must be installed either from source or directly from the
-GitLab repository. Versions of python between 3.9 and 3.13, inclusive, are supported, however the recommended version of
-python is 3.12.
+``geotrees`` is available on PyPI. Versions of python between 3.9 and 3.13, inclusive, are supported,
+however the recommended version of python is 3.12.
 
 We recommend the installation of ``geotrees`` using the uv_ package manager, however it can be installed using
 pip_.
@@ -15,12 +14,12 @@ notebooks.
 Via UV
 ======
 
-You can install the library directly from the GitLab repository, adding the library to your current uv virtual
+You can install the library directly from pip, adding the library to your current uv virtual
 environment. This will add the library as a dependency in your current project.
 
 .. code-block:: bash
 
-   uv add git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   uv add geotrees
 
 Development mode
 ----------------
@@ -31,7 +30,7 @@ cloning the repository and creating a new uv environment.
 .. code-block:: bash
 
    # Get the code
-   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   git clone git@github.com/NOCSurfaceProcesses/geotrees
    cd geotrees
 
    # Install with all dependencies and create an environment with python 3.12
@@ -52,7 +51,7 @@ The library can be installed via pip with the following command:
 
 .. code-block:: bash
 
-   pip install git+ssh://git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   pip install geotrees
 
 From Source
 -----------
@@ -62,7 +61,7 @@ mode.
 
 .. code-block:: bash
 
-   git clone git@git.noc.ac.uk/nocsurfaceprocesses/geotrees.git
+   git clone git@github.com/NOCSurfaceProcesses/geotrees
    cd geotrees
    python -m venv venv
    source venv/bin/activate

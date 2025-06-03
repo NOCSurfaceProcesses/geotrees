@@ -1,18 +1,13 @@
 [build-system]
-requires = [
-  "setuptools>=42",
-  "wheel",
-  "setuptools_scm[toml]>=3.4",
-  "setuptools_scm_git_archive",
-]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.setuptools]
 packages = ["geotrees"]
 
 [project]
 name = "geotrees"
-version = "1.0.0-rc.1"
+version = "1.0.0"
 dependencies = ["numpy"]
 requires-python = ">=3.9"
 authors = [
@@ -20,9 +15,9 @@ authors = [
   { name = "Richard Cornes", email = "rcornes@noc.ac.uk" },
 ]
 maintainers = [{ name = "Joseph Siddons", email = "josidd@noc.ac.uk" }]
-description = "Tools for processing geo spatial data."
+description = "QuadTree and KDTree implementation on a spherical Earth"
 readme = "README.md"
-license = { file = "LICENSE" }
+license-files = ["LICENSE"]
 keywords = [
   "geospatial",
   "kdree",
@@ -31,26 +26,37 @@ keywords = [
   "quadtree",
   "spatial",
   "trees",
+  "spherical",
 ]
 classifiers = [
-  "Development Status :: 1 - PreAlpha",
+  "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent",
 ]
 
 [project.optional-dependencies]
 notebooks = ["ipykernel", "polars"]
-test = ["pytest"]
+test = ["pytest", "pytest-cov>=6.1.1"]
 docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
 all = [
   "ipykernel",
   "polars",
   "pytest",
+  "pytest-cov>=6.1.1",
   "sphinx",
   "sphinx-autodoc-typehints",
   "sphinx-rtd-theme",
 ]
+
+[project.urls]
+"Homepage" = "https://github.com/NOCSurfaceProcesses/geotrees"
+"Source" = "https://github.com/NOCSurfaceProcesses/geotrees"
+"Issue tracker" = "https://github.com/NOCSurfaceProcesses/geotrees/issues"
 
 [tool.ruff]
 src = ["geotrees"]
@@ -80,7 +86,7 @@ select = [
   "ICN", # flake8-import-conventions
   "N8",  # invalid names
   "RUF", # Ruff rules
-  "S",   # bandit
+  "S",   # bandit security
   "TID", # Tidy imports
   "W",   # pycodestyle warnings
 ]
@@ -88,7 +94,16 @@ select = [
 [tool.ruff.lint.per-file-ignores]
 "docs/*.py" = ["D100", "D101", "D102", "D103"]
 "test/**/*test*.py" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311"]
-"notebooks/*.ipynb" = ["D100", "D101", "D102", "D103", "N802", "S101", "S311", "F821"]
+"notebooks/*.ipynb" = [
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "N802",
+  "S101",
+  "S311",
+  "F821",
+]
 
 [tool.ruff.format]
 quote-style = "double"            # Like Black, use double quotes for strings.
@@ -100,12 +115,8 @@ line-ending = "auto"              # Like Black, automatically detect the appropr
 convention = "numpy"
 
 [tool.ruff.lint.flake8-import-conventions.aliases]
-"matplotlib.pyplot" = "plt"
 numpy = "np"
-pandas = "pd"
 polars = "pl"
-scipy = "sp"
-xarray = "xr"
 
 [tool.ruff.lint.isort]
 known-first-party = ["geotrees"]
@@ -114,5 +125,17 @@ detect-same-package = false
 lines-after-imports = 2
 no-lines-before = ["future", "standard-library"]
 
-[project.urls]
-Repository = "https://git.noc.ac.uk/nocsurfaceprocesses/geotrees"
+[tool.hatch.build.targets.sdist]
+include = [
+  "CHANGES.md",
+  "CONTRIBUTING.md",
+  "LICENSE",
+  "README.md",
+  "docs/**/*.rst",
+  "docs/Makefile",
+  "docs/conf.py",
+  "docs/make.bat",
+  "test/**/*.py",
+  "geotrees/**/*.py",
+]
+exclude = ["**/*.py[co]", "**/__pycache__", ".*", "doc/_*", "pylintrc"]

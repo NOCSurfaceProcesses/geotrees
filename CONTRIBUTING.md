@@ -1,25 +1,26 @@
 # Contributing
 
-Please contribute your features to this repository. You should ideally do this with a new branch and ask a user with write permissions to review and merge. If you are a user with write permissions, please ask another user with write permissions to review and merge.
+Please contribute your features to this repository. You should ideally do this with a new branch and
+ask a user with write permissions to review and merge. If you are a user with write permissions,
+please ask another user with write permissions to review and merge.
 
 ## Formatting
 
-It is recommended that you use `ruff` to format your code. This will follow the conventions within the `pyproject.toml` file.
+It is recommended that you use `ruff` to format your code. This will follow the conventions within
+the `pyproject.toml` file.
 
 `ruff` can be found at [https://github.com/astral-sh/ruff](https://github.com/astral-sh/ruff)
 
 ## Tests
 
-Please write tests for your code, add these to the `test` directory. I use `pytest` to do testing.
+Please write tests for your code, add these to the `test` directory. We use `pytest` to do testing.
 
 ## Issues
 
-Please file issues as they arise. Describe the problem, the steps to reproduce, and provide any output.
+Please file issues as they arise. Describe the problem, the steps to reproduce, and provide any
+output.
 
 # Contributing to `GeoTrees`
-
-To contribute to this package you will need to be a member of NOC GitLab & have access permissions
-to this repository - if you're able to read this then you have access!
 
 If you wish to contribute please make sure you are working on your own branches (not main), ideally
 you should work on your own fork. If you wish to work on a particular module you could name your
@@ -53,7 +54,7 @@ We recommend [uv](https://docs.astral.sh/uv/) for development purposes.
 Clone the repository and create your development branch
 
 ```bash
-git clone git@git.noc.ac.uk:noc_surface_processes/geotrees.git /path/to/geotrees
+git clone git@github.com:NOCSurfaceProcesses/geotrees.git /path/to/geotrees
 cd /path/to/geotrees
 git checkout -b new-branch-name  # if not a new branch exclude the '-b'
 ```

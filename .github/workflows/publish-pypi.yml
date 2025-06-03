@@ -10,6 +10,7 @@ jobs:
   run:
     name: "Build and publish release"
     runs-on: ubuntu-latest
+    environment: production
     permissions:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
@@ -30,4 +31,4 @@ jobs:
         run: uv build
 
       - name: Publish
-        run: uv publish
+        run: uv publish --trusted-publishing always

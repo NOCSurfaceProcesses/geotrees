@@ -27,11 +27,11 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         # Bookend python versions
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          fetch-depth: 0 # Fetch all history for all branches and tags.
+          fetch-depth: 1 # Fetch only current version
       - name: Set environment variables
         run: |
           echo "UV_ENV_FILE=pyproject.toml" >> $GITHUB_ENV
@@ -65,7 +65,7 @@ jobs:
 
       - name: Import geotrees toolbox
         run: |
-          python -c "import geotrees"
+          uv run python -c "import geotrees"
 
       - name: Run tests
         timeout-minutes: 10

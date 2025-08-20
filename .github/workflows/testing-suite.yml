@@ -2,7 +2,7 @@ name: geotrees Testing Suite
 on:
   push:
     branches:
-      - "*"
+      - "main"
   pull_request:
     branches:
       - "*"

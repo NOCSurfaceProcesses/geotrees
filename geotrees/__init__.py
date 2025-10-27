@@ -4,6 +4,7 @@ from geotrees.distance_metrics import haversine
 from geotrees.great_circle import GreatCircle
 from geotrees.kdtree import KDTree
 from geotrees.neighbours import find_nearest
+from geotrees.octtree import OctTree
 from geotrees.quadtree import QuadTree
 from geotrees.record import Record, SpaceTimeRecord
 from geotrees.shape import (
@@ -18,6 +19,7 @@ __all__ = [
     "Ellipse",
     "GreatCircle",
     "KDTree",
+    "OctTree",
     "QuadTree",
     "Record",
     "Rectangle",

@@ -22,6 +22,8 @@ navigational information to DataFrames.
 from math import acos, asin, atan2, cos, degrees, radians, sin, sqrt
 from typing import Tuple
 
+import polars as pl
+
 
 def gcd_slc(
     lon0: float,
@@ -215,3 +217,59 @@ def midpoint(
     dist = haversine(lon0, lat0, lon1, lat1)
 
     return destination(lon0, lat0, bear, dist / 2)
+
+
+def haversine_polars(
+    df: pl.DataFrame,
+    lat: float,
+    lon: float,
+) -> pl.DataFrame:
+    """
+    Compute haversine distance on earth surface between lon-lat positions.
+
+    If only `lon_col` and `lat_col` are specified then this computes the
+    distance between consecutive points. If a second set of positions is
+    included via the optional `lon2_col` and `lat2_col` arguments then the
+    distances between the columns are computed.
+
+    Parameters
+    ----------
+    df : polars.DataFrame
+        The data, containing required columns:
+            * lon_col
+            * lat_col
+            * date_var
+    lon_col : str
+        Name of the longitude column
+    lat_col : str
+        Name of the latitude column
+
+    Returns
+    -------
+    df : polars.DataFrame
+        With additional column specifying distances between consecutive points
+        on the surface of Earth in units of km.
+    """
+    radius = 6371.0
+    return (
+        df.with_columns(
+            pl.col("lat").radians().alias("_lat0"),
+            pl.lit(lat).radians().alias("_lat1"),
+            (pl.col("lon") - pl.lit(lon)).radians().alias("_dlon"),
+            (pl.col("lat") - pl.lit(lat)).radians().alias("_dlat"),
+        )
+        .with_columns(
+            (
+                (pl.col("_dlat") / 2).sin().pow(2)
+                + pl.col("_lat0").cos()
+                * pl.col("_lat1").cos()
+                * (pl.col("_dlon") / 2).sin().pow(2)
+            ).alias("_a")
+        )
+        .with_columns(
+            (2 * radius * (pl.col("_a").sqrt().arcsin()))
+            .round(2)
+            .alias("_dist")
+        )
+        .drop("_lat0", "_lat1", "_dlon", "_dlat", "_a")
+    )

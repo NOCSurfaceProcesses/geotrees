@@ -31,6 +31,8 @@ from datetime import datetime, timedelta
 from math import degrees, sqrt
 from warnings import warn
 
+import polars as pl
+
 from geotrees.distance_metrics import destination, haversine
 from geotrees.record import Record, SpaceTimeRecord
 from geotrees.utils import DateWarning, LatitudeError
@@ -80,9 +82,14 @@ class Rectangle:
         return self.south + self.lat_range / 2
 
     @property
+    def wraps(self) -> bool:
+        """Does the Rectangle wrap -180, 180 line"""
+        return self.east < self.west
+
+    @property
     def lon_range(self) -> float:
         """Longitude range of the Rectangle"""
-        if self.east < self.west:
+        if self.wraps:
             return self.east - self.west + 360
 
         return self.east - self.west
@@ -111,13 +118,9 @@ class Rectangle:
         if self.lon_range >= 360:
             # Rectangle encircles earth
             return True
-        if self.east > self.lon and self.west < self.lon:
-            return lon <= self.east and lon >= self.west
-        if self.east < self.lon:
-            return not (lon > self.east and lon < self.west)
-        if self.west > self.lon:
-            return not (lon < self.east and lon > self.west)
-        return False
+        if self.wraps:
+            return lon <= self.east or lon >= self.west
+        return self.west <= lon <= self.east
 
     def _test_north_south(self, lat: float) -> bool:
         return lat <= self.north and lat >= self.south
@@ -127,6 +130,21 @@ class Rectangle:
         return self._test_north_south(point.lat) and self._test_east_west(
             point.lon
         )
+
+    def check_frame(self, frame: pl.DataFrame) -> pl.Series:
+        """Check polars frame against the Rectangle"""
+        result = (
+            frame.get_column("lat")
+            .is_between(self.south, self.north, closed="both")
+            .alias("_valid")
+        )
+        lon = frame.get_column("lon")
+        if self.lon_range >= 360:
+            # Rectangle fully encircles earth
+            return result
+        if self.wraps:
+            return result & (lon.le(self.east) | lon.ge(self.west))
+        return result & lon.is_between(self.west, self.east, closed="both")
 
     def intersects(self, other: object) -> bool:
         """Test if another Rectangle object intersects this Rectangle"""
@@ -236,7 +254,7 @@ class Ellipse:
 
 
 @dataclass
-class SpaceTimeRectangle:
+class SpaceTimeRectangle(Rectangle):
     """
     A simple SpaceTimeRectangle class for GeoSpatioTemporal analysis. Defined by
     a bounding box in space and time.
@@ -279,44 +297,6 @@ class SpaceTimeRectangle:
             self.start, self.end = self.end, self.start
 
     @property
-    def lat_range(self) -> float:
-        """Latitude range of the SpaceTimeRectangle"""
-        return self.north - self.south
-
-    @property
-    def lat(self) -> float:
-        """Centre latitude of the SpaceTimeRectangle"""
-        return self.south + self.lat_range / 2
-
-    @property
-    def lon_range(self) -> float:
-        """Longitude range of the SpaceTimeRectangle"""
-        if self.east < self.west:
-            return self.east - self.west + 360
-
-        return self.east - self.west
-
-    @property
-    def lon(self) -> float:
-        """Centre longitude of the SpaceTimeRectangle"""
-        lon = self.west + self.lon_range / 2
-        return ((lon + 540) % 360) - 180
-
-    @property
-    def edge_dist(self) -> float:
-        """Approximate maximum distance from the centre to an edge"""
-        corner_dist = max(
-            haversine(self.lon, self.lat, self.east, self.north),
-            haversine(self.lon, self.lat, self.east, self.south),
-        )
-        if self.north * self.south < 0:
-            corner_dist = max(
-                corner_dist,
-                haversine(self.lon, self.lat, self.east, 0),
-            )
-        return corner_dist
-
-    @property
     def time_range(self) -> timedelta:
         """The time extent of the Rectangle"""
         return self.end - self.start
@@ -325,21 +305,6 @@ class SpaceTimeRectangle:
     def centre_datetime(self) -> datetime:
         """The midpoint time of the SpaceTimeRectangle"""
         return self.start + (self.end - self.start) / 2
-
-    def _test_east_west(self, lon: float) -> bool:
-        if self.lon_range >= 360:
-            # Rectangle encircles earth
-            return True
-        if self.east > self.lon and self.west < self.lon:
-            return lon <= self.east and lon >= self.west
-        if self.east < self.lon:
-            return not (lon > self.east and lon < self.west)
-        if self.west > self.lon:
-            return not (lon < self.east and lon > self.west)
-        return False
-
-    def _test_north_south(self, lat: float) -> bool:
-        return lat <= self.north and lat >= self.south
 
     def contains(self, point: SpaceTimeRecord) -> bool:
         """
@@ -350,6 +315,24 @@ class SpaceTimeRectangle:
         return self._test_north_south(point.lat) and self._test_east_west(
             point.lon
         )
+
+    def check_frame(self, frame: pl.DataFrame) -> pl.Series:
+        """Check polars frame against the Rectangle"""
+        result = (
+            frame.get_column("datetime")
+            .is_between(self.start, self.end, closed="both")
+            .alias("_valid")
+        )
+        result &= frame.get_column("lat").is_between(
+            self.south, self.north, closed="both"
+        )
+        lon = frame.get_column("lon")
+        if self.lon_range >= 360:
+            # Rectangle fully encircles earth
+            return result
+        if self.wraps:
+            return result & (lon.le(self.east) | lon.ge(self.west))
+        return result & lon.is_between(self.west, self.east, closed="both")
 
     def intersects(self, other: object) -> bool:
         """

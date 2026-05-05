@@ -8,7 +8,10 @@ packages = ["geotrees"]
 [project]
 name = "geotrees"
 version = "1.1.0"
-dependencies = ["numpy"]
+dependencies = [
+    "numpy",
+    "polars>=1.36.1",
+]
 requires-python = ">=3.9"
 authors = [
   { name = "Joseph Siddons", email = "josidd@noc.ac.uk" },

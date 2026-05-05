@@ -27,6 +27,7 @@ import polars as pl
 from geotrees.distance_metrics import haversine_polars
 from geotrees.record import Record
 from geotrees.shape import Ellipse, Rectangle
+from geotrees.utils import FailedInsertWarning
 
 
 _MIN_SCHEMA = pl.Schema(
@@ -551,7 +552,7 @@ class PolarsQuadTree:
         res = (
             data.with_columns(
                 (pl.col("lon").gt(mid_lon)).alias("_cond_gt_lon"),
-                (pl.col("lat").gt(mid_lat)).alias("_cond_gt_lat"),
+                (pl.col("lat").ge(mid_lat)).alias("_cond_gt_lat"),
             )
             .with_columns(
                 (pl.col("_cond_gt_lon") + 2 * ~pl.col("_cond_gt_lat")).alias(
@@ -718,7 +719,7 @@ class PolarsQuadTree:
                 if strict:
                     raise ValueError(msg)
                 # Raise?
-                warn(msg)
+                warn(msg, FailedInsertWarning)
 
         if data.height == 0:
             return False

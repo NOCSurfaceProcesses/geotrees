@@ -3,11 +3,13 @@ from string import ascii_uppercase, digits
 
 import numpy as np
 import polars as pl
+import pytest
 
 from geotrees import haversine
 from geotrees.quadtree import PolarsQuadTree, QuadTree
 from geotrees.record import Record
 from geotrees.shape import Ellipse, Rectangle
+from geotrees.utils import FailedInsertWarning
 
 
 _CHARS = ascii_uppercase + digits
@@ -165,7 +167,8 @@ def test_insert_pl():
         [uids[2]],
         [uids[1], uids[-1]],
     ]
-    qtree.insert(frame)
+    with pytest.warns(FailedInsertWarning):
+        qtree.insert(frame)
     assert qtree.divided
     assert qtree.len() == frame.height - 1
     res = [
@@ -182,7 +185,6 @@ def test_insert_pl():
     assert boundary2.wraps
     frame2 = frame.with_columns(pl.col("lon") + 170)
     frame2 = frame2.with_columns(
-        pl.col("lon").alias("original_lon"),
         (((pl.col("lon") + 540) % 360) - 180).alias("lon"),
     )
     qtree2 = PolarsQuadTree(boundary2, capacity=3)

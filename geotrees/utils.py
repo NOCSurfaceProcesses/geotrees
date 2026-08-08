@@ -29,3 +29,9 @@ class DateWarning(Warning):
     """Warning for Datetime Value"""
 
     pass
+
+
+class FailedInsertWarning(Warning):
+    """Warning for Failure to Insert data into a Tree"""
+
+    pass

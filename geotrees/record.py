@@ -114,7 +114,7 @@ class Record:
         return haversine(self.lon, self.lat, other.lon, other.lat)
 
 
-class SpaceTimeRecord:
+class SpaceTimeRecord(Record):
     """
     A simple instance of a record object, it requires position and temporal
     data. It can optionally include a UID and extra data.
@@ -196,12 +196,3 @@ class SpaceTimeRecord:
             and self.datetime == other.datetime
             and (not (self.uid or other.uid) or self.uid == other.uid)
         )
-
-    def distance(self, other: object) -> float:
-        """
-        Compute the Haversine distance to another SpaceTimeRecord.
-        Only computes spatial distance.
-        """
-        if not isinstance(other, SpaceTimeRecord):
-            raise TypeError("Argument other must be an instance of Record")
-        return haversine(self.lon, self.lat, other.lon, other.lat)

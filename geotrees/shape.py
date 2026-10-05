@@ -344,7 +344,7 @@ class SpaceTimeRectangle:
     def contains(self, point: SpaceTimeRecord) -> bool:
         """
         Test if a SpaceTimeRecord is contained within the SpaceTimeRectangle
-        """  # noqa: D200
+        """  # ruff: ignore[unnecessary-multiline-docstring]
         if point.datetime > self.end or point.datetime < self.start:
             return False
         return self._test_north_south(point.lat) and self._test_east_west(

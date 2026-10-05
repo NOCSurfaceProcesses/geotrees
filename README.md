@@ -22,8 +22,7 @@ notebooks are `ipykernel` and `polars`.
 For example, finding the closest time value in a list of _sorted_ time values:
 
 ```python
-def find_nearest(vals: list[Numeric], test: list[Numeric]) -> list[int]:
-    ...
+def find_nearest(vals: list[Numeric], test: list[Numeric]) -> list[int]: ...
 ```
 
 Example:
@@ -82,7 +81,9 @@ lon_range = list(range(-180, 180))
 lat_range = list(range(-90, 90))
 N_samples = 1000
 
-records: list[Record] = [Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)]
+records: list[Record] = [
+    Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)
+]
 # Construct Tree
 kdtree = KDTree(records)
 
@@ -131,7 +132,9 @@ N_samples = 1000
 boundary = Rectangle(-180, 180, -90, 90)  # Full domain
 quadtree = QuadTree(boundary)
 
-records: list[Record] = [Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)]
+records: list[Record] = [
+    Record(choice(lon_range), choice(lat_range)) for _ in range(N_samples)
+]
 for record in records:
     quadtree.insert(record)
 
@@ -192,15 +195,21 @@ dates = date_range(
 N_samples = 1000
 
 # Construct Tree
-boundary = SpaceTimeRectangle(-180, 180, -90, 90, datetime(2009, 1, 1, 0), datetime(2009, 1, 2, 23))  # Full domain
+boundary = SpaceTimeRectangle(
+    -180, 180, -90, 90, datetime(2009, 1, 1, 0), datetime(2009, 1, 2, 23)
+)  # Full domain
 octtree = OctTree(boundary)
 
 records: list[SpaceTimeRecord] = [
-    SpaceTimeRecord(choice(lon_range), choice(lat_range), choice(dates)) for _ in range(N_samples)]
+    SpaceTimeRecord(choice(lon_range), choice(lat_range), choice(dates))
+    for _ in range(N_samples)
+]
 for record in records:
     octtree.insert(record)
 
-test_value: SpaceTimeRecord = SpaceTimeRecord(lon=47.6, lat=-31.1, datetime=datetime(2009, 1, 23, 17, 41))
+test_value: SpaceTimeRecord = SpaceTimeRecord(
+    lon=47.6, lat=-31.1, datetime=datetime(2009, 1, 23, 17, 41)
+)
 dist: float = 340  # km
 t_dist = timedelta(hours=4)
 

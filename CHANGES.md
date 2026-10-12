@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (Unreleased)
+
+Contributors to this version: Joseph Siddons (@jtsiddons)
+
+### Internal Changes
+
+* Support Python 3.14 (#47).
+
 ## 1.1.0 (2025-11-03)
 
 Contributors to this version: Joseph Siddons (@josidd)
